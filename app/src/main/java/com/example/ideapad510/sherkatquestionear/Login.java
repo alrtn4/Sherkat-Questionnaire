@@ -11,13 +11,17 @@ public class Login extends AppCompatActivity {
     private String username;
     private String password;
     private EditText editText;
+    private LoginDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        db = new LoginDatabase(this);
 
+        db.insertRow("ali","123");
+        db.insertRow("hamid","1234");
     }
 
     public void getEditTexts(View view){
@@ -28,7 +32,13 @@ public class Login extends AppCompatActivity {
     }
 
     public void onButtonClicked(View view){
-        Intent i = new Intent(Login.this, Questions.class);
-        startActivity(i);
+        getEditTexts(view);
+        System.out.println("input :"+username+ "  "+password);
+        if (db.searchInDatabase(username,password)) {
+            Intent i = new Intent(Login.this, Questions.class);
+            startActivity(i);
+//            finish();
+        }
     }
+
 }

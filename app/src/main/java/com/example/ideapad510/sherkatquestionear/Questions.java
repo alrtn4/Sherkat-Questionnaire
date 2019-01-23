@@ -8,11 +8,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import static android.media.CamcorderProfile.get;
 
 public class Questions extends AppCompatActivity {
     String[] questionArray = {"Octopus","Pig","Sheep","Rabbit","Snake","Spider" };
     ListView listView;
+    public static ArrayList<String> partedQuestions;
+    QuestionDatabase db = new QuestionDatabase(this);
+    int part=1;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -20,11 +25,15 @@ public class Questions extends AppCompatActivity {
 
         setContentView(R.layout.questions);
 
-        QuestionListAdapter listAdapter = new QuestionListAdapter(this, questionArray);
+//        db.insertRow("1+1?","0","1");
+//        db.insertRow("2+3","0","2");
+//        db.insertRow("3+4","0","3");
+//        partedQuestions = db.getPartedQuestions(part);
 
+
+        QuestionListAdapter listAdapter = new QuestionListAdapter(this, questionArray);
         listView = (ListView) findViewById(R.id.questionListViewID);
         listView.setAdapter(listAdapter);
-
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -35,9 +44,14 @@ public class Questions extends AppCompatActivity {
                 Intent intent = new Intent(Questions.this,Answers.class);
                 intent.putExtra("position",position);
                 startActivity(intent);
-
+//                finish();
             }
         });
 
+    }
+
+    public void onBackClicked(View view){
+        part--;
+        partedQuestions = db.getPartedQuestions(part);
     }
 }

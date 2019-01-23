@@ -1,14 +1,14 @@
 package com.example.ideapad510.sherkatquestionear;
 
-public class TableRow {
+public class LoginTable {
     public static final String TABLE_NAME = "userpass";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NOTE1 = "username";
     public static final String COLUMN_NOTE2 = "password";
 
     private int id;
-    private String note1;
-    private String note2;
+    private String username;
+    private String password;
 
 
     // Create table SQL query
@@ -20,10 +20,10 @@ public class TableRow {
                     + ")";
 
 
-    public TableRow(String note1, String note2, int id) {
+    public LoginTable(String user, String pass, int id) {
         this.id = id;
-        this.note1 = note1;
-        this.note2 = note2;
+        this.username = user;
+        this.password = pass;
     }
 
 
@@ -31,9 +31,9 @@ public class TableRow {
 
     public void setId(int id) {this.id = id;}
 
-    public String getNote1() {return note1;}
+    public String getUsername() {return username;}
 
-    public String getNote2() {return note2;}
+    public String getPassword() {return password;}
 
 
 }
