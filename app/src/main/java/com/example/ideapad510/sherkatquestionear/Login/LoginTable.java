@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear;
+package com.example.ideapad510.sherkatquestionear.Login;
 
 public class LoginTable {
     public static final String TABLE_NAME = "userpass";

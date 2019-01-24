@@ -1,10 +1,13 @@
-package com.example.ideapad510.sherkatquestionear;
+package com.example.ideapad510.sherkatquestionear.Login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.ideapad510.sherkatquestionear.Question.Questions;
+import com.example.ideapad510.sherkatquestionear.R;
 
 public class Login extends AppCompatActivity {
 
@@ -20,8 +23,8 @@ public class Login extends AppCompatActivity {
 
         db = new LoginDatabase(this);
 
-        db.insertRow("ali","123");
-        db.insertRow("hamid","1234");
+//        db.insertRow("ali","123");
+//        db.insertRow("hamid","1234");
     }
 
     public void getEditTexts(View view){
@@ -37,7 +40,7 @@ public class Login extends AppCompatActivity {
         if (db.searchInDatabase(username,password)) {
             Intent i = new Intent(Login.this, Questions.class);
             startActivity(i);
-//            finish();
+            finish();
         }
     }
 

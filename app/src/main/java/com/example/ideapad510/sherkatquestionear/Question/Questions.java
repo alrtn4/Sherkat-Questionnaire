@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear;
+package com.example.ideapad510.sherkatquestionear.Question;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.ideapad510.sherkatquestionear.Answer.Answers;
+import com.example.ideapad510.sherkatquestionear.R;
+
 import java.util.ArrayList;
 
 import static android.media.CamcorderProfile.get;
@@ -15,7 +18,7 @@ import static android.media.CamcorderProfile.get;
 public class Questions extends AppCompatActivity {
     String[] questionArray = {"Octopus","Pig","Sheep","Rabbit","Snake","Spider" };
     ListView listView;
-    public static ArrayList<String> partedQuestions;
+    public static ArrayList<String> partedQuestions  = new ArrayList<>();
     QuestionDatabase db = new QuestionDatabase(this);
     int part=1;
 
@@ -25,13 +28,17 @@ public class Questions extends AppCompatActivity {
 
         setContentView(R.layout.questions);
 
+        partedQuestions.add("23");
+        partedQuestions.add("12");
+
+
 //        db.insertRow("1+1?","0","1");
 //        db.insertRow("2+3","0","2");
 //        db.insertRow("3+4","0","3");
 //        partedQuestions = db.getPartedQuestions(part);
 
 
-        QuestionListAdapter listAdapter = new QuestionListAdapter(this, questionArray);
+        QuestionListAdapter listAdapter = new QuestionListAdapter(this, partedQuestions);
         listView = (ListView) findViewById(R.id.questionListViewID);
         listView.setAdapter(listAdapter);
 
@@ -44,7 +51,7 @@ public class Questions extends AppCompatActivity {
                 Intent intent = new Intent(Questions.this,Answers.class);
                 intent.putExtra("position",position);
                 startActivity(intent);
-//                finish();
+                finish();
             }
         });
 

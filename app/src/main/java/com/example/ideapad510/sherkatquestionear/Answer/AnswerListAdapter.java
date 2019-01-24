@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear;
+package com.example.ideapad510.sherkatquestionear.Answer;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,20 +7,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-/**
- * Created by Ideapad 510 on 1/23/2019.
- */
+import com.example.ideapad510.sherkatquestionear.R;
 
-public class QuestionListAdapter extends ArrayAdapter {
+public class AnswerListAdapter extends ArrayAdapter {
     private final Activity context;
-    private final String[] questionArray;
+    private final String[][] answerArray;
+    private final int qustionId;
 
-    public QuestionListAdapter(Activity context, String[] questionArrayParam){
+    public AnswerListAdapter(Activity context, String[][] questionArrayParam, int questionIdParam){
 
-        super(context,R.layout.listview_row , questionArrayParam);
+        super(context, R.layout.listview_row , questionArrayParam);
 
         this.context=context;
-        this.questionArray = questionArrayParam;
+        this.answerArray = questionArrayParam;
+        this.qustionId = questionIdParam;
     }
 
     @Override
@@ -32,9 +32,12 @@ public class QuestionListAdapter extends ArrayAdapter {
         TextView questionTextField = (TextView) rowView.findViewById(R.id.question);
 
         //this code sets the values of the objects to values from the arrays
-        questionTextField.setText(questionArray[position]);
+        System.out.println("the length is : "+qustionId);
+        if(!(position >= (answerArray[qustionId]).length ))
+            questionTextField.setText(answerArray[qustionId][position]);
 
         return rowView;
 
     }
+
 }
