@@ -14,19 +14,17 @@ public class AnswerTable {
     private String mode;
     private String position;
 
-
-    // Create table SQL query
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ( "
+                    + COLUMN_QUESTION_ID + " TEXT,"
+                    + COLUMN_ANSWER + " TEXT,"
+                    + COLUMN_MODE + " TEXT,"
+                    + COLUMN_POSITION + " TEXT,"
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
-                    + COLUMN_QUESTION_ID + " TEXT, "
-                    + COLUMN_ANSWER + " TEXT, "
-                    + COLUMN_MODE + " TEXT, "
-                    + COLUMN_POSITION + " TEXT, "
                     + ")";
 
 
-    public AnswerTable(int id, String questionID, String answer,  String mode, String position) {
+    public AnswerTable(int id, String questionID, String answer, String mode, String position) {
         this.id = id;
         this.questionID = questionID;
         this.answer = answer;
@@ -41,7 +39,7 @@ public class AnswerTable {
 
     public String getQuestionID() {return questionID;}
 
-    public String getAnswer()  {return answer;}
+    public String getAnswer() {return answer;}
 
     public String getMode() {return mode;}
 

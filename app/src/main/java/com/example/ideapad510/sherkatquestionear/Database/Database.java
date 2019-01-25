@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear;
+package com.example.ideapad510.sherkatquestionear.Database;
 
 
 import android.content.ContentValues;
@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.ideapad510.sherkatquestionear.Answer.AnswerTable;
-import com.example.ideapad510.sherkatquestionear.Answer.AnswerTable2;
-import com.example.ideapad510.sherkatquestionear.Answer.LoginTable2;
 import com.example.ideapad510.sherkatquestionear.Login.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Question.QuestionTable;
 
@@ -29,15 +27,14 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(LoginTable.CREATE_TABLE);
         db.execSQL(QuestionTable.CREATE_TABLE);
-        db.execSQL(AnswerTable2.CREATE_TABLE);
-//        db.execSQL(LoginTable2.CREATE_TABLE);
+        db.execSQL(AnswerTable.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + LoginTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + AnswerTable2.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AnswerTable.TABLE_NAME);
         onCreate(db);
     }
 
@@ -82,22 +79,6 @@ public class Database extends SQLiteOpenHelper {
         values.put(AnswerTable.COLUMN_MODE, mode);
         values.put(AnswerTable.COLUMN_POSITION, position);
         long id = db.insert(AnswerTable.TABLE_NAME, null, values);
-
-        db.close();
-
-        return id;
-    }
-
-    public long insertRowAnswer2(String questionID, String answer, String mode, String position) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(AnswerTable2.COLUMN_QUESTION_ID, questionID);
-        values.put(AnswerTable2.COLUMN_ANSWER, answer);
-        values.put(AnswerTable2.COLUMN_MODE, mode);
-        values.put(AnswerTable2.COLUMN_POSITION, position);
-        long id = db.insert(AnswerTable2.TABLE_NAME, null, values);
 
         db.close();
 
@@ -149,6 +130,7 @@ public class Database extends SQLiteOpenHelper {
         return tableRow;
     }
 
+
     public AnswerTable getRowAnswer(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -173,30 +155,6 @@ public class Database extends SQLiteOpenHelper {
         return tableRow;
     }
 
-    public AnswerTable2 getRowAnswer2(long id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(AnswerTable2.TABLE_NAME,
-                new String[]{ AnswerTable2.COLUMN_ID, AnswerTable2.COLUMN_QUESTION_ID, AnswerTable2.COLUMN_ANSWER,
-                        AnswerTable2.COLUMN_MODE, AnswerTable2.COLUMN_POSITION,},
-                AnswerTable2.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        AnswerTable2 tableRow = new AnswerTable2(
-                cursor.getInt(cursor.getColumnIndex(AnswerTable2.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(AnswerTable2.COLUMN_QUESTION_ID)),
-                cursor.getString(cursor.getColumnIndex(AnswerTable2.COLUMN_ANSWER)),
-                cursor.getString(cursor.getColumnIndex(AnswerTable2.COLUMN_MODE)),
-                cursor.getString(cursor.getColumnIndex(AnswerTable2.COLUMN_POSITION)));
-
-        cursor.close();
-
-        return tableRow;
-    }
-
     public int getRowsCountLogin() {
         String countQuery = "SELECT  * FROM " + LoginTable.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -208,16 +166,6 @@ public class Database extends SQLiteOpenHelper {
         return count;
     }
 
-    public int getRowsCountLogin2() {
-        String countQuery = "SELECT  * FROM " + LoginTable2.TABLE_NAME;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-
-        int count = cursor.getCount();
-        cursor.close();
-
-        return count;
-    }
 
     public int getRowsCountQuestion() {
         String countQuery = "SELECT  * FROM " + QuestionTable.TABLE_NAME;
@@ -230,19 +178,9 @@ public class Database extends SQLiteOpenHelper {
         return count;
     }
 
+
     public int getRowsCountAnswer() {
         String countQuery = "SELECT  * FROM " + AnswerTable.TABLE_NAME;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-
-        int count = cursor.getCount();
-        cursor.close();
-
-        return count;
-    }
-
-    public int getRowsCountAnswer2() {
-        String countQuery = "SELECT  * FROM " + AnswerTable2.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -279,7 +217,6 @@ public class Database extends SQLiteOpenHelper {
         for(int i = 1; i<= getRowsCountAnswer(); i++){
             if((getRowAnswer(i).getQuestionID()).equals(String.valueOf(questionID))) {
                 idAnswers.add(getRowAnswer(i).getAnswer());
-                System.out.println("this is working");
             }
         }
         return idAnswers;

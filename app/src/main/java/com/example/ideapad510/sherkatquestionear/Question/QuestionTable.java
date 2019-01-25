@@ -1,7 +1,7 @@
 package com.example.ideapad510.sherkatquestionear.Question;
 
 public class QuestionTable {
-    public static final String TABLE_NAME = "qqq";
+    public static final String TABLE_NAME = "question";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_QUESTION = "questionTXT";
     public static final String COLUMN_POSITION = "position";
@@ -12,8 +12,6 @@ public class QuestionTable {
     private String position;
     private String part;
 
-
-    // Create table SQL query
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ( "
                     + COLUMN_QUESTION + " TEXT,"
@@ -21,7 +19,6 @@ public class QuestionTable {
                     + COLUMN_PART + " TEXT,"
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
                     + ")";
-
 
     public QuestionTable(String question, String position, String part, int id) {
         this.id = id;

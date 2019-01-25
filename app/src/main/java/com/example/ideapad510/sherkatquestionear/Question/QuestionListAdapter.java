@@ -11,20 +11,15 @@ import com.example.ideapad510.sherkatquestionear.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Ideapad 510 on 1/23/2019.
- */
-
 public class QuestionListAdapter extends ArrayAdapter {
     private final Activity context;
     private final ArrayList<String> questionArray;
 
-    public QuestionListAdapter(Activity context, ArrayList<String> questionArrayParam){
-
-        super(context, R.layout.listview_row , questionArrayParam);
+    public QuestionListAdapter(Activity context, ArrayList<String> questionArray){
+        super(context, R.layout.listview_row , questionArray);
 
         this.context=context;
-        this.questionArray = questionArrayParam;
+        this.questionArray = questionArray;
     }
 
     @Override
@@ -37,6 +32,5 @@ public class QuestionListAdapter extends ArrayAdapter {
         questionTextField.setText(questionArray.get(position));
 
         return rowView;
-
     }
 }

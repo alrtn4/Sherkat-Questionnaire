@@ -28,6 +28,6 @@
         android:layout_alignEnd="@id/password"
         android:layout_below="@id/password"
         android:text="LOGIN"
-        android:onClick="onButtonClicked"/>
+        android:onClick="onLoginButtonClicked"/>
 
 </RelativeLayout>
