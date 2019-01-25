@@ -28,13 +28,10 @@ public class AnswerListAdapter extends ArrayAdapter {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.listview_row, null,true);
 
-        //this code gets references to objects in the listview_row.xml file
-        TextView questionTextField = (TextView) rowView.findViewById(R.id.question);
+        TextView answersTextField = rowView.findViewById(R.id.row);
 
-        //this code sets the values of the objects to values from the arrays
-        System.out.println("the length is : "+qustionId);
         if(!(position >= (answerArray[qustionId]).length ))
-            questionTextField.setText(answerArray[qustionId][position]);
+            answersTextField.setText(answerArray[qustionId][position]);
 
         return rowView;
 

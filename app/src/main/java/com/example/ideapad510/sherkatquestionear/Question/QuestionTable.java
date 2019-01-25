@@ -1,9 +1,9 @@
 package com.example.ideapad510.sherkatquestionear.Question;
 
 public class QuestionTable {
-    public static final String TABLE_NAME = "question";
+    public static final String TABLE_NAME = "qqq";
     public static final String COLUMN_ID = "id";
-    public static final String COLUMN_QUESTION = "question";
+    public static final String COLUMN_QUESTION = "questionTXT";
     public static final String COLUMN_POSITION = "position";
     public static final String COLUMN_PART = "part";
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.ideapad510.sherkatquestionear.Database;
 import com.example.ideapad510.sherkatquestionear.Question.Questions;
 import com.example.ideapad510.sherkatquestionear.R;
 
@@ -14,17 +15,20 @@ public class Login extends AppCompatActivity {
     private String username;
     private String password;
     private EditText editText;
-    private LoginDatabase db;
+    private Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        db = new LoginDatabase(this);
+        db = new Database(this);
 
-//        db.insertRow("ali","123");
-//        db.insertRow("hamid","1234");
+//        db.insertRowLogin("ali","123");
+//        db.insertRowLogin("hamid","1234");
+        db.insertRowLogin("1","1");
+        db.getRowsCountLogin();
+//        db.getRowsCountLogin2();
     }
 
     public void getEditTexts(View view){
@@ -36,8 +40,7 @@ public class Login extends AppCompatActivity {
 
     public void onButtonClicked(View view){
         getEditTexts(view);
-        System.out.println("input :"+username+ "  "+password);
-        if (db.searchInDatabase(username,password)) {
+        if (db.searchInDatabaseLogin(username,password)) {
             Intent i = new Intent(Login.this, Questions.class);
             startActivity(i);
             finish();

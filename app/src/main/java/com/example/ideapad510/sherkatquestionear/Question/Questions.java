@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ideapad510.sherkatquestionear.Answer.Answers;
+import com.example.ideapad510.sherkatquestionear.Database;
 import com.example.ideapad510.sherkatquestionear.R;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Questions extends AppCompatActivity {
     String[] questionArray = {"Octopus","Pig","Sheep","Rabbit","Snake","Spider" };
     ListView listView;
     public static ArrayList<String> partedQuestions  = new ArrayList<>();
-    QuestionDatabase db = new QuestionDatabase(this);
+    Database db = new Database(this);
     int part=1;
 
     @Override
@@ -28,18 +29,22 @@ public class Questions extends AppCompatActivity {
 
         setContentView(R.layout.questions);
 
-        partedQuestions.add("23");
-        partedQuestions.add("12");
 
 
-//        db.insertRow("1+1?","0","1");
-//        db.insertRow("2+3","0","2");
-//        db.insertRow("3+4","0","3");
-//        partedQuestions = db.getPartedQuestions(part);
+        db.insertRowQuestion("1+1?","0","1");
+        db.insertRowQuestion("2+3","0","1");
+        db.insertRowQuestion("3+4","0","1");
+        partedQuestions = db.getPartedQuestions(part);
+//        partedQuestions.add("2+3");
+//        partedQuestions.add("1+2");
+//        partedQuestions.add("1+1");
+//        partedQuestions.add("1+2");
+
+        db.getRowsCountQuestion();
 
 
         QuestionListAdapter listAdapter = new QuestionListAdapter(this, partedQuestions);
-        listView = (ListView) findViewById(R.id.questionListViewID);
+        listView = findViewById(R.id.questionListViewID);
         listView.setAdapter(listAdapter);
 
 
