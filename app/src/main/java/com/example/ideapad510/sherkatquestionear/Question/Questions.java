@@ -19,7 +19,7 @@ import static android.media.CamcorderProfile.get;
 public class Questions extends AppCompatActivity {
     private ListView listView;
     private static ArrayList<String> partedQuestions  = new ArrayList<>();
-    private Database db = new Database(this);
+    private QuestionControler qc= new QuestionControler(this);
     private int part=1;
     private int previousPagesItemsCount =0;
 
@@ -29,7 +29,7 @@ public class Questions extends AppCompatActivity {
         setContentView(R.layout.questions);
 
 //        sampleQuestions();
-        partedQuestions = db.getPartedQuestions(part);
+        partedQuestions = qc.getPartedQuestions(part);
 
         refreshScreen();
         onClickListView();
@@ -37,14 +37,14 @@ public class Questions extends AppCompatActivity {
 
     public void onBackClicked(View view){
         part--;
-        partedQuestions = db.getPartedQuestions(part);
+        partedQuestions = qc.getPartedQuestions(part);
         refreshScreen();
         previousPagesItemsCount -= partedQuestions.size();
     }
 
     public void onForwardClicked(View view){
         part++;
-        partedQuestions = db.getPartedQuestions(part);
+        partedQuestions = qc.getPartedQuestions(part);
         refreshScreen();
         previousPagesItemsCount += partedQuestions.size();
     }
@@ -57,7 +57,6 @@ public class Questions extends AppCompatActivity {
                 position += previousPagesItemsCount;
                 intent.putExtra("position",position);
                 startActivity(intent);
-//                finish();
             }
         });
     }
@@ -70,15 +69,15 @@ public class Questions extends AppCompatActivity {
     }
 
     private void sampleQuestions(){
-        db.insertRowQuestion("1+1?","0","1");
-        db.insertRowQuestion("2+3?","0","1");
-        db.insertRowQuestion("3+4?","0","1");
-        db.insertRowQuestion("1+19?","0","2");
-        db.insertRowQuestion("2+31?","0","2");
-        db.insertRowQuestion("3+40?","0","2");
-        db.insertRowQuestion("18+1?","0","3");
-        db.insertRowQuestion("25+3?","0","3");
-        db.insertRowQuestion("37+4?","0","3");
+        qc.insertToDatabase("1+1?","0","1");
+        qc.insertToDatabase("2+3?","0","1");
+        qc.insertToDatabase("3+4?","0","1");
+        qc.insertToDatabase("1+19?","0","2");
+        qc.insertToDatabase("2+31?","0","2");
+        qc.insertToDatabase("3+40?","0","2");
+        qc.insertToDatabase("18+1?","0","3");
+        qc.insertToDatabase("25+3?","0","3");
+        qc.insertToDatabase("37+4?","0","3");
 
     }
 }

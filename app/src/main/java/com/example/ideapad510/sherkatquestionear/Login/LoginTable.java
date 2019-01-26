@@ -3,8 +3,8 @@ package com.example.ideapad510.sherkatquestionear.Login;
 public class LoginTable {
     public static final String TABLE_NAME = "userpass";
     public static final String COLUMN_ID = "id";
-    public static final String COLUMN_NOTE1 = "username";
-    public static final String COLUMN_NOTE2 = "password";
+    public static final String COLUMN_USERNAME = "username";
+    public static final String COLUMN_PASSWORD = "password";
 
     private int id;
     private String username;
@@ -12,8 +12,8 @@ public class LoginTable {
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ( "
-                    + COLUMN_NOTE1 + " TEXT,"
-                    + COLUMN_NOTE2 + " TEXT,"
+                    + COLUMN_USERNAME + " TEXT,"
+                    + COLUMN_PASSWORD + " TEXT,"
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
                     + ")";
 

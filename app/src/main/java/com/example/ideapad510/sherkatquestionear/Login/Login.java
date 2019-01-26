@@ -15,23 +15,25 @@ public class Login extends AppCompatActivity {
     private String username;
     private String password;
     private EditText editText;
-    private Database db;
+//    private Database db;
+    private LoginControler lc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        db = new Database(this);
+        lc = new LoginControler(this);
+
 //        sampleUserPass();
     }
 
     public void onLoginButtonClicked(View view){
         getEditTexts(view);
-        if (db.searchInDatabaseLogin(username,password)) {
+        if (lc.searchInDatabase(username,password)) {
             Intent i = new Intent(Login.this, Questions.class);
             startActivity(i);
-//            finish();
+            finish();
         }
     }
 
@@ -43,9 +45,9 @@ public class Login extends AppCompatActivity {
     }
 
     private void sampleUserPass(){
-        db.insertRowLogin("ali","123");
-        db.insertRowLogin("hamid","1234");
-        db.insertRowLogin("1","1");
+        lc.insertToDatabase("ali","123");
+        lc.insertToDatabase("hamid","1234");
+        lc.insertToDatabase("1","1");
 
     }
 }

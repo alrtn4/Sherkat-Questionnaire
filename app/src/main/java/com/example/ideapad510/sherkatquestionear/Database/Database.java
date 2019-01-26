@@ -15,12 +15,20 @@ import java.util.ArrayList;
 
 public class Database extends SQLiteOpenHelper {
 
+    private static Database instance;
     private static final int DATABASE_VERSION = 1;
 
     private static String DATABASE_NAME = "Table_db";
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static Database getInstance(Context context){
+        if (instance == null){
+            instance = new Database(context);
+        }
+        return instance;
     }
 
     @Override
@@ -39,13 +47,13 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public long insertRowLogin(String note1, String note2) {
+    public long insertRowLogin(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(LoginTable.COLUMN_NOTE1, note1);
-        values.put(LoginTable.COLUMN_NOTE2, note2);
+        values.put(LoginTable.COLUMN_USERNAME, username);
+        values.put(LoginTable.COLUMN_PASSWORD, password);
         long id =db.insert(LoginTable.TABLE_NAME, null, values);
 
         db.close();
@@ -89,7 +97,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(LoginTable.TABLE_NAME,
-                new String[]{ LoginTable.COLUMN_NOTE1, LoginTable.COLUMN_NOTE2,
+                new String[]{ LoginTable.COLUMN_USERNAME, LoginTable.COLUMN_PASSWORD,
                         LoginTable.COLUMN_ID},
                 LoginTable.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
@@ -98,8 +106,8 @@ public class Database extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         LoginTable tableRow = new LoginTable(
-                cursor.getString(cursor.getColumnIndex(LoginTable.COLUMN_NOTE1)),
-                cursor.getString(cursor.getColumnIndex(LoginTable.COLUMN_NOTE2)),
+                cursor.getString(cursor.getColumnIndex(LoginTable.COLUMN_USERNAME)),
+                cursor.getString(cursor.getColumnIndex(LoginTable.COLUMN_PASSWORD)),
                 cursor.getInt(cursor.getColumnIndex(LoginTable.COLUMN_ID)));
 
         cursor.close();
@@ -155,7 +163,7 @@ public class Database extends SQLiteOpenHelper {
         return tableRow;
     }
 
-    public int getRowsCountLogin() {
+    private int getRowsCountLogin() {
         String countQuery = "SELECT  * FROM " + LoginTable.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -167,7 +175,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public int getRowsCountQuestion() {
+    private int getRowsCountQuestion() {
         String countQuery = "SELECT  * FROM " + QuestionTable.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
