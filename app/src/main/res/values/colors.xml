@@ -6,5 +6,8 @@
 
     <color name="violet">#D8BFD8</color>
     <color name="pink2">#FFC0CB</color>
+    <color name="DarkGoldenrod">#B8860B</color>
+    <color name="DarkKhaki">#BDB76B</color>
+    <color name="silver">#c0c0c0</color>
 
 </resources>

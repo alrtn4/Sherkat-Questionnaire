@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear.Question;
+package com.example.ideapad510.sherkatquestionear.Questions;
 
 public class QuestionTable {
     public static final String TABLE_NAME = "question";

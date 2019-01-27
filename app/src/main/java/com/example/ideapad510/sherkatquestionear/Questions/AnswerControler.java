@@ -1,10 +1,9 @@
-package com.example.ideapad510.sherkatquestionear.Answer;
+package com.example.ideapad510.sherkatquestionear.Questions;
 
 
 import android.content.Context;
 
 import com.example.ideapad510.sherkatquestionear.Database.Database;
-import com.example.ideapad510.sherkatquestionear.Question.QuestionTable;
 
 public class AnswerControler {
     private Database db;
@@ -29,4 +28,5 @@ public class AnswerControler {
     public AnswerTable getRow(int id){
         return db.getRowAnswer(id);
     }
+
 }

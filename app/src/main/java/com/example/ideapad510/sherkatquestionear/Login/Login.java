@@ -6,8 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.ideapad510.sherkatquestionear.Database.Database;
-import com.example.ideapad510.sherkatquestionear.Question.Questions;
+import com.example.ideapad510.sherkatquestionear.Questionnaire.Questionnaire;
 import com.example.ideapad510.sherkatquestionear.R;
 
 public class Login extends AppCompatActivity {
@@ -16,22 +15,25 @@ public class Login extends AppCompatActivity {
     private String password;
     private EditText editText;
 //    private Database db;
-    private LoginControler lc;
+    private LoginControler loginControler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        lc = new LoginControler(this);
+        loginControler = new LoginControler(this);
+
+//        ActionBar actionBar = getActionBar();
+//        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.DarkGoldenrod)));
 
 //        sampleUserPass();
     }
 
     public void onLoginButtonClicked(View view){
         getEditTexts(view);
-        if (lc.searchInDatabase(username,password)) {
-            Intent i = new Intent(Login.this, Questions.class);
+        if (loginControler.searchInDatabase(username,password)) {
+            Intent i = new Intent(Login.this, Questionnaire.class);
             startActivity(i);
             finish();
         }
@@ -45,9 +47,9 @@ public class Login extends AppCompatActivity {
     }
 
     private void sampleUserPass(){
-        lc.insertToDatabase("ali","123");
-        lc.insertToDatabase("hamid","1234");
-        lc.insertToDatabase("1","1");
+        loginControler.insertToDatabase("ali","123");
+        loginControler.insertToDatabase("hamid","1234");
+        loginControler.insertToDatabase("1","1");
 
     }
 }

@@ -4,30 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ideapad510.sherkatquestionear.Login.Login">
+    tools:context="com.example.ideapad510.sherkatquestionear.Login.Login"
+    android:background="@color/DarkGoldenrod">
 
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:height="30dp"
         android:layout_alignEnd="@id/password"
+        android:layout_alignStart="@+id/password"
         android:layout_above="@id/password"
+        android:layout_marginBottom="10dp"
         android:hint="username"
-        />
+        android:gravity="center"
+        android:background="@drawable/rectangle"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:width="100dp"
+        android:height="30dp"
         android:layout_centerInParent="true"
-        android:hint="password"/>
+        android:layout_marginBottom="10dp"
+        android:hint="password"
+        android:gravity="center"
+        android:background="@drawable/rectangle"/>
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@id/password"
+        android:layout_alignStart="@id/password"
         android:layout_below="@id/password"
         android:text="LOGIN"
+        android:background="@drawable/rectangle"
         android:onClick="onLoginButtonClicked"/>
 
 </RelativeLayout>

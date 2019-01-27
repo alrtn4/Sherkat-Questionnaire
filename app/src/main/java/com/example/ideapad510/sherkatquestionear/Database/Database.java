@@ -7,9 +7,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.ideapad510.sherkatquestionear.Answer.AnswerTable;
+import com.example.ideapad510.sherkatquestionear.Questionnaire.QuestionnaireTable;
+import com.example.ideapad510.sherkatquestionear.Questions.AnswerTable;
 import com.example.ideapad510.sherkatquestionear.Login.LoginTable;
-import com.example.ideapad510.sherkatquestionear.Question.QuestionTable;
+import com.example.ideapad510.sherkatquestionear.Questions.QuestionObject;
+import com.example.ideapad510.sherkatquestionear.Questions.QuestionTable;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(LoginTable.CREATE_TABLE);
         db.execSQL(QuestionTable.CREATE_TABLE);
         db.execSQL(AnswerTable.CREATE_TABLE);
+        db.execSQL(QuestionnaireTable.CREATE_TABLE);
     }
 
     @Override
@@ -43,6 +46,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + LoginTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + AnswerTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + QuestionnaireTable.TABLE_NAME);
         onCreate(db);
     }
 
@@ -61,6 +65,26 @@ public class Database extends SQLiteOpenHelper {
         return id;
     }
 
+    public long insertRowQuestionnaire(String name, String text, String part1,  String part2,
+                                       String part3, String part4){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(QuestionnaireTable.COLUMN_NAME, name);
+        values.put(QuestionnaireTable.COLUMN_TEXT, text);
+        values.put(QuestionnaireTable.COLUMN_PART_1, part1);
+        values.put(QuestionnaireTable.COLUMN_PART_2, part2);
+        values.put(QuestionnaireTable.COLUMN_PART_3, part3);
+        values.put(QuestionnaireTable.COLUMN_PART_4, part4);
+
+        long id = db.insert(QuestionnaireTable.TABLE_NAME, null, values);
+
+        db.close();
+
+        return id;
+    }
+
     public long insertRowQuestion(String question, String position, String part) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -72,6 +96,8 @@ public class Database extends SQLiteOpenHelper {
         long id = db.insert(QuestionTable.TABLE_NAME, null, values);
 
         db.close();
+
+        System.out.println("something added to db");
 
         return id;
     }
@@ -114,6 +140,35 @@ public class Database extends SQLiteOpenHelper {
 
         return tableRow;
     }
+
+    public QuestionnaireTable getRowQuestionnaire(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(QuestionnaireTable.TABLE_NAME,
+                new String[]{ QuestionnaireTable.COLUMN_NAME,
+                        QuestionnaireTable.COLUMN_TEXT, QuestionnaireTable.COLUMN_PART_1,
+                        QuestionnaireTable.COLUMN_PART_2, QuestionnaireTable.COLUMN_PART_3,
+                        QuestionnaireTable.COLUMN_PART_4, QuestionnaireTable.COLUMN_ID},
+                QuestionnaireTable.COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        QuestionnaireTable tableRow = new QuestionnaireTable(
+                cursor.getString(cursor.getColumnIndex(QuestionnaireTable.COLUMN_NAME)),
+                cursor.getString(cursor.getColumnIndex(QuestionnaireTable.COLUMN_TEXT)),
+                cursor.getString(cursor.getColumnIndex(QuestionnaireTable.COLUMN_PART_1)),
+                cursor.getString(cursor.getColumnIndex(QuestionnaireTable.COLUMN_PART_2)),
+                cursor.getString(cursor.getColumnIndex(QuestionnaireTable.COLUMN_PART_3)),
+                cursor.getString(cursor.getColumnIndex(QuestionnaireTable.COLUMN_PART_4)),
+                cursor.getInt(cursor.getColumnIndex(QuestionnaireTable.COLUMN_ID)));
+
+        cursor.close();
+
+        return tableRow;
+    }
+
 
     public QuestionTable getRowQuestion(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -163,6 +218,18 @@ public class Database extends SQLiteOpenHelper {
         return tableRow;
     }
 
+    private int getRowsCountQuestionnaire() {
+        String countQuery = "SELECT  * FROM " + QuestionnaireTable.TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+        cursor.close();
+
+        return count;
+    }
+
+
     private int getRowsCountLogin() {
         String countQuery = "SELECT  * FROM " + LoginTable.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -209,12 +276,51 @@ public class Database extends SQLiteOpenHelper {
         return false;
     }
 
+    public boolean searchInDatabaseLogin2(String username, String password){
+        String searchQuery = " SELECT * FROM " + LoginTable.TABLE_NAME + " WHERE " +
+                LoginTable.COLUMN_USERNAME +" = "+ username +" AND " + LoginTable.COLUMN_PASSWORD + " = "+ password;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(searchQuery, null);
+
+        int count = cursor.getCount();
+        cursor.close();
+
+        return count > 0 ;
+    }
+
     public ArrayList<String> getPartedQuestions(int part){
         ArrayList<String> partedQuestions = new ArrayList<>();
         for(int i=1; i<=getRowsCountQuestion(); i++){
             if((getRowQuestion(i).getPart()).equals(String.valueOf(part))) {
                 partedQuestions.add(getRowQuestion(i).getQuestion());
-                System.out.println("there is part 1");
+            }
+        }
+        return partedQuestions;
+    }
+
+    public ArrayList<QuestionObject> getPartedQuestionObjects(int part){
+        ArrayList<QuestionObject> partedQuestions = new ArrayList<>();
+        QuestionObject qo;
+        for(int i=1; i<=getRowsCountQuestion(); i++){
+            if((getRowQuestion(i).getPart()).equals(String.valueOf(part))) {
+                qo = new QuestionObject(getRowQuestion(i).getQuestion(), getRowQuestion(i).getId());
+                partedQuestions.add(qo);
+                System.out.println("something is added");
+            }
+            System.out.println("the part is "+getRowQuestion(i).getPart());
+        }
+        System.out.println("the row count is "+getRowsCountQuestion());
+        return partedQuestions;
+    }
+
+    public ArrayList<QuestionObject> getRandomPartedQuestionObjects(int part){
+        ArrayList<QuestionObject> partedQuestions = new ArrayList<>();
+        QuestionObject qo;
+        for(int i=1; i<=getRowsCountQuestion(); i++){
+            if((getRowQuestion(i).getPart()).equals(String.valueOf(part))) {
+                qo = new QuestionObject(getRowQuestion(i).getQuestion(), getRowQuestion(i).getId());
+                if(Math.random() > 0.5)
+                     partedQuestions.add(qo);
             }
         }
         return partedQuestions;
@@ -228,6 +334,13 @@ public class Database extends SQLiteOpenHelper {
             }
         }
         return idAnswers;
+    }
+
+    public ArrayList<String> getQuestionnaires(){
+        ArrayList<String> questionnaires = new ArrayList<>();
+        for(int i = 1; i<=getRowsCountQuestionnaire(); i++)
+            questionnaires.add(getRowQuestionnaire(i).getName()+"\n"+getRowQuestionnaire(i).getText());
+        return questionnaires;
     }
 
 }

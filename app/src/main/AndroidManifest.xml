@@ -17,10 +17,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Question.Questions">
+            android:name=".Questionnaire.Questionnaire">
         </activity>
         <activity
-            android:name=".Answer.Answers">
+            android:name=".Questions.Questions">
         </activity>
 
     </application>

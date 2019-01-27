@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear.Answer;
+package com.example.ideapad510.sherkatquestionear.Questions;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -29,7 +29,7 @@ public class AnswerListAdapter extends ArrayAdapter {
 
         TextView answersTextField = rowView.findViewById(R.id.row);
 
-        answersTextField.setText(answerArray.get(position));
+        answersTextField.setText((position+1)+".  "+answerArray.get(position));
 
         return rowView;
 

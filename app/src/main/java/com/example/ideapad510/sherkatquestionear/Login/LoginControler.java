@@ -17,6 +17,9 @@ public class LoginControler {
     }
 
     public boolean searchInDatabase(String username, String password){
-        return db.searchInDatabaseLogin(username,password);
+//        return db.searchInDatabaseLogin(username,password);
+        if(!username.isEmpty() & !password.isEmpty())
+            return db.searchInDatabaseLogin(username,password);
+        return false;
     }
 }
