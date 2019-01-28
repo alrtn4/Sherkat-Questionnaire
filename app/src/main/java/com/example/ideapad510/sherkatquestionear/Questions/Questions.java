@@ -10,6 +10,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerController;
+import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerListAdapter;
 import com.example.ideapad510.sherkatquestionear.R;
 
 import java.util.ArrayList;
@@ -26,10 +28,10 @@ public class Questions extends AppCompatActivity{
     private ArrayList<QuestionObject> questionObjectArrayListPart2 = new ArrayList<>();
     private ArrayList<QuestionObject> questionObjectArrayListPart3 = new ArrayList<>();
     private ArrayList<QuestionObject> questionObjectArrayListPart4 = new ArrayList<>();
-    private String part1;
-    private String part2;
-    private String part3;
-    private String part4;
+    private String part1State;
+    private String part2State;
+    private String part3State;
+    private String part4State;
     private int pageNumber = 0;
 
     @Override
@@ -39,15 +41,17 @@ public class Questions extends AppCompatActivity{
 
 //        sampleAnswers();
 //        sampleQuestions();
+        new InsertQuestionsAnswers(this);
+
 
         answersList = findViewById(R.id.answersList);
         questionTitle = findViewById(R.id.questionTitle);
         part = findViewById(R.id.part);
 
-        part1 = getIntent().getStringExtra("part1");
-        part2 = getIntent().getStringExtra("part2");
-        part3 = getIntent().getStringExtra("part3");
-        part4 = getIntent().getStringExtra("part4");
+        part1State = getIntent().getStringExtra("part1");
+        part2State = getIntent().getStringExtra("part2");
+        part3State = getIntent().getStringExtra("part3");
+        part4State = getIntent().getStringExtra("part4");
 
         findingPartedQuestions();
         findingRandomPartedQuestions();
@@ -57,24 +61,24 @@ public class Questions extends AppCompatActivity{
     }
 
     private void findingPartedQuestions() {
-        if (part1.equals("Y"))
+        if (part1State.equals("Y"))
             questionObjectArrayListPart1 = questionControler.getPartedQuestionObjects(1);
-        if (part2.equals("Y"))
+        if (part2State.equals("Y"))
             questionObjectArrayListPart2 = questionControler.getPartedQuestionObjects(2);
-        if (part3.equals("Y"))
+        if (part3State.equals("Y"))
             questionObjectArrayListPart3 = questionControler.getPartedQuestionObjects(3);
-        if (part4.equals("Y"))
+        if (part4State.equals("Y"))
             questionObjectArrayListPart4 = questionControler.getPartedQuestionObjects(4);
     }
 
      private void findingRandomPartedQuestions(){
-        if(part1.equals("R"))
+        if(part1State.equals("R"))
             questionObjectArrayListPart1 = questionControler.getRandomQuestionObjects(1);
-        if(part2.equals("R"))
+        if(part2State.equals("R"))
             questionObjectArrayListPart2 = questionControler.getRandomQuestionObjects(2);
-        if(part3.equals("R"))
+        if(part3State.equals("R"))
             questionObjectArrayListPart3 = questionControler.getRandomQuestionObjects(3);
-        if(part4.equals("R"))
+        if(part4State.equals("R"))
             questionObjectArrayListPart4 = questionControler.getRandomQuestionObjects(4);
      }
 
@@ -111,9 +115,9 @@ public class Questions extends AppCompatActivity{
     private void refreshPage(){
         int positionInArray = pageNumber;
         part.setText("PART : " + questionObjectArrayList.get(positionInArray).getQuestionPart());
-        questionTitle.setText("QUESTION : " + (questionObjectArrayList.get(positionInArray)).getQuestionText());
+        questionTitle.setText((questionObjectArrayList.get(positionInArray)).getQuestionText());
         findingAnswers();
-        QuestionnaireListAdapter adapter = new QuestionnaireListAdapter(this, answers);
+        AnswerListAdapter adapter = new AnswerListAdapter(this, answers);
         answersList.setAdapter(adapter);
     }
 
@@ -144,24 +148,24 @@ public class Questions extends AppCompatActivity{
     }
 
     private void sampleAnswers(){
-        answerControler.insertRow("1", "2","3","4");
-        answerControler.insertRow("2", "28","3","4");
-        answerControler.insertRow("3", "26","3","4");
-        answerControler.insertRow("4", "27","3","4");
-        answerControler.insertRow("5", "263","3","4");
-        answerControler.insertRow("6", "29","3","4");
-        answerControler.insertRow("7", "24","3","4");
-        answerControler.insertRow("8", "226","3","4");
-        answerControler.insertRow("9", "219","3","4");
-        answerControler.insertRow("1", "267","3","4");
-        answerControler.insertRow("2", "287","3","4");
-        answerControler.insertRow("3", "266","3","4");
-        answerControler.insertRow("4", "275","3","4");
-        answerControler.insertRow("5", "264","3","4");
-        answerControler.insertRow("6", "293","3","4");
-        answerControler.insertRow("7", "246","3","4");
-        answerControler.insertRow("8", "269","3","4");
-        answerControler.insertRow("9", "299","3","4");
+        answerControler.insertToDatabase("1", "2","3","4");
+        answerControler.insertToDatabase("2", "28","3","4");
+        answerControler.insertToDatabase("3", "26","3","4");
+        answerControler.insertToDatabase("4", "27","3","4");
+        answerControler.insertToDatabase("5", "263","3","4");
+        answerControler.insertToDatabase("6", "29","3","4");
+        answerControler.insertToDatabase("7", "24","3","4");
+        answerControler.insertToDatabase("8", "226","3","4");
+        answerControler.insertToDatabase("9", "219","3","4");
+        answerControler.insertToDatabase("1", "267","3","4");
+        answerControler.insertToDatabase("2", "287","3","4");
+        answerControler.insertToDatabase("3", "266","3","4");
+        answerControler.insertToDatabase("4", "275","3","4");
+        answerControler.insertToDatabase("5", "264","3","4");
+        answerControler.insertToDatabase("6", "293","3","4");
+        answerControler.insertToDatabase("7", "246","3","4");
+        answerControler.insertToDatabase("8", "269","3","4");
+        answerControler.insertToDatabase("9", "299","3","4");
     }
 
 }

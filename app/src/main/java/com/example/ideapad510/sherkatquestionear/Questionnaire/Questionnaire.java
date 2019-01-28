@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.ideapad510.sherkatquestionear.Questions.QuestionnaireListAdapter;
+import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerListAdapter;
 import com.example.ideapad510.sherkatquestionear.Questions.Questions;
 import com.example.ideapad510.sherkatquestionear.R;
 
@@ -25,11 +25,11 @@ public class Questionnaire extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionnaire);
 
-//        sampleQuestionnaires();
+        sampleQuestionnaires();
         questionnaires = qac.getQuestionnaires();
 
         listView = findViewById(R.id.questionnaireListView);
-        QuestionnaireListAdapter adapter = new QuestionnaireListAdapter(this, questionnaires);
+        AnswerListAdapter adapter = new AnswerListAdapter(this, questionnaires);
         listView.setAdapter(adapter);
 
 

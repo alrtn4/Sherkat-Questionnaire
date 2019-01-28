@@ -9,10 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.ideapad510.sherkatquestionear.Questionnaire.QuestionnaireTable;
-import com.example.ideapad510.sherkatquestionear.Questions.AnswerTable;
+import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerTable;
 import com.example.ideapad510.sherkatquestionear.Login.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionObject;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionTable;
+import com.example.ideapad510.sherkatquestionear.Questions.InsertQuestionsAnswers;
 
 import java.util.ArrayList;
 
@@ -24,8 +25,11 @@ public class Database extends SQLiteOpenHelper {
 
     private static String DATABASE_NAME = "Table_db";
 
+    private Context context;
+
     private Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     public static Database getInstance(Context context){
@@ -292,11 +296,8 @@ public class Database extends SQLiteOpenHelper {
                 questionObject = new QuestionObject(getRowQuestion(i).getQuestion(), getRowQuestion(i).getId(),
                         Integer.valueOf(getRowQuestion(i).getPart()));
                 partedQuestions.add(questionObject);
-                System.out.println("something is added");
             }
-            System.out.println("the part is "+getRowQuestion(i).getPart());
         }
-        System.out.println("the row count is "+getRowsCountQuestion());
         return partedQuestions;
     }
 
@@ -321,4 +322,13 @@ public class Database extends SQLiteOpenHelper {
         return questionnaires;
     }
 
+/*    public void insertQA_ArrayList(SQLiteDatabase db, Context context){
+        InsertQuestionsAnswers insertQuestionsAnswers = new InsertQuestionsAnswers(context);
+        db.execSQL("INSERT INTO " +
+                QuestionTable.TABLE_NAME +
+//                " Values('"+LastName.get(i)+"','"+FirstName.get(i)+"',"+Age.get(i)+");");
+//                " Values('"+insertQuestionsAnswers.getQuestionAndAnswerObjectArrayList().get(i)+"','"+FirstName.get(i)+"',"+Age.get(i)+");");
+
+    }
+*/
 }

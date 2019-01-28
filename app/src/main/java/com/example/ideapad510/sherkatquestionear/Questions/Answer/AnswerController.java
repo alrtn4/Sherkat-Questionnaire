@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear.Questions;
+package com.example.ideapad510.sherkatquestionear.Questions.Answer;
 
 
 import android.content.Context;
@@ -8,11 +8,11 @@ import com.example.ideapad510.sherkatquestionear.Database.Database;
 public class AnswerController {
     private Database db;
 
-    AnswerController(Context context){
+    public AnswerController(Context context){
         db = Database.getInstance(context);
     }
 
-    public void insertRow(String questionID, String answer, String mode, String position){
+    public void insertToDatabase(String questionID, String answer, String mode, String position){
         db.insertRowAnswer(questionID, answer, mode, position);
     }
 

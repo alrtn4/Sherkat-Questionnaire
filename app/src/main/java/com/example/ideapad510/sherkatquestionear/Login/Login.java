@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
 //        ActionBar actionBar = getActionBar();
 //        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.DarkGoldenrod)));
 
-//        sampleUserPass();
+        sampleUserPass();
     }
 
     public void onLoginButtonClicked(View view){
