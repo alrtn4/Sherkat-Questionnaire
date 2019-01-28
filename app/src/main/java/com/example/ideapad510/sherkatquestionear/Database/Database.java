@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.ideapad510.sherkatquestionear.Questionnaire.QuestionnaireTable;
 import com.example.ideapad510.sherkatquestionear.Questions.AnswerTable;
@@ -16,13 +17,14 @@ import com.example.ideapad510.sherkatquestionear.Questions.QuestionTable;
 import java.util.ArrayList;
 
 public class Database extends SQLiteOpenHelper {
+    private static final String TAG = "Database";
 
     private static Database instance;
     private static final int DATABASE_VERSION = 1;
 
     private static String DATABASE_NAME = "Table_db";
 
-    public Database(Context context) {
+    private Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -51,7 +53,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public long insertRowLogin(String username, String password) {
+    public void insertRowLogin(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -61,11 +63,9 @@ public class Database extends SQLiteOpenHelper {
         long id =db.insert(LoginTable.TABLE_NAME, null, values);
 
         db.close();
-
-        return id;
     }
 
-    public long insertRowQuestionnaire(String name, String text, String part1,  String part2,
+    public void insertRowQuestionnaire(String name, String text, String part1,  String part2,
                                        String part3, String part4){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -81,11 +81,9 @@ public class Database extends SQLiteOpenHelper {
         long id = db.insert(QuestionnaireTable.TABLE_NAME, null, values);
 
         db.close();
-
-        return id;
     }
 
-    public long insertRowQuestion(String question, String position, String part) {
+    public void insertRowQuestion(String question, String position, String part) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -98,12 +96,10 @@ public class Database extends SQLiteOpenHelper {
         db.close();
 
         System.out.println("something added to db");
-
-        return id;
     }
 
 
-    public long insertRowAnswer(String questionID, String answer, String mode, String position) {
+    public void insertRowAnswer(String questionID, String answer, String mode, String position) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -115,8 +111,6 @@ public class Database extends SQLiteOpenHelper {
         long id = db.insert(AnswerTable.TABLE_NAME, null, values);
 
         db.close();
-
-        return id;
     }
 
     private LoginTable getRowLogin(long id) {
@@ -272,39 +266,32 @@ public class Database extends SQLiteOpenHelper {
                 return true;
             }
         }
-
         return false;
     }
 
     public boolean searchInDatabaseLogin2(String username, String password){
+        Log.d(TAG, "searchInDatabaseLogin2: "+username+" "+password);
         String searchQuery = " SELECT * FROM " + LoginTable.TABLE_NAME + " WHERE " +
                 LoginTable.COLUMN_USERNAME +" = "+ username +" AND " + LoginTable.COLUMN_PASSWORD + " = "+ password;
         SQLiteDatabase db = this.getReadableDatabase();
+        Log.d(TAG, "searchInDatabaseLogin2: "+searchQuery);
         Cursor cursor = db.rawQuery(searchQuery, null);
-
+        Log.d(TAG, "searchInDatabaseLogin2: "+(cursor == null));
         int count = cursor.getCount();
+        Log.d(TAG, "searchInDatabaseLogin2: " +count);
         cursor.close();
 
         return count > 0 ;
     }
 
-    public ArrayList<String> getPartedQuestions(int part){
-        ArrayList<String> partedQuestions = new ArrayList<>();
-        for(int i=1; i<=getRowsCountQuestion(); i++){
-            if((getRowQuestion(i).getPart()).equals(String.valueOf(part))) {
-                partedQuestions.add(getRowQuestion(i).getQuestion());
-            }
-        }
-        return partedQuestions;
-    }
-
     public ArrayList<QuestionObject> getPartedQuestionObjects(int part){
         ArrayList<QuestionObject> partedQuestions = new ArrayList<>();
-        QuestionObject qo;
+        QuestionObject questionObject;
         for(int i=1; i<=getRowsCountQuestion(); i++){
             if((getRowQuestion(i).getPart()).equals(String.valueOf(part))) {
-                qo = new QuestionObject(getRowQuestion(i).getQuestion(), getRowQuestion(i).getId());
-                partedQuestions.add(qo);
+                questionObject = new QuestionObject(getRowQuestion(i).getQuestion(), getRowQuestion(i).getId(),
+                        Integer.valueOf(getRowQuestion(i).getPart()));
+                partedQuestions.add(questionObject);
                 System.out.println("something is added");
             }
             System.out.println("the part is "+getRowQuestion(i).getPart());
@@ -315,25 +302,16 @@ public class Database extends SQLiteOpenHelper {
 
     public ArrayList<QuestionObject> getRandomPartedQuestionObjects(int part){
         ArrayList<QuestionObject> partedQuestions = new ArrayList<>();
-        QuestionObject qo;
+        QuestionObject questionObject;
         for(int i=1; i<=getRowsCountQuestion(); i++){
             if((getRowQuestion(i).getPart()).equals(String.valueOf(part))) {
-                qo = new QuestionObject(getRowQuestion(i).getQuestion(), getRowQuestion(i).getId());
+                questionObject = new QuestionObject(getRowQuestion(i).getQuestion(), getRowQuestion(i).getId(),
+                        Integer.valueOf(getRowQuestion(i).getPart()));
                 if(Math.random() > 0.5)
-                     partedQuestions.add(qo);
+                     partedQuestions.add(questionObject);
             }
         }
         return partedQuestions;
-    }
-
-    public ArrayList<String> getIdAnswers(int questionID){
-        ArrayList<String> idAnswers = new ArrayList<>();
-        for(int i = 1; i<= getRowsCountAnswer(); i++){
-            if((getRowAnswer(i).getQuestionID()).equals(String.valueOf(questionID))) {
-                idAnswers.add(getRowAnswer(i).getAnswer());
-            }
-        }
-        return idAnswers;
     }
 
     public ArrayList<String> getQuestionnaires(){

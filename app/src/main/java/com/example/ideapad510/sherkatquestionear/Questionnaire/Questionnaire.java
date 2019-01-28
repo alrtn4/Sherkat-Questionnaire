@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.ideapad510.sherkatquestionear.Questions.AnswerListAdapter;
+import com.example.ideapad510.sherkatquestionear.Questions.QuestionnaireListAdapter;
 import com.example.ideapad510.sherkatquestionear.Questions.Questions;
 import com.example.ideapad510.sherkatquestionear.R;
 
@@ -18,7 +18,7 @@ import static android.media.CamcorderProfile.get;
 public class Questionnaire extends AppCompatActivity {
     private ListView listView;
     private static ArrayList<String> questionnaires  = new ArrayList<>();
-    private QuestionnaireControler qac= new QuestionnaireControler(this);
+    private QuestionnaireController qac= new QuestionnaireController(this);
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -29,7 +29,7 @@ public class Questionnaire extends AppCompatActivity {
         questionnaires = qac.getQuestionnaires();
 
         listView = findViewById(R.id.questionnaireListView);
-        AnswerListAdapter adapter = new AnswerListAdapter(this, questionnaires);
+        QuestionnaireListAdapter adapter = new QuestionnaireListAdapter(this, questionnaires);
         listView.setAdapter(adapter);
 
 

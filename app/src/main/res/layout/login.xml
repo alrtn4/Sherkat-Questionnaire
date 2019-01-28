@@ -16,7 +16,7 @@
         android:layout_alignStart="@+id/password"
         android:layout_above="@id/password"
         android:layout_marginBottom="10dp"
-        android:hint="username"
+        android:hint="@string/username"
         android:gravity="center"
         android:background="@drawable/rectangle"/>
 
@@ -28,7 +28,7 @@
         android:height="30dp"
         android:layout_centerInParent="true"
         android:layout_marginBottom="10dp"
-        android:hint="password"
+        android:hint="@string/password"
         android:gravity="center"
         android:background="@drawable/rectangle"/>
 
@@ -39,8 +39,8 @@
         android:layout_alignEnd="@id/password"
         android:layout_alignStart="@id/password"
         android:layout_below="@id/password"
-        android:text="LOGIN"
-        android:background="@drawable/rectangle"
+        android:text="@string/login"
+        android:background="@drawable/button_background"
         android:onClick="onLoginButtonClicked"/>
 
 </RelativeLayout>

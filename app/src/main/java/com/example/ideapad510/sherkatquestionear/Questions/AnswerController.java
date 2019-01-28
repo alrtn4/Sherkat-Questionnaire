@@ -5,16 +5,11 @@ import android.content.Context;
 
 import com.example.ideapad510.sherkatquestionear.Database.Database;
 
-public class AnswerControler {
+public class AnswerController {
     private Database db;
 
-    AnswerControler(Context context){
+    AnswerController(Context context){
         db = Database.getInstance(context);
-
-    }
-
-    public String getRowQuestion(int questionId){
-        return db.getRowQuestion(questionId).getQuestion();
     }
 
     public void insertRow(String questionID, String answer, String mode, String position){

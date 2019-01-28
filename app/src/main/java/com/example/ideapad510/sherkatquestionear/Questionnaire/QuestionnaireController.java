@@ -7,10 +7,10 @@ import com.example.ideapad510.sherkatquestionear.Database.Database;
 
 import java.util.ArrayList;
 
-public class QuestionnaireControler {
+public class QuestionnaireController {
     private Database db;
 
-    QuestionnaireControler(Context context){
+    QuestionnaireController(Context context){
         db = Database.getInstance(context);
     }
 

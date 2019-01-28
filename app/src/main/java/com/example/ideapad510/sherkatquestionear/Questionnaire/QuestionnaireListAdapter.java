@@ -11,11 +11,11 @@ import com.example.ideapad510.sherkatquestionear.R;
 
 import java.util.ArrayList;
 
-public class QuestionearListAdapter extends ArrayAdapter {
+public class QuestionnaireListAdapter extends ArrayAdapter {
     private final Activity context;
     private final ArrayList<String> questionnaireArray;
 
-    public QuestionearListAdapter(Activity context, ArrayList<String> questionnaireArray){
+    public QuestionnaireListAdapter(Activity context, ArrayList<String> questionnaireArray){
         super(context, R.layout.listview_row , questionnaireArray);
 
         this.context=context;

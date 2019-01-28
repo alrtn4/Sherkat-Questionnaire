@@ -8,12 +8,25 @@
     android:background="@color/DarkGoldenrod">
 
     <TextView
+        android:id="@+id/part"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rectangle"/>
+
+    <TextView
         android:id="@+id/questionTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_below="@id/part"
         android:layout_marginTop="70dp"
-
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:gravity="center"
         android:background="@drawable/rectangle"/>
 
@@ -24,6 +37,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@id/questionTitle"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/DarkKhaki" />
 
 
@@ -33,6 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/line"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/rectangle">
 
     </ListView>
@@ -41,18 +58,24 @@
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BACK"
+        android:text="@string/back"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_background"
         android:onClick="onBackClicked"/>
 
     <Button
         android:id="@+id/buttonForward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forward"
+        android:text="@string/forward"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_background"
         android:onClick="onForwardClicked"/>
 
 

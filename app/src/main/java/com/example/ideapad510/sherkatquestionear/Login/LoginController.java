@@ -5,10 +5,10 @@ import android.content.Context;
 
 import com.example.ideapad510.sherkatquestionear.Database.Database;
 
-public class LoginControler {
+public class LoginController {
     private Database db;
 
-    LoginControler(Context context){
+    LoginController(Context context){
         db = Database.getInstance(context);
     }
 

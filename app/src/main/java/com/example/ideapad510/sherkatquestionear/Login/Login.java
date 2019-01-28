@@ -13,16 +13,15 @@ public class Login extends AppCompatActivity {
 
     private String username;
     private String password;
-    private EditText editText;
-//    private Database db;
-    private LoginControler loginControler;
+//    private EditText editText;
+    private LoginController loginControler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        loginControler = new LoginControler(this);
+        loginControler = new LoginController(this);
 
 //        ActionBar actionBar = getActionBar();
 //        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.DarkGoldenrod)));
@@ -31,7 +30,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void onLoginButtonClicked(View view){
-        getEditTexts(view);
+        getTextFromEditTexts();
         if (loginControler.searchInDatabase(username,password)) {
             Intent i = new Intent(Login.this, Questionnaire.class);
             startActivity(i);
@@ -39,8 +38,8 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private void getEditTexts(View view){
-        editText = findViewById(R.id.username);
+    private void getTextFromEditTexts(){
+        EditText editText = findViewById(R.id.username);
         username = editText.getText().toString();
         editText = findViewById(R.id.password);
         password = editText.getText().toString();
