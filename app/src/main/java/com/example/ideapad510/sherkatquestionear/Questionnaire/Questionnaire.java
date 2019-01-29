@@ -25,7 +25,7 @@ public class Questionnaire extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionnaire);
 
-        sampleQuestionnaires();
+//        sampleQuestionnaires();
         questionnaires = qac.getQuestionnaires();
 
         listView = findViewById(R.id.questionnaireListView);

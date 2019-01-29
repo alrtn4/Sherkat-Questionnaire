@@ -4,6 +4,9 @@ package com.example.ideapad510.sherkatquestionear.Questions.Answer;
 import android.content.Context;
 
 import com.example.ideapad510.sherkatquestionear.Database.Database;
+import com.example.ideapad510.sherkatquestionear.Questions.QuestionAndAnswerObject;
+
+import java.util.ArrayList;
 
 public class AnswerController {
     private Database db;
@@ -22,6 +25,14 @@ public class AnswerController {
 
     public AnswerTable getRow(int id){
         return db.getRowAnswer(id);
+    }
+
+    public void insertAnswerArray(ArrayList<QuestionAndAnswerObject> array){
+       //i is for questionANDanswer array count , j is for count of answers in each member of array
+        for(int i = 0; i < array.size(); i++)
+            for(int j = 0; j <= 9; j++)
+                insertToDatabase(array.get(i).getQuestionId() ,
+                        array.get(i).getAnswer().get(j), "0", "0");
     }
 
 }

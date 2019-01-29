@@ -41,8 +41,8 @@ public class Questions extends AppCompatActivity{
 
 //        sampleAnswers();
 //        sampleQuestions();
-        new InsertQuestionsAnswers(this);
-
+//        new QuestionController(this).insertQuestionArray(new QuestionsAnswersArray());
+//        new AnswerController(this).insertAnswerArray(new QuestionsAnswersArray());
 
         answersList = findViewById(R.id.answersList);
         questionTitle = findViewById(R.id.questionTitle);

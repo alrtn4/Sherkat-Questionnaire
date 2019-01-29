@@ -13,7 +13,6 @@ import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerTable;
 import com.example.ideapad510.sherkatquestionear.Login.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionObject;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionTable;
-import com.example.ideapad510.sherkatquestionear.Questions.InsertQuestionsAnswers;
 
 import java.util.ArrayList;
 
