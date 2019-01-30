@@ -1,15 +1,21 @@
 package com.example.ideapad510.sherkatquestionear.Questions;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.ideapad510.sherkatquestionear.Questionnaire.Questionnaire;
 import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerController;
 import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerListAdapter;
 import com.example.ideapad510.sherkatquestionear.R;
@@ -39,26 +45,42 @@ public class Questions extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question);
 
-//        sampleAnswers();
-//        sampleQuestions();
 //        new QuestionController(this).insertQuestionArray(new QuestionsAnswersArray());
 //        new AnswerController(this).insertAnswerArray(new QuestionsAnswersArray());
 
         answersList = findViewById(R.id.answersList);
+//        addRadioButtons(10);
         questionTitle = findViewById(R.id.questionTitle);
         part = findViewById(R.id.part);
 
-        part1State = getIntent().getStringExtra("part1");
-        part2State = getIntent().getStringExtra("part2");
-        part3State = getIntent().getStringExtra("part3");
-        part4State = getIntent().getStringExtra("part4");
-
+        getPartsState();
         findingPartedQuestions();
         findingRandomPartedQuestions();
         mergeFoundQuestions();
 
         refreshPage();
+        onClickListView();
     }
+
+    private void onClickListView(){
+        answersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                //because start of database and list are different
+                position++;
+                showPosDialog(position);
+            }
+        });
+    }
+
+    private void showPosDialog(int position) {
+        FragmentManager fm = getSupportFragmentManager();
+        Dialog_Fragment dialog_Fragment = Dialog_Fragment.newInstance(""+ position);
+        dialog_Fragment.show(fm, "fragment_edit_name");
+    }
+
+
+
 
     private void findingPartedQuestions() {
         if (part1State.equals("Y"))
@@ -90,12 +112,16 @@ public class Questions extends AppCompatActivity{
     }
 
     private void findingAnswers(){
+        //this method finds answers that belong to specific question based on
+        // question id of question and answer's question id
+        answers = new ArrayList<>();
         int positionInArray = pageNumber;
         answers = new ArrayList<>();
         for(int i = 1; i <= answerControler.getRowCount(); i++)
             if((answerControler.getRow(i).getQuestionID()).
                     equals(String.valueOf(questionObjectArrayList.get(positionInArray).getQuestionId())))
                 answers.add(answerControler.getRow(i).getAnswer());
+        System.out.println("answer size is : " + answers.size());
     }
 
     public void onBackClicked(View view){
@@ -117,55 +143,37 @@ public class Questions extends AppCompatActivity{
         part.setText("PART : " + questionObjectArrayList.get(positionInArray).getQuestionPart());
         questionTitle.setText((questionObjectArrayList.get(positionInArray)).getQuestionText());
         findingAnswers();
+//        addRadioButtons(answers.size());
         AnswerListAdapter adapter = new AnswerListAdapter(this, answers);
         answersList.setAdapter(adapter);
     }
-
+/*
     public void addRadioButtons(int number) {
         for (int row = 0; row < 1; row++) {
             RadioGroup ll = new RadioGroup(this);
-            ll.setOrientation(LinearLayout.HORIZONTAL);
+//            ll.setOrientation(LinearLayout.VERTICAL);
 
             for (int i = 1; i <= number; i++) {
                 RadioButton rdbtn = new RadioButton(this);
                 rdbtn.setId(View.generateViewId());
-                rdbtn.setText("Radio " + rdbtn.getId());
+                rdbtn.setScaleX((float)0.5);
+                rdbtn.setScaleY((float)0.5);
+                rdbtn.setTextSize(30);
+//                rdbtn.setGravity(Gravity.LEFT);
+                rdbtn.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                rdbtn.setText(answers.get(i - 1));
                 ll.addView(rdbtn);
             }
-//            ((ViewGroup) findViewById(R.id.radiogroup)).addView(ll);
+            ((ViewGroup) findViewById(R.id.radioGroup)).addView(ll);
         }
     }
-
-    private void sampleQuestions(){
-        questionControler.insertToDatabase("1+2?", "0", "1");
-        questionControler.insertToDatabase("12+2?", "0", "1");
-        questionControler.insertToDatabase("1+24?", "0", "2");
-        questionControler.insertToDatabase("15+26?", "0", "2");
-        questionControler.insertToDatabase("17+26?", "0", "3");
-        questionControler.insertToDatabase("17+2?", "0", "3");
-        questionControler.insertToDatabase("1+29?", "0", "4");
-        questionControler.insertToDatabase("16+23?", "0", "4");
-    }
-
-    private void sampleAnswers(){
-        answerControler.insertToDatabase("1", "2","3","4");
-        answerControler.insertToDatabase("2", "28","3","4");
-        answerControler.insertToDatabase("3", "26","3","4");
-        answerControler.insertToDatabase("4", "27","3","4");
-        answerControler.insertToDatabase("5", "263","3","4");
-        answerControler.insertToDatabase("6", "29","3","4");
-        answerControler.insertToDatabase("7", "24","3","4");
-        answerControler.insertToDatabase("8", "226","3","4");
-        answerControler.insertToDatabase("9", "219","3","4");
-        answerControler.insertToDatabase("1", "267","3","4");
-        answerControler.insertToDatabase("2", "287","3","4");
-        answerControler.insertToDatabase("3", "266","3","4");
-        answerControler.insertToDatabase("4", "275","3","4");
-        answerControler.insertToDatabase("5", "264","3","4");
-        answerControler.insertToDatabase("6", "293","3","4");
-        answerControler.insertToDatabase("7", "246","3","4");
-        answerControler.insertToDatabase("8", "269","3","4");
-        answerControler.insertToDatabase("9", "299","3","4");
+*/
+    //gets the state of each part for current questionnaire to see if this question needs witch parts of answers
+    private void getPartsState(){
+        part1State = getIntent().getStringExtra("part1");
+        part2State = getIntent().getStringExtra("part2");
+        part3State = getIntent().getStringExtra("part3");
+        part4State = getIntent().getStringExtra("part4");
     }
 
 }

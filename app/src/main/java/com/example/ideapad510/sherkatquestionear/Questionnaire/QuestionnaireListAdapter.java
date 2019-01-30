@@ -27,7 +27,7 @@ public class QuestionnaireListAdapter extends ArrayAdapter {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.listview_row, null,true);
 
-        TextView questionnaireTextField = rowView.findViewById(R.id.row);
+        TextView questionnaireTextField = rowView.findViewById(R.id.row1);
 
         questionnaireTextField.setText(questionnaireArray.get(position));
 
