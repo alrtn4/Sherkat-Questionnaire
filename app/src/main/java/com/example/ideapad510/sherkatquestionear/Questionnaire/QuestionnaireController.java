@@ -14,13 +14,12 @@ public class QuestionnaireController {
         db = Database.getInstance(context);
     }
 
-    public ArrayList<String> getQuestionnaires(){
-        return db.getQuestionnaires();
+    //returns list of porseshnameha
+    public ArrayList<String> getQuestionnaires(){return db.getQuestionnaires();
     }
 
-    public void insertToDatabase(String name, String text, String part1, String part2,
-                                 String part3, String part4){
-        db.insertRowQuestionnaire(name, text, part1, part2, part3, part4);
+    public void insertToDatabase(String name, String text, String qt, String at){
+        db.insertRowQuestionnaire(name, text, qt, at);
     }
 
     public QuestionnaireTable getQuestionnaire(int id){

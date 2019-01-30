@@ -1,7 +1,7 @@
 package com.example.ideapad510.sherkatquestionear.Questions.Answer;
 
 public class AnswerTable {
-    public static final String TABLE_NAME = "answer";
+    public static final String TABLE_NAME = "answer1";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_QUESTION_ID = "questionID";
     public static final String COLUMN_ANSWER = "answerTXT";

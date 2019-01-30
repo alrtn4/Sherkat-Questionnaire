@@ -25,10 +25,10 @@ public class Questionnaire extends AppCompatActivity {
         setContentView(R.layout.questionnaire);
 
 //        sampleQuestionnaires();
+        //get List of porseshnameha
         questionnaires = questionnaireController.getQuestionnaires();
 
         listView = findViewById(R.id.questionnaireListView);
-//        AnswerListAdapter adapter = new AnswerListAdapter(this, questionnaires);
         QuestionnaireListAdapter adapter = new QuestionnaireListAdapter(this, questionnaires);
         listView.setAdapter(adapter);
 
@@ -43,18 +43,16 @@ public class Questionnaire extends AppCompatActivity {
                 //because start of database and list are different
                 position++;
                 Intent intent = new Intent(Questionnaire.this,Questions.class);
-                intent.putExtra("part1", questionnaireController.getQuestionnaire(position).getPart1());
-                intent.putExtra("part2", questionnaireController.getQuestionnaire(position).getPart2());
-                intent.putExtra("part3", questionnaireController.getQuestionnaire(position).getPart3());
-                intent.putExtra("part4", questionnaireController.getQuestionnaire(position).getPart4());
+                intent.putExtra("QT", questionnaireController.getQuestionnaire(position).getQT());
+                intent.putExtra("AT", questionnaireController.getQuestionnaire(position).getAT());
                 startActivity(intent);
             }
         });
     }
 
     private void sampleQuestionnaires(){
-        questionnaireController.insertToDatabase("test1","about weather","Y", "Y" , "N", "R");
-        questionnaireController.insertToDatabase("test2","about geography","Y", "N", "R", "R");
-        questionnaireController.insertToDatabase("test3","about health","Y", "N", "N", "N");
+        questionnaireController.insertToDatabase("test1","about weather", "1:\"question1\"/1", "answer1");
+        questionnaireController.insertToDatabase("test2","about geography","1:\"question1\"/1", "answer1");
+        questionnaireController.insertToDatabase("test3","about health","1:\"question1\"/1", "answer1");
     }
 }

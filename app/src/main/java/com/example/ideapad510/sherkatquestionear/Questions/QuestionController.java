@@ -32,4 +32,8 @@ public class QuestionController {
                     "0", "1");
     }
 
+    public ArrayList<QuestionObject> getQuestionsFromQuestionTable1( String start){
+        return db.getQuestionsFromQuestionTable1( start);
+    }
+
 }

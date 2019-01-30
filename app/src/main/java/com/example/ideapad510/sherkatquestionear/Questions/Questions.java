@@ -1,21 +1,13 @@
 package com.example.ideapad510.sherkatquestionear.Questions;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.ideapad510.sherkatquestionear.Questionnaire.Questionnaire;
 import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerController;
 import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerListAdapter;
 import com.example.ideapad510.sherkatquestionear.R;
@@ -30,15 +22,8 @@ public class Questions extends AppCompatActivity{
     private AnswerController answerControler = new AnswerController(this);
     private QuestionController questionControler = new QuestionController(this);
     private ArrayList<QuestionObject> questionObjectArrayList = new ArrayList<>();
-    private ArrayList<QuestionObject> questionObjectArrayListPart1 = new ArrayList<>();
-    private ArrayList<QuestionObject> questionObjectArrayListPart2 = new ArrayList<>();
-    private ArrayList<QuestionObject> questionObjectArrayListPart3 = new ArrayList<>();
-    private ArrayList<QuestionObject> questionObjectArrayListPart4 = new ArrayList<>();
-    private String part1State;
-    private String part2State;
-    private String part3State;
-    private String part4State;
     private int pageNumber = 0;
+    private ArrayList<QuestionListDemandObject> qlda = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -53,11 +38,11 @@ public class Questions extends AppCompatActivity{
         questionTitle = findViewById(R.id.questionTitle);
         part = findViewById(R.id.part);
 
-        getPartsState();
-        findingPartedQuestions();
-        findingRandomPartedQuestions();
-        mergeFoundQuestions();
+//        findingPartedQuestions();
+//        findingRandomPartedQuestions();
+//        mergeFoundQuestions();
 
+        getListOfQuestionTables();
         refreshPage();
         onClickListView();
     }
@@ -68,20 +53,20 @@ public class Questions extends AppCompatActivity{
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //because start of database and list are different
                 position++;
-                showPosDialog(position);
+//                showPosDialog(position);
             }
         });
     }
 
-    private void showPosDialog(int position) {
+/*    private void showPosDialog(int position) {
         FragmentManager fm = getSupportFragmentManager();
         Dialog_Fragment dialog_Fragment = Dialog_Fragment.newInstance(""+ position);
         dialog_Fragment.show(fm, "fragment_edit_name");
     }
+*/
 
 
-
-
+/*
     private void findingPartedQuestions() {
         if (part1State.equals("Y"))
             questionObjectArrayListPart1 = questionControler.getPartedQuestionObjects(1);
@@ -110,7 +95,7 @@ public class Questions extends AppCompatActivity{
         questionObjectArrayList.addAll(questionObjectArrayListPart3);
         questionObjectArrayList.addAll(questionObjectArrayListPart4);
     }
-
+*/
     private void findingAnswers(){
         //this method finds answers that belong to specific question based on
         // question id of question and answer's question id
@@ -140,6 +125,8 @@ public class Questions extends AppCompatActivity{
 
     private void refreshPage(){
         int positionInArray = pageNumber;
+        questionObjectArrayList = getQuestionObjectArrayList(qlda);
+
         part.setText("PART : " + questionObjectArrayList.get(positionInArray).getQuestionPart());
         questionTitle.setText((questionObjectArrayList.get(positionInArray)).getQuestionText());
         findingAnswers();
@@ -168,12 +155,30 @@ public class Questions extends AppCompatActivity{
         }
     }
 */
-    //gets the state of each part for current questionnaire to see if this question needs witch parts of answers
-    private void getPartsState(){
-        part1State = getIntent().getStringExtra("part1");
-        part2State = getIntent().getStringExtra("part2");
-        part3State = getIntent().getStringExtra("part3");
-        part4State = getIntent().getStringExtra("part4");
+    private void getListOfQuestionTables(){
+        String demand = getIntent().getStringExtra("QT");
+        String[] questionTables = demand.split("-");
+        for(String s: questionTables) {
+            String[] s1 = s.split("/");
+            String startPosition = s1[1];
+            String[] s2 = s1[0].split("\"");
+            String questionTableName = s2[1];
+            QuestionListDemandObject qldo = new QuestionListDemandObject(questionTableName, startPosition);
+            qlda.add(qldo);
+        }
+//        System.out.println("the size of qlda: "+qlda.size());
+    }
+
+    private ArrayList<QuestionObject> getQuestionObjectArrayList(ArrayList<QuestionListDemandObject> qlda){
+        ArrayList<QuestionObject> qoa = new ArrayList<>();
+
+        for(QuestionListDemandObject qldo : qlda)
+            switch(qldo.getQuestionTableName()){
+                case QuestionTable1.TABLE_NAME:
+                    qoa.addAll(questionControler.getQuestionsFromQuestionTable1(qldo.getStartPosition()));
+            }
+
+        return qoa;
     }
 
 }
