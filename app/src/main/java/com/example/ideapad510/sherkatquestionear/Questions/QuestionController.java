@@ -18,14 +18,6 @@ public class QuestionController {
         db.insertRowQuestion(question, position, part);
     }
 
-    public ArrayList<QuestionObject> getPartedQuestionObjects(int part){
-        return db.getPartedQuestionObjects(part);
-    }
-
-    public ArrayList<QuestionObject> getRandomQuestionObjects(int part){
-        return db.getRandomPartedQuestionObjects(part);
-    }
-
     public void insertQuestionArray(ArrayList<QuestionAndAnswerObject> array){
         for(int i = 0; i < array.size(); i++)
             insertToDatabase(array.get(i).getQuestion(),

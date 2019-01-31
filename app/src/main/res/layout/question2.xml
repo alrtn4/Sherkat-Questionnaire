@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/DarkGoldenrod">
+
+    <TextView
+        android:id="@+id/part"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rectangle"/>
+
+    <TextView
+        android:id="@+id/questionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_below="@id/part"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="5dp"
+        android:gravity="center"
+        android:background="@drawable/rectangle"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/questionTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/DarkKhaki" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/line2"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/line"
+        android:layout_marginTop="10dp">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:background="@drawable/rectangle">
+
+        </RadioGroup>
+
+    </ScrollView>
+<!--
+        <ListView
+            android:id="@+id/answersList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:layout_marginTop="10dp"
+            android:layout_above="@+id/line2"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            >
+
+
+        </ListView>
+-->
+    <View
+        android:id="@+id/line2"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentStart="true"
+        android:layout_above="@id/buttonBack"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/DarkKhaki" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_background"
+        android:onClick="onBackClicked"/>
+
+    <Button
+        android:id="@+id/buttonForward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forward"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_background"
+        android:onClick="onForwardClicked"/>
+
+
+
+</RelativeLayout>

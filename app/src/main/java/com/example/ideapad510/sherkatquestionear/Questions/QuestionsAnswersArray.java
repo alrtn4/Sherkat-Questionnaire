@@ -7,21 +7,6 @@ public class QuestionsAnswersArray extends ArrayList{
 
     public QuestionsAnswersArray() {
 
-/*
-        for(int i = 0; i <= 18; i++) {
-            questionController.insertToDatabase(getQuestionAndAnswerObjectArrayList().get(i).getQuestion(),
-                    "0", "1");
-        }
-
-        for(int i = 0; i <= 18; i++)
-            for(int j = 0; j <= 9; j++)
-               answerController.insertToDatabase(getQuestionAndAnswerObjectArrayList().get(i).getQuestionId() ,
-                       getQuestionAndAnswerObjectArrayList().get(i).getAnswer().get(j), "0", "0");
-
-
-
-
-*/
         this.add(new QuestionAndAnswerObject("⦁\tعملكرد كارتخوان شرکت پککو به لحاظ سرعت در برقراري ارتباط و خطوط تلفن را چگونه ارزيابي مي\u200Cكنيد؟\n",
                 "1: كاملاً نامناسب" , " 10: كاملاً مناسب" , "1" ));
         this.add(new QuestionAndAnswerObject("⦁\tعملكرد بانک در واريز به موقع مبالغ فروش به حساب شما را چگونه ارزيابي مي\u200Cكنيد؟\n",

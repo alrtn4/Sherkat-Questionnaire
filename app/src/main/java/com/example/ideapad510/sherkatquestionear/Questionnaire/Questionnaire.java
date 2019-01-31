@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.ideapad510.sherkatquestionear.Questions.Questions;
+import com.example.ideapad510.sherkatquestionear.Questions.Questions2;
 import com.example.ideapad510.sherkatquestionear.R;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class Questionnaire extends AppCompatActivity {
         setContentView(R.layout.questionnaire);
 
 //        sampleQuestionnaires();
+
         //get List of porseshnameha
         questionnaires = questionnaireController.getQuestionnaires();
 
@@ -42,7 +44,7 @@ public class Questionnaire extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //because start of database and list are different
                 position++;
-                Intent intent = new Intent(Questionnaire.this,Questions.class);
+                Intent intent = new Intent(Questionnaire.this,Questions2.class);
                 intent.putExtra("QT", questionnaireController.getQuestionnaire(position).getQT());
                 intent.putExtra("AT", questionnaireController.getQuestionnaire(position).getAT());
                 startActivity(intent);

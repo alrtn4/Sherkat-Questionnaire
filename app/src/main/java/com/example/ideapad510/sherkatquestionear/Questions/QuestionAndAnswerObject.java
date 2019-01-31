@@ -21,6 +21,7 @@ public class QuestionAndAnswerObject {
         answers.add(answerStratString);
         for(int i = 2 ; i <=9 ; i++)
             answers.add(String.valueOf(i));
+
         answers.add(answerEndString);
 
         return answers;

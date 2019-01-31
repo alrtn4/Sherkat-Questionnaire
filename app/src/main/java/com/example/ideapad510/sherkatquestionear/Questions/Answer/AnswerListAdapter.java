@@ -25,7 +25,7 @@ public class AnswerListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.listview_row2, null,true);
+        View rowView=inflater.inflate(R.layout.listview_row, null,true);
 
         TextView answersTextField = rowView.findViewById(R.id.row);
 

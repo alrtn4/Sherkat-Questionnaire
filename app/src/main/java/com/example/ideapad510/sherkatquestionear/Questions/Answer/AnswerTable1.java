@@ -1,6 +1,6 @@
 package com.example.ideapad510.sherkatquestionear.Questions.Answer;
 
-public class AnswerTable {
+public class AnswerTable1 {
     public static final String TABLE_NAME = "answer1";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_QUESTION_ID = "questionID";
@@ -24,7 +24,7 @@ public class AnswerTable {
                     + ")";
 
 
-    public AnswerTable(int id, String questionID, String answer, String mode, String position) {
+    public AnswerTable1(int id, String questionID, String answer, String mode, String position) {
         this.id = id;
         this.questionID = questionID;
         this.answer = answer;

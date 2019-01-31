@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.ideapad510.sherkatquestionear.Questionnaire.QuestionnaireTable;
-import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerTable;
+import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerTable1;
 import com.example.ideapad510.sherkatquestionear.Login.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionObject;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionTable1;
@@ -42,7 +42,7 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(LoginTable.CREATE_TABLE);
         db.execSQL(QuestionTable1.CREATE_TABLE);
-        db.execSQL(AnswerTable.CREATE_TABLE);
+        db.execSQL(AnswerTable1.CREATE_TABLE);
         db.execSQL(QuestionnaireTable.CREATE_TABLE);
     }
 
@@ -50,7 +50,7 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + LoginTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionTable1.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + AnswerTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + AnswerTable1.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionnaireTable.TABLE_NAME);
         onCreate(db);
     }
@@ -104,11 +104,11 @@ public class Database extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(AnswerTable.COLUMN_QUESTION_ID, questionID);
-        values.put(AnswerTable.COLUMN_ANSWER, answer);
-        values.put(AnswerTable.COLUMN_MODE, mode);
-        values.put(AnswerTable.COLUMN_POSITION, position);
-        long id = db.insert(AnswerTable.TABLE_NAME, null, values);
+        values.put(AnswerTable1.COLUMN_QUESTION_ID, questionID);
+        values.put(AnswerTable1.COLUMN_ANSWER, answer);
+        values.put(AnswerTable1.COLUMN_MODE, mode);
+        values.put(AnswerTable1.COLUMN_POSITION, position);
+        long id = db.insert(AnswerTable1.TABLE_NAME, null, values);
 
         db.close();
     }
@@ -186,26 +186,24 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-
-
-    public AnswerTable getRowAnswer(long id) {
+    public AnswerTable1 getRowAnswer(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(AnswerTable.TABLE_NAME,
-                new String[]{ AnswerTable.COLUMN_ID, AnswerTable.COLUMN_QUESTION_ID, AnswerTable.COLUMN_ANSWER,
-                        AnswerTable.COLUMN_MODE, AnswerTable.COLUMN_POSITION,},
-                AnswerTable.COLUMN_ID + "=?",
+        Cursor cursor = db.query(AnswerTable1.TABLE_NAME,
+                new String[]{ AnswerTable1.COLUMN_ID, AnswerTable1.COLUMN_QUESTION_ID, AnswerTable1.COLUMN_ANSWER,
+                        AnswerTable1.COLUMN_MODE, AnswerTable1.COLUMN_POSITION,},
+                AnswerTable1.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
-        AnswerTable tableRow = new AnswerTable(
-                cursor.getInt(cursor.getColumnIndex(AnswerTable.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(AnswerTable.COLUMN_QUESTION_ID)),
-                cursor.getString(cursor.getColumnIndex(AnswerTable.COLUMN_ANSWER)),
-                cursor.getString(cursor.getColumnIndex(AnswerTable.COLUMN_MODE)),
-                cursor.getString(cursor.getColumnIndex(AnswerTable.COLUMN_POSITION)));
+        AnswerTable1 tableRow = new AnswerTable1(
+                cursor.getInt(cursor.getColumnIndex(AnswerTable1.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(AnswerTable1.COLUMN_QUESTION_ID)),
+                cursor.getString(cursor.getColumnIndex(AnswerTable1.COLUMN_ANSWER)),
+                cursor.getString(cursor.getColumnIndex(AnswerTable1.COLUMN_MODE)),
+                cursor.getString(cursor.getColumnIndex(AnswerTable1.COLUMN_POSITION)));
 
         cursor.close();
 
@@ -250,7 +248,7 @@ public class Database extends SQLiteOpenHelper {
 
 
     public int getRowsCountAnswer() {
-        String countQuery = "SELECT  * FROM " + AnswerTable.TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + AnswerTable1.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -296,32 +294,6 @@ public class Database extends SQLiteOpenHelper {
         return questions;
     }
 
-    public ArrayList<QuestionObject> getPartedQuestionObjects(int part){
-        ArrayList<QuestionObject> partedQuestions = new ArrayList<>();
-        QuestionObject questionObject;
-        for(int i = 1; i<= getRowsCountQuestion1(); i++){
-            if((getRowQuestion1(i).getPart()).equals(String.valueOf(part))) {
-                questionObject = new QuestionObject(getRowQuestion1(i).getQuestion(), getRowQuestion1(i).getId(),
-                        Integer.valueOf(getRowQuestion1(i).getPart()));
-                partedQuestions.add(questionObject);
-            }
-        }
-        return partedQuestions;
-    }
-
-    public ArrayList<QuestionObject> getRandomPartedQuestionObjects(int part){
-        ArrayList<QuestionObject> partedQuestions = new ArrayList<>();
-        QuestionObject questionObject;
-        for(int i = 1; i<= getRowsCountQuestion1(); i++){
-            if((getRowQuestion1(i).getPart()).equals(String.valueOf(part))) {
-                questionObject = new QuestionObject(getRowQuestion1(i).getQuestion(), getRowQuestion1(i).getId(),
-                        Integer.valueOf(getRowQuestion1(i).getPart()));
-                if(Math.random() > 0.5)
-                     partedQuestions.add(questionObject);
-            }
-        }
-        return partedQuestions;
-    }
 
     public ArrayList<String> getQuestionnaires(){
         ArrayList<String> questionnaires = new ArrayList<>();
@@ -330,13 +302,4 @@ public class Database extends SQLiteOpenHelper {
         return questionnaires;
     }
 
-/*    public void insertQA_ArrayList(SQLiteDatabase db, Context context){
-        InsertQuestionsAnswers insertQuestionsAnswers = new InsertQuestionsAnswers(context);
-        db.execSQL("INSERT INTO " +
-                QuestionTable.TABLE_NAME +
-//                " Values('"+LastName.get(i)+"','"+FirstName.get(i)+"',"+Age.get(i)+");");
-//                " Values('"+insertQuestionsAnswers.getQuestionAndAnswerObjectArrayList().get(i)+"','"+FirstName.get(i)+"',"+Age.get(i)+");");
-
-    }
-*/
 }

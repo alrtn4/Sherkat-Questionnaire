@@ -13,7 +13,6 @@ public class Login extends AppCompatActivity {
 
     private String username;
     private String password;
-//    private EditText editText;
     private LoginController loginControler;
 
     @Override
@@ -22,9 +21,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login);
 
         loginControler = new LoginController(this);
-
-//        ActionBar actionBar = getActionBar();
-//        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.DarkGoldenrod)));
 
 //        sampleUserPass();
     }

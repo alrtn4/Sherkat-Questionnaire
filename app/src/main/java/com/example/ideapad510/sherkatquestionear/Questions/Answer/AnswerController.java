@@ -27,7 +27,7 @@ public class AnswerController {
         return db.getRowsCountAnswer();
     }
 
-    public AnswerTable getRow(int id){
+    public AnswerTable1 getRow(int id){
         return db.getRowAnswer(id);
     }
 
