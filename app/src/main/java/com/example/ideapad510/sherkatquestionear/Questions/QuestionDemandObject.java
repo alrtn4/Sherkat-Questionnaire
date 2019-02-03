@@ -1,11 +1,13 @@
 package com.example.ideapad510.sherkatquestionear.Questions;
 
+//this class is based on QT column of questionnaire table that shows which question tables we need
 
-public class QuestionListDemandObject {
+
+public class QuestionDemandObject {
     private String questionTableName;
     private String startPosition;
 
-    QuestionListDemandObject(String questionTableName, String startPosition){
+    QuestionDemandObject(String questionTableName, String startPosition){
         this.questionTableName = questionTableName;
         this.startPosition = startPosition;
     }

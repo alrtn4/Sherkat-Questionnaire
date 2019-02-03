@@ -10,5 +10,10 @@
     <color name="DarkKhaki">#BDB76B</color>
     <color name="silver">#c0c0c0</color>
     <color name="DarkRed">#8B0000</color>
+    <color name="GoldenRod">#DAA520</color>
+    <color name="Orange">#FFA500</color>
+    <color name="Peru">#CD853F</color>
+    <color name="SaddleBrown">#8B4513</color>
+    <color name="DarkGoldenRod">#B8860B</color>
 
 </resources>

@@ -42,7 +42,7 @@
         android:layout_marginRight="20dp"
         android:background="@color/DarkKhaki" />
 
-<!--
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -57,39 +57,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="right"
-            android:background="@drawable/rectangle">
-
+            android:gravity="end"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            >
 
         </RadioGroup>
 
     </ScrollView>
--->
-<!--    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/line"
-        android:layout_marginTop="10dp"
-        android:layout_above="@id/line2"
-        android:layout_marginBottom="10dp">
--->
-        <ListView
-            android:id="@+id/answersList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/line"
-            android:layout_marginTop="10dp"
-            android:layout_above="@+id/line2"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            >
 
-
-        </ListView>
-
-<!--    </ScrollView>
--->
     <View
         android:id="@+id/line2"
         android:layout_width="fill_parent"
@@ -106,6 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/back"
+        android:textSize="15sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
@@ -118,6 +95,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forward"
+        android:textSize="15sp"
+        android:padding="3dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
@@ -125,6 +104,17 @@
         android:background="@drawable/button_background"
         android:onClick="onForwardClicked"/>
 
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/buttonBack"
+        android:layout_marginBottom="10dp"
+        android:text="DONE"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="1200dp"
+        android:layout_marginStart="120dp"
+        android:background="@drawable/button_background"
+        android:onClick="onDoneClicked"
+        />
 
 </RelativeLayout>

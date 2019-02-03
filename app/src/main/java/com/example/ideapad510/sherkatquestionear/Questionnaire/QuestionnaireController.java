@@ -4,13 +4,14 @@ package com.example.ideapad510.sherkatquestionear.Questionnaire;
 import android.content.Context;
 
 import com.example.ideapad510.sherkatquestionear.Database.Database;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
 
 import java.util.ArrayList;
 
 public class QuestionnaireController {
     private Database db;
 
-    QuestionnaireController(Context context){
+    public QuestionnaireController(Context context){
         db = Database.getInstance(context);
     }
 

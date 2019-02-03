@@ -4,13 +4,14 @@ package com.example.ideapad510.sherkatquestionear.Questions;
 import android.content.Context;
 
 import com.example.ideapad510.sherkatquestionear.Database.Database;
+import com.example.ideapad510.sherkatquestionear.Questions.QuestionAnswerArray.ShortedQuestionAnswerObject;
 
 import java.util.ArrayList;
 
 public class QuestionController {
     private Database db;
 
-    QuestionController(Context context){
+    public QuestionController(Context context){
         db = Database.getInstance(context);
     }
 
@@ -18,7 +19,7 @@ public class QuestionController {
         db.insertRowQuestion(question, position, part);
     }
 
-    public void insertQuestionArray(ArrayList<QuestionAndAnswerObject> array){
+    public void insertQuestionArray(ArrayList<ShortedQuestionAnswerObject> array){
         for(int i = 0; i < array.size(); i++)
             insertToDatabase(array.get(i).getQuestion(),
                     "0", "1");

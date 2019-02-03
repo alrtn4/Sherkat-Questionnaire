@@ -19,8 +19,6 @@ public class QuestionObject {
         return questionId;
     }
 
-    public int getQuestionPart(){
-        return questionPart;
-    }
+    public int getQuestionPart(){ return questionPart;}
 
 }

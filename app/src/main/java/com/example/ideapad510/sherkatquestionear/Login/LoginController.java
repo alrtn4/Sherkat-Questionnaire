@@ -12,8 +12,8 @@ public class LoginController {
         db = Database.getInstance(context);
     }
 
-    public void insertToDatabase(String username, String password){
-        db.insertRowLogin(username,password);
+    public void insertToDatabase(String username, String password, String code){
+        db.insertRowLogin(username,password, code);
     }
 
     public boolean searchInDatabase(String username, String password){

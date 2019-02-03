@@ -1,24 +1,24 @@
-package com.example.ideapad510.sherkatquestionear.Questions;
+package com.example.ideapad510.sherkatquestionear.Questions.QuestionAnswerArray;
 
 
 import java.util.ArrayList;
 
-public class QuestionAndAnswerObject {
+public class ShortedQuestionAnswerObject {
     public String question;
-    public String answerStratString;
+    public String answerStartString;
     public String answerEndString;
     private String questionId;
 
-    QuestionAndAnswerObject(String question, String answerStartString, String answerEndString, String questionId){
+    ShortedQuestionAnswerObject(String question, String answerStartString, String answerEndString, String questionId){
         this.question = question;
-        this.answerStratString = answerStartString;
+        this.answerStartString = answerStartString;
         this.answerEndString = answerEndString;
         this.questionId = questionId;
     }
 
     public ArrayList<String> getAnswer(){
         ArrayList<String> answers = new ArrayList<>();
-        answers.add(answerStratString);
+        answers.add(answerStartString);
         for(int i = 2 ; i <=9 ; i++)
             answers.add(String.valueOf(i));
 
