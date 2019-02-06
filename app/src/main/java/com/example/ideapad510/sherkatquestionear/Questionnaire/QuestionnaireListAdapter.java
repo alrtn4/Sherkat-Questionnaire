@@ -16,7 +16,7 @@ public class QuestionnaireListAdapter extends ArrayAdapter {
     private final ArrayList<String> questionnaireArray;
 
     public QuestionnaireListAdapter(Activity context, ArrayList<String> questionnaireArray){
-        super(context, R.layout.listview_row , questionnaireArray);
+        super(context, R.layout.answerlist_row, questionnaireArray);
 
         this.context=context;
         this.questionnaireArray = questionnaireArray;
@@ -25,7 +25,7 @@ public class QuestionnaireListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.listview_row, null,true);
+        View rowView=inflater.inflate(R.layout.answerlist_row, null,true);
 
         TextView questionnaireTextField = rowView.findViewById(R.id.row);
 

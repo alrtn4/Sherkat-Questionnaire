@@ -11,10 +11,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.ideapad510.sherkatquestionear.Database.Database;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable1;
 import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerController;
 import com.example.ideapad510.sherkatquestionear.R;
 import com.example.ideapad510.sherkatquestionear.Save.Result;
+import com.example.ideapad510.sherkatquestionear.Save.SaveController;
 import com.example.ideapad510.sherkatquestionear.Save.SaveResult;
 
 import java.util.ArrayList;
@@ -32,6 +34,11 @@ public class Question extends Activity {
     private SaveResult saveResult;
 //    RadioGroup radioGroup;
     private int refreshTime = 0;
+    private String username;
+    private SaveController saveController = new SaveController(this);
+    private Chosens chosens = new Chosens(this, username);
+    String porseshnameId;
+
 
 
 
@@ -40,23 +47,27 @@ public class Question extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question);
 
-//        Log.d(TAG, "onCreate: ");
-//        new QuestionController(this).insertQuestionArray(new QuestionsAnswersArray());
-//        new AnswerController(this).insertAnswerArray(new QuestionsAnswersArray());
-
         questionDemandArray = getListOfQuestionTables();
         refreshPage(pageNumber);
 
         //getting username and porseshnameId from last activities and use it for filling savetable for now
-        String username = getIntent().getStringExtra("user");
-        String porseshnameId = getIntent().getStringExtra("porseshnameId");
-        Log.d(TAG, " porseshname id is "+porseshnameId);
-        Log.d(TAG, "user is "+username);
+        username = getIntent().getStringExtra("user");
+        porseshnameId = getIntent().getStringExtra("porseshnameId");
         saveResult = new SaveResult(this, porseshnameId, username);
 
-//        radioGroup = findViewById(R.id.radioGroup);
+        Database db = Database.getInstance(this);
+//        db.deletSingleRowSaveTable(1);
+//        db.deletSingleRowSaveTable(2);
+//        db.deletSingleRowSaveTable(3);
 
-//        checkedListener();
+        Log.d(TAG, "onCreate: ");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        refreshPage(pageNumber);
     }
 
 
@@ -89,47 +100,48 @@ public class Question extends Activity {
     }
 
     public  void onDoneClicked(View view){
-//        Log.d(TAG, "is saved to data base or not ");
-        saveResult.saveToDatabase();
+//        saveResult.saveToDatabase();
         Intent intent = new Intent(Question.this, Result.class);
+        intent.putExtra("user",username);
         startActivity(intent);
     }
 
     private void refreshPage(int positionInQuestionLIST){
         setContentView(R.layout.question);
-//        radioGroup = findViewById(R.id.radioGroup);
         refreshTime++;
         checkedListener();
 
         questionText = findViewById(R.id.questionTitle);
         partNumberText = findViewById(R.id.part);
 
-//        questionObjectArray = getQuestionArray(questionDemandArray);
         questionObjectArray = getQuestionArray(getListOfQuestionTables());
 
         partNumberText.setText("PART : " + questionObjectArray.get(positionInQuestionLIST).getQuestionPart());
-        questionText.setText((questionObjectArray.get(positionInQuestionLIST)).getQuestionText());
+        questionText.setText((pageNumber+1)+" : "+(questionObjectArray.get(positionInQuestionLIST)).getQuestionText());
         findingAnswers();
         addRadioButtons(answers.size());
 
     }
 
     public void addRadioButtons(int number) {
-        RadioGroup ll = findViewById(R.id.radioGroup);
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        SaveController saveController = new SaveController(this);
 
         for (int i = 1; i <= number; i++) {
             RadioButton rdbtn = new RadioButton(this);
-                rdbtn.setId(View.generateViewId());
-//                rdbtn.setScaleX((float)0.5);
-//                rdbtn.setScaleY((float)0.5);
+                rdbtn.setId(i);
             rdbtn.setTextSize(15);
             RadioGroup.LayoutParams lp = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
             rdbtn.setLayoutParams(lp);
-//            rdbtn.getLayoutParams().width = RadioGroup.LayoutParams.MATCH_PARENT;
-            rdbtn.setBackgroundResource(R.drawable.rectangle);
+            if(saveController.isAnswerSelected(pageNumber+1, i, username)) {
+                rdbtn.setBackgroundResource(R.drawable.rectangle2);
+//                Log.d(TAG, "radio button is chosed "+i);
+            }
+            else
+                rdbtn.setBackgroundResource(R.drawable.rectangle);
             rdbtn.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
             rdbtn.setText(answers.get(i - 1));
-            ll.addView(rdbtn);
+            radioGroup.addView(rdbtn);
         }
     }
 /*
@@ -183,21 +195,67 @@ public class Question extends Activity {
 
     private void checkedListener(){
 //        Log.d(TAG, "checkedListener is working");
-        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        final RadioGroup radioGroup = findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 //using pagenumber as questionId
-                String questionId = String.valueOf(pageNumber);
-                //every time screen refreshes checkedId increases by ten even if we go back in pages
-                //so this temporary formula solves the problem
-                checkedId = checkedId - 10 * (refreshTime - 1);
-                String answerId = String.valueOf( pageNumber * 10 + checkedId);
-                saveResult.addToArray(questionId, answerId);
-                Log.d(TAG, "is added to array "+ questionId+" "+answerId);
+                String questionId = String.valueOf(pageNumber+1);
+                String answerId = String.valueOf( checkedId);
+//                if(!chosens.isChosen(pageNumber+1, checkedId, username)) {
+                    saveResult.saveToDatabase(questionId, answerId);
+                    refreshPage(pageNumber);
+                    Log.d(TAG, "onCheckedChanged: answer is chosen "+answerId);
+//                }
+//                deletSelectedTwice(checkedId);
+//                Log.d(TAG, "id of selected answer is "+
+//                        saveController.idOfselectedAnswer(pageNumber+1,checkedId,username,porseshnameId));
+//                 if(chosens.isChosen(pageNumber+1 , checkedId , username)){
+//                    RadioButton rdbtn = findViewById(checkedId);
+//                    rdbtn.setBackgroundResource(R.drawable.rectangle);
+                    long idOfSelectedAnswer = saveController.idOfselectedAnswer(pageNumber+1,
+                            checkedId,username,porseshnameId);
+//                    saveController.deleteSelectedAnswer(idOfSelectedAnswer);
+//                    saveController.deleteSelectedAnswer(1);
+
+//                    refreshPage(pageNumber);
+                    Log.d(TAG, "onCheckedChanged: answer is not chosen " + idOfSelectedAnswer);
+//                }
+
             }
         });
 
     }
+/*
+    private boolean isChosenBefore(RadioGroup rg){
+//        SaveController svctl = new SaveController(this);
+        int selectedId = rg . getCheckedRadioButtonId();
+        Log.d(TAG, "checked button is : "+selectedId);
+        RadioButton rb = findViewById(selectedId);
+//        rb.setBackgroundResource(R.drawable.rectangle);
+        Log.d(TAG, "background is "+rb.getBackground().getConstantState());
+        Log.d(TAG, "drawable is  "+getResources().getDrawable(R.drawable.rectangle2).getConstantState());
+//        if( (rb.getBackground().getConstantState()).equals(getResources().getDrawable(R.drawable.rectangle2).getConstantState()))
+        if( (rb.getBackground()).equals(getResources().getDrawable(R.drawable.rectangle2)))
+            Log.d(TAG, " the button is blue");
+        return true;
+    }
+*/
+    //this method delets the answer that is selected twice in a row i.e. we can delete a choice by choicing it again
+    private void deletSelectedTwice(int checkedId){
+                if(chosens.isChosen(pageNumber+1 , checkedId , username)){
+//            Log.d(TAG, "chosen checked ");
+        //        if(chosens.isChosen(pageNumber+1 , checkedId , username)){
+            RadioButton rdbtn = findViewById(checkedId);
+            rdbtn.setBackgroundResource(R.drawable.rectangle);
+//            long idOfSelectedAnswerInSaveTable = saveController.idOfselectedAnswer(pageNumber+1,
+//                    checkedId,username,porseshnameId);
+//                    Log.d(TAG, "id of answer is  "+idOfSelectedAnswerInSaveTable);
+//            saveController.deleteSelectedAnswer(idOfSelectedAnswerInSaveTable);
+//            saveController.deleteSelectedAnswer(2);
+                }
+
+    }
+
 }

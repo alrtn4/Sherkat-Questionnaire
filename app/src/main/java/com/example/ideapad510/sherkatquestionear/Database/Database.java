@@ -11,7 +11,7 @@ import android.util.Log;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.LogTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.AnswerTable1;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.UserTable;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.n1001_a;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.n1001_q;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.n2001_a;
@@ -52,26 +52,26 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(UserTable.CREATE_TABLE);
+        db.execSQL(LoginTable.CREATE_TABLE);
         db.execSQL(QuestionTable1.CREATE_TABLE);
         db.execSQL(AnswerTable1.CREATE_TABLE);
         db.execSQL(QuestionnaireTable.CREATE_TABLE);
         db.execSQL(SaveTable.CREATE_TABLE);
-        db.execSQL(LogTable.CREATE_TABLE);
-        db.execSQL(n1001_a.CREATE_TABLE);
-        db.execSQL(n2001_a.CREATE_TABLE);
-        db.execSQL(n3001_a.CREATE_TABLE);
-        db.execSQL(n1001_q.CREATE_TABLE);
-        db.execSQL(n2001_q.CREATE_TABLE);
-        db.execSQL(n3001_q.CREATE_TABLE);
-        db.execSQL(qlcode_r.CREATE_TABLE);
-        db.execSQL(qlcode_t.CREATE_TABLE);
-        db.execSQL(qlTable.CREATE_TABLE);
+//        db.execSQL(LogTable.CREATE_TABLE);
+//        db.execSQL(n1001_a.CREATE_TABLE);
+//        db.execSQL(n2001_a.CREATE_TABLE);
+//        db.execSQL(n3001_a.CREATE_TABLE);
+//        db.execSQL(n1001_q.CREATE_TABLE);
+//        db.execSQL(n2001_q.CREATE_TABLE);
+//        db.execSQL(n3001_q.CREATE_TABLE);
+//        db.execSQL(qlcode_r.CREATE_TABLE);
+//        db.execSQL(qlcode_t.CREATE_TABLE);
+//        db.execSQL(qlTable.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + LoginTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionTable1.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + AnswerTable1.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionnaireTable.TABLE_NAME);
@@ -85,10 +85,10 @@ public class Database extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(UserTable.jmr_user, username);
-        values.put(UserTable.jmr_pass, password);
-        values.put(UserTable.jmr_code, code);
-        db.insert(UserTable.TABLE_NAME, null, values);
+        values.put(LoginTable.jmr_user, username);
+        values.put(LoginTable.jmr_pass, password);
+        values.put(LoginTable.jmr_code, code);
+        db.insert(LoginTable.TABLE_NAME, null, values);
 
         db.close();
     }
@@ -120,7 +120,7 @@ public class Database extends SQLiteOpenHelper {
 
         db.close();
 
-        System.out.println("something added to db");
+//        System.out.println("something added to db");
     }
 
 
@@ -154,6 +154,8 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
+
+/*
     public void insertRowLogTable(String Jmr_code, String Time, String Column_do) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -312,24 +314,24 @@ public class Database extends SQLiteOpenHelper {
 
         db.close();
     }
-
-    private UserTable getRowLogin(long id) {
+*/
+    private LoginTable getRowLogin(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(UserTable.TABLE_NAME,
-                new String[]{ UserTable.jmr_user, UserTable.jmr_pass, UserTable.jmr_code,
-                        UserTable.COLUMN_ID},
-                UserTable.COLUMN_ID + "=?",
+        Cursor cursor = db.query(LoginTable.TABLE_NAME,
+                new String[]{ LoginTable.jmr_user, LoginTable.jmr_pass, LoginTable.jmr_code,
+                        LoginTable.COLUMN_ID},
+                LoginTable.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
-        UserTable tableRow = new UserTable(
-                cursor.getString(cursor.getColumnIndex(UserTable.jmr_user)),
-                cursor.getString(cursor.getColumnIndex(UserTable.jmr_pass)),
-                cursor.getString(cursor.getColumnIndex(UserTable.jmr_code)),
-                cursor.getInt(cursor.getColumnIndex(UserTable.COLUMN_ID)));
+        LoginTable tableRow = new LoginTable(
+                cursor.getString(cursor.getColumnIndex(LoginTable.jmr_user)),
+                cursor.getString(cursor.getColumnIndex(LoginTable.jmr_pass)),
+                cursor.getString(cursor.getColumnIndex(LoginTable.jmr_code)),
+                cursor.getInt(cursor.getColumnIndex(LoginTable.COLUMN_ID)));
 
         cursor.close();
 
@@ -417,6 +419,10 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public SaveTable getRowSave(long id) {
+//        if(id==0)
+//            id++;
+//        Log.d(TAG, " id is  "+id);
+
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(SaveTable.TABLE_NAME,
@@ -425,20 +431,26 @@ public class Database extends SQLiteOpenHelper {
                 SaveTable.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
-        if (cursor != null)
-            cursor.moveToFirst();
+        SaveTable tableRow = null;
 
-        SaveTable tableRow = new SaveTable(
-                cursor.getInt(cursor.getColumnIndex(SaveTable.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_QUESTION_ID)),
-                cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_ANSWER_ID)),
-                cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_PORSESHNAME_ID)),
-                cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_USER)));
+        if (cursor != null)
+            if(cursor.moveToFirst()) {
+                Log.d(TAG, "getRowSave: cursor is not null");
+
+                 tableRow = new SaveTable(
+                        cursor.getInt(cursor.getColumnIndex(SaveTable.COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_QUESTION_ID)),
+                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_ANSWER_ID)),
+                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_PORSESHNAME_ID)),
+                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_USER)));
+
+           }
         cursor.close();
+//        Log.d(TAG, "getRowSave: table row is null "+(tableRow == null));
 
         return tableRow;
     }
-
+/*
     public LogTable getLogTable(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -531,7 +543,7 @@ public class Database extends SQLiteOpenHelper {
 
         return tableRow;
     }
-
+*/
     private int getRowsCount(String tableName) {
         String countQuery = "SELECT  * FROM " + tableName;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -557,7 +569,7 @@ public class Database extends SQLiteOpenHelper {
 
 
     private int getRowsCountLogin() {
-        String countQuery = "SELECT  * FROM " + UserTable.TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + LoginTable.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -614,8 +626,8 @@ private int getRowsCountQuestion1() {
 
     public boolean searchInDatabaseLogin2(String username, String password){
         Log.d(TAG, "searchInDatabaseLogin2: "+username+" "+password);
-        String searchQuery = " SELECT * FROM " + UserTable.TABLE_NAME + " WHERE " +
-                UserTable.jmr_user +" = "+ username +" AND " + UserTable.jmr_pass + " = "+ password;
+        String searchQuery = " SELECT * FROM " + LoginTable.TABLE_NAME + " WHERE " +
+                LoginTable.jmr_user +" = "+ username +" AND " + LoginTable.jmr_pass + " = "+ password;
         SQLiteDatabase db = this.getReadableDatabase();
         Log.d(TAG, "searchInDatabaseLogin2: "+searchQuery);
         Cursor cursor = db.rawQuery(searchQuery, null);
@@ -646,15 +658,73 @@ private int getRowsCountQuestion1() {
         return questionnaires;
     }
 
-    public ArrayList<SaveObject> getAllSaves(){
+    public ArrayList<SaveObject> getAllSaves(String user){
         ArrayList<SaveObject> array = new ArrayList<>();
         for(int i = 1; i <= getRowsCountSave(); i++){
-            SaveTable st = getRowSave(i);
-            SaveObject saveObject = new SaveObject(st.getColumnQuestionId(), st.getColumnAnswerId(),
-                    st.getColumnPorseshnameId(), st.getColumnUser());
-            array.add(saveObject);
+//        for(int i = 1; i <=7 ; i++){
+//            Log.d(TAG, "row count save "+getRowsCountSave());
+//            Log.d(TAG, " i is  "+i);
+            SaveTable svtbl = getRowSave(i);
+//            Log.d(TAG, "svtbl is null "+ (svtbl==null));
+            SaveObject saveObject = null;
+            if(svtbl != null) {
+                saveObject = new SaveObject(svtbl.getColumnQuestionId(), svtbl.getColumnAnswerId(),
+                        svtbl.getColumnPorseshnameId(), svtbl.getColumnUser());
+
+                if (saveObject.getUser().equals(user))
+                    array.add(saveObject);
+            }
         }
         return array;
     }
 
+    public void deletSingleRowSaveTable(long id){
+        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(SaveTable.TABLE_NAME, SaveTable.COLUMN_ID + " = " + id, null);
+
+//        String DeleteQuery = "DELETE * FROM " + SaveTable.TABLE_NAME ;
+//        String DeleteQuery = "DELETE FROM " + SaveTable.TABLE_NAME ;
+//        String DeleteQuery = "";
+//        String DeleteQuery = "DELETE FROM " + SaveTable.TABLE_NAME +" WHERE "+ SaveTable.COLUMN_ID +" = "+id;
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(DeleteQuery, null);
+
+//       cursor.close();
+            try {
+                db.execSQL("DELETE FROM  saveResult" + " WHERE id="
+                        + id + ";");
+                Log.d(TAG, "deletSingleRowSaveTable:  this id is deleted "+id);
+            } catch (Exception e) {
+                Log.d(TAG, "deletSingleRowSaveTable: is has a exception"+ e);
+            }
+
+    }
+
+    public long getIdOfSelectedAnswer(String porseshnameId, String username, String questionId, String answerId){
+//        Log.d(TAG, "searchInDatabaseLogin2: "+username+" "+password);
+        String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
+                SaveTable.COLUMN_PORSESHNAME_ID +" = '"+ porseshnameId +"' AND " + SaveTable.COLUMN_USER + " = '"+ username
+                +"' AND "+ SaveTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "+ SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' ;";
+//        String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
+//                SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId +"' ;";
+//        String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
+//                SaveTable.COLUMN_PORSESHNAME_ID +" = "+ porseshnameId +" AND " + SaveTable.COLUMN_USER + " = "+ username
+//                +" AND "+ SaveTable.COLUMN_QUESTION_ID+ " = "+ questionId+ " AND "+ SaveTable.COLUMN_ANSWER_ID +" = "+ answerId+" ;";
+        SQLiteDatabase db = this.getReadableDatabase();
+//        Log.d(TAG, "searchInDatabaseLogin2: "+searchQuery);
+
+        Cursor cursor = db.rawQuery(searchQuery, null);
+        long id = -1;
+        if(cursor != null && cursor.moveToFirst()) {
+//        long id=0;
+//        if(cursor !=null && cursor.moveToFirst())
+//        Log.d(TAG, "searchInDatabaseLogin2: " + (cursor == null));
+            id = cursor.getLong(cursor.getColumnIndex(SaveTable.COLUMN_ID));
+
+//        Log.d(TAG, "searchInDatabaseLogin2: " +count);
+            cursor.close();
+        }
+        return id ;
+
+    }
 }

@@ -32,8 +32,10 @@ public class Result extends Activity{
         saveObject = new SaveObject("1", "2", "3", "4");
         saveObjectArrayList.add(saveObject);
 */
+        String user = getIntent().getStringExtra("user");
+
         listView = findViewById(R.id.resultList);
-        SaveListAdapter saveListAdapter = new SaveListAdapter(this, saveController.getAllSaves());
+        SaveListAdapter saveListAdapter = new SaveListAdapter(this, saveController.getAllSaves(user));
 //        SaveListAdapter saveListAdapter = new SaveListAdapter(this, saveObjectArrayList);
         listView.setAdapter(saveListAdapter);
     }

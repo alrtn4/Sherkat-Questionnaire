@@ -7,6 +7,7 @@ public class SaveTable {
     public static final String COLUMN_QUESTION_ID = "questionId";
     public static final String COLUMN_ANSWER_ID = "answerId";
     public static final String COLUMN_PORSESHNAME_ID = "porseshnameId";
+    public static final String DELETE = "delete";
     public static final String COLUMN_USER = "user";
 
 

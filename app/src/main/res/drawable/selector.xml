@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+    <item android:drawable="@android:color/holo_green_light" android:state_checked="true"/>
+-->
+    <item android:state_pressed="true" android:color="#0f0"/>
+    <item android:state_checked="true" android:color="#fff"/>
+    <item android:color="#00f"/>
+
+
+    <!--
+        <item android:drawable="@color/color2" android:state_pressed="true"/>
+        <item android:drawable="@color/color1" android:state_checked="false"/>
+    -->
+
+</selector>

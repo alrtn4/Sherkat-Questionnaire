@@ -1,6 +1,6 @@
 package com.example.ideapad510.sherkatquestionear.Database.Tables;
 
-public class UserTable {
+public class LoginTable {
     public static final String TABLE_NAME = "userpass";
     public static final String COLUMN_ID = "id";
     public static final String jmr_user = "username";
@@ -21,7 +21,7 @@ public class UserTable {
                     + ")";
 
 
-    public UserTable(String user, String pass, String code, int id) {
+    public LoginTable(String user, String pass, String code, int id) {
         this.id = id;
         this.username = user;
         this.password = pass;
