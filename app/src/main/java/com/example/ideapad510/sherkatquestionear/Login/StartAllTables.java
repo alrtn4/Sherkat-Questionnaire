@@ -42,8 +42,8 @@ public class StartAllTables {
     }
 
     private void sampleResults(){
-        saveController.insertToDatabase("1","2","3","1");
-        saveController.insertToDatabase("1","3","3","1");
-        saveController.insertToDatabase("1","4","3","1");
+        saveController.insertToDatabase("1","2","3","1" ,"false");
+        saveController.insertToDatabase("1","3","3","1", "false");
+        saveController.insertToDatabase("1","4","3","1", "false");
     }
 }

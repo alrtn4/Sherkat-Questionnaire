@@ -138,7 +138,7 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void insertRowSave(String questionID, String answerId, String porseshnameId, String user) {
+    public void insertRowSave(String questionID, String answerId, String porseshnameId, String user, String delete) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -147,7 +147,9 @@ public class Database extends SQLiteOpenHelper {
         values.put(SaveTable.COLUMN_ANSWER_ID, answerId);
         values.put(SaveTable.COLUMN_PORSESHNAME_ID, porseshnameId);
         values.put(SaveTable.COLUMN_USER, user);
-        db.insert(SaveTable.TABLE_NAME, null, values);
+        values.put(SaveTable.DELETE, delete);
+        if(searchInSave(porseshnameId, user, questionID, answerId))
+            db.insert(SaveTable.TABLE_NAME, null, values);
 
         Log.d(TAG, " porseshname id is "+ porseshnameId);
 
@@ -427,7 +429,7 @@ public class Database extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(SaveTable.TABLE_NAME,
                 new String[]{ SaveTable.COLUMN_ID, SaveTable.COLUMN_QUESTION_ID, SaveTable.COLUMN_ANSWER_ID,
-                        SaveTable.COLUMN_PORSESHNAME_ID, SaveTable.COLUMN_USER},
+                        SaveTable.COLUMN_PORSESHNAME_ID, SaveTable.COLUMN_USER, SaveTable.DELETE},
                 SaveTable.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -435,14 +437,15 @@ public class Database extends SQLiteOpenHelper {
 
         if (cursor != null)
             if(cursor.moveToFirst()) {
-                Log.d(TAG, "getRowSave: cursor is not null");
+//                Log.d(TAG, "getRowSave: cursor is not null");
 
                  tableRow = new SaveTable(
                         cursor.getInt(cursor.getColumnIndex(SaveTable.COLUMN_ID)),
                         cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_QUESTION_ID)),
                         cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_ANSWER_ID)),
                         cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_PORSESHNAME_ID)),
-                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_USER)));
+                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_USER)),
+                        cursor.getString(cursor.getColumnIndex(SaveTable.DELETE)));
 
            }
         cursor.close();
@@ -627,7 +630,7 @@ private int getRowsCountQuestion1() {
     public boolean searchInDatabaseLogin2(String username, String password){
         Log.d(TAG, "searchInDatabaseLogin2: "+username+" "+password);
         String searchQuery = " SELECT * FROM " + LoginTable.TABLE_NAME + " WHERE " +
-                LoginTable.jmr_user +" = "+ username +" AND " + LoginTable.jmr_pass + " = "+ password;
+                LoginTable.jmr_user +" = '"+ username +"' AND " + LoginTable.jmr_pass + " = '"+ password+ "' ;";
         SQLiteDatabase db = this.getReadableDatabase();
         Log.d(TAG, "searchInDatabaseLogin2: "+searchQuery);
         Cursor cursor = db.rawQuery(searchQuery, null);
@@ -669,9 +672,11 @@ private int getRowsCountQuestion1() {
             SaveObject saveObject = null;
             if(svtbl != null) {
                 saveObject = new SaveObject(svtbl.getColumnQuestionId(), svtbl.getColumnAnswerId(),
-                        svtbl.getColumnPorseshnameId(), svtbl.getColumnUser());
+                        svtbl.getColumnPorseshnameId(), svtbl.getColumnUser(), svtbl.getDelete());
 
                 if (saveObject.getUser().equals(user))
+//                    if(saveObject.getDelete().equals("saved"))
+//                    if((saveObject.getDelete().equals("false")) | (saveObject.getDelete().equals("true")))
                     array.add(saveObject);
             }
         }
@@ -701,30 +706,59 @@ private int getRowsCountQuestion1() {
     }
 
     public long getIdOfSelectedAnswer(String porseshnameId, String username, String questionId, String answerId){
-//        Log.d(TAG, "searchInDatabaseLogin2: "+username+" "+password);
         String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
                 SaveTable.COLUMN_PORSESHNAME_ID +" = '"+ porseshnameId +"' AND " + SaveTable.COLUMN_USER + " = '"+ username
                 +"' AND "+ SaveTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "+ SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' ;";
-//        String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
-//                SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId +"' ;";
-//        String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
-//                SaveTable.COLUMN_PORSESHNAME_ID +" = "+ porseshnameId +" AND " + SaveTable.COLUMN_USER + " = "+ username
-//                +" AND "+ SaveTable.COLUMN_QUESTION_ID+ " = "+ questionId+ " AND "+ SaveTable.COLUMN_ANSWER_ID +" = "+ answerId+" ;";
         SQLiteDatabase db = this.getReadableDatabase();
-//        Log.d(TAG, "searchInDatabaseLogin2: "+searchQuery);
 
         Cursor cursor = db.rawQuery(searchQuery, null);
         long id = -1;
         if(cursor != null && cursor.moveToFirst()) {
-//        long id=0;
-//        if(cursor !=null && cursor.moveToFirst())
-//        Log.d(TAG, "searchInDatabaseLogin2: " + (cursor == null));
             id = cursor.getLong(cursor.getColumnIndex(SaveTable.COLUMN_ID));
 
-//        Log.d(TAG, "searchInDatabaseLogin2: " +count);
             cursor.close();
         }
         return id ;
 
     }
+
+    public void setSavedToDelete(String id) {
+        int idd = Integer.valueOf(id);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(SaveTable.DELETE, "deleted"); //These Fields should be your String values of actual column names
+        db.update(SaveTable.TABLE_NAME, cv, "id=" + id, null);
+        Log.d(TAG, "setSavedToDelete: answer is set to delet : " + getRowSave(idd).getDelete());
+    }
+
+    public void setSavedToSaved(String id) {
+        int idd = Integer.valueOf(id);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(SaveTable.DELETE, "saved"); //These Fields should be your String values of actual column names
+        db.update(SaveTable.TABLE_NAME, cv, "id=" + id, null);
+        Log.d(TAG, "setSavedToDelete: answer is set to delet : " + getRowSave(idd).getDelete());
+    }
+
+    private boolean searchInSave(String porseshnameId, String username, String questionId, String answerId){
+        String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
+                SaveTable.COLUMN_PORSESHNAME_ID +" = '"+ porseshnameId +"' AND " + SaveTable.COLUMN_USER + " = '"+ username
+                +"' AND "+ SaveTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "+ SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' ;";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(searchQuery, null);
+        long cunt = -1;
+        if(cursor != null && cursor.moveToFirst()) {
+            cunt = cursor.getCount();
+
+            cursor.close();
+        }
+
+        if(cunt>=1)
+            return false;
+        return true ;
+
+    }
+
+
 }

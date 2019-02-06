@@ -20,8 +20,8 @@ public class SaveController {
         db = Database.getInstance(context);
     }
 
-    public void insertToDatabase(String questionId, String answerId, String porseshnameId, String user){
-        db.insertRowSave(questionId, answerId, porseshnameId, user);
+    public void insertToDatabase(String questionId, String answerId, String porseshnameId, String user, String delete){
+        db.insertRowSave(questionId, answerId, porseshnameId, user, delete);
     }
 
     public SaveTable getRowSave(int id){
@@ -60,4 +60,13 @@ public class SaveController {
     public void deleteSelectedAnswer(long id){
         db.deletSingleRowSaveTable(id);
     }
+
+    public void setSaveToDelete(long id){
+        db.setSavedToDelete(String.valueOf(id));
+    }
+
+    public void setSaveToSaved(long id){
+        db.setSavedToSaved(String.valueOf(id));
+    }
+
 }

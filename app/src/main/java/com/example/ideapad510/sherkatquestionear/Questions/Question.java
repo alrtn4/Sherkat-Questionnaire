@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.ideapad510.sherkatquestionear.Database.Database;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable1;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.SaveTable;
 import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerController;
 import com.example.ideapad510.sherkatquestionear.R;
 import com.example.ideapad510.sherkatquestionear.Save.Result;
@@ -38,6 +39,7 @@ public class Question extends Activity {
     private SaveController saveController = new SaveController(this);
     private Chosens chosens = new Chosens(this, username);
     String porseshnameId;
+    Database db = Database.getInstance(this);
 
 
 
@@ -126,6 +128,7 @@ public class Question extends Activity {
     public void addRadioButtons(int number) {
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
         SaveController saveController = new SaveController(this);
+        Chosens chosens =new Chosens(this, username);
 
         for (int i = 1; i <= number; i++) {
             RadioButton rdbtn = new RadioButton(this);
@@ -133,10 +136,11 @@ public class Question extends Activity {
             rdbtn.setTextSize(15);
             RadioGroup.LayoutParams lp = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
             rdbtn.setLayoutParams(lp);
-            if(saveController.isAnswerSelected(pageNumber+1, i, username)) {
-                rdbtn.setBackgroundResource(R.drawable.rectangle2);
-//                Log.d(TAG, "radio button is chosed "+i);
-            }
+        //    if(saveController.isAnswerSelected(pageNumber+1, i, username)  &
+                if(    chosens.isChosen(pageNumber+1, i, username).equals("saved")) {
+                    rdbtn.setBackgroundResource(R.drawable.rectangle2);
+//                    Log.d(TAG, "radio button is chosed " + i);
+                }
             else
                 rdbtn.setBackgroundResource(R.drawable.rectangle);
             rdbtn.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -144,22 +148,6 @@ public class Question extends Activity {
             radioGroup.addView(rdbtn);
         }
     }
-/*
-    private void getListOfQuestionTables(){
-        String demand = getIntent().getStringExtra("QT");
-        String[] questionTables = demand.split("-");
-        for(String s: questionTables) {
-            String[] s1 = s.split("/");
-            String startPosition = s1[1];
-
-            String[] s2 = s1[0].split("\"");
-            String questionTableName = s2[1];
-
-            QuestionDemandObject questionDemand = new QuestionDemandObject(questionTableName, startPosition);
-            questionDemandArray.add(questionDemand);
-        }
-    }
-*/
 
     private ArrayList<QuestionDemandObject> getListOfQuestionTables(){
         ArrayList<QuestionDemandObject> questionDemandArray = new ArrayList<>();
@@ -203,58 +191,35 @@ public class Question extends Activity {
                 //using pagenumber as questionId
                 String questionId = String.valueOf(pageNumber+1);
                 String answerId = String.valueOf( checkedId);
-//                if(!chosens.isChosen(pageNumber+1, checkedId, username)) {
-                    saveResult.saveToDatabase(questionId, answerId);
+                if(chosens.isChosen(pageNumber+1, checkedId, username).equals("empty")) {
+                    saveResult.saveToDatabase(questionId, answerId , "saved");
                     refreshPage(pageNumber);
-                    Log.d(TAG, "onCheckedChanged: answer is chosen "+answerId);
-//                }
-//                deletSelectedTwice(checkedId);
-//                Log.d(TAG, "id of selected answer is "+
-//                        saveController.idOfselectedAnswer(pageNumber+1,checkedId,username,porseshnameId));
-//                 if(chosens.isChosen(pageNumber+1 , checkedId , username)){
-//                    RadioButton rdbtn = findViewById(checkedId);
-//                    rdbtn.setBackgroundResource(R.drawable.rectangle);
+                    Log.d(TAG, "onCheckedChanged: answer is not chosen "+answerId+ "   empty and now new to database");
+                }
+                else if (chosens.isChosen(pageNumber+1, checkedId, username).equals("deleted")) {
                     long idOfSelectedAnswer = saveController.idOfselectedAnswer(pageNumber+1,
                             checkedId,username,porseshnameId);
-//                    saveController.deleteSelectedAnswer(idOfSelectedAnswer);
-//                    saveController.deleteSelectedAnswer(1);
-
-//                    refreshPage(pageNumber);
-                    Log.d(TAG, "onCheckedChanged: answer is not chosen " + idOfSelectedAnswer);
-//                }
+                    saveController.setSaveToSaved(idOfSelectedAnswer);
+                    refreshPage(pageNumber);
+                    Log.d(TAG, "onCheckedChanged: answerid ="
+                            +answerId +" listid is "+idOfSelectedAnswer + "   deleted and now savedd  " +
+                            saveController.getAllSaves(username).get((int)idOfSelectedAnswer - 1).getDelete() +" chosen is "+
+                            chosens.isChosen(pageNumber+1, checkedId, username) );
+                }
+                else if(chosens.isChosen(pageNumber+1 , checkedId , username).equals("saved")){
+                    long idOfSelectedAnswer = saveController.idOfselectedAnswer(pageNumber+1,
+                            checkedId,username,porseshnameId);
+//                    saveController.setSaveToDelete(idOfSelectedAnswer);
+                    db.setSavedToDelete(String.valueOf(idOfSelectedAnswer));
+                    refreshPage(pageNumber);
+                    Log.d(TAG, "answer id  " + answerId +" rowid "+ idOfSelectedAnswer+ "  saved and now deleted "+
+//                            saveController.getAllSaves(username).get((int)idOfSelectedAnswer - 1).getDelete() +" chosen is "+
+                            chosens.isChosen(pageNumber+1, checkedId , username) +
+                            "   row is "+db.getRowSave(idOfSelectedAnswer).getDelete());
+                }
 
             }
         });
-
-    }
-/*
-    private boolean isChosenBefore(RadioGroup rg){
-//        SaveController svctl = new SaveController(this);
-        int selectedId = rg . getCheckedRadioButtonId();
-        Log.d(TAG, "checked button is : "+selectedId);
-        RadioButton rb = findViewById(selectedId);
-//        rb.setBackgroundResource(R.drawable.rectangle);
-        Log.d(TAG, "background is "+rb.getBackground().getConstantState());
-        Log.d(TAG, "drawable is  "+getResources().getDrawable(R.drawable.rectangle2).getConstantState());
-//        if( (rb.getBackground().getConstantState()).equals(getResources().getDrawable(R.drawable.rectangle2).getConstantState()))
-        if( (rb.getBackground()).equals(getResources().getDrawable(R.drawable.rectangle2)))
-            Log.d(TAG, " the button is blue");
-        return true;
-    }
-*/
-    //this method delets the answer that is selected twice in a row i.e. we can delete a choice by choicing it again
-    private void deletSelectedTwice(int checkedId){
-                if(chosens.isChosen(pageNumber+1 , checkedId , username)){
-//            Log.d(TAG, "chosen checked ");
-        //        if(chosens.isChosen(pageNumber+1 , checkedId , username)){
-            RadioButton rdbtn = findViewById(checkedId);
-            rdbtn.setBackgroundResource(R.drawable.rectangle);
-//            long idOfSelectedAnswerInSaveTable = saveController.idOfselectedAnswer(pageNumber+1,
-//                    checkedId,username,porseshnameId);
-//                    Log.d(TAG, "id of answer is  "+idOfSelectedAnswerInSaveTable);
-//            saveController.deleteSelectedAnswer(idOfSelectedAnswerInSaveTable);
-//            saveController.deleteSelectedAnswer(2);
-                }
 
     }
 

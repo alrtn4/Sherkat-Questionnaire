@@ -40,8 +40,8 @@ public class SaveResult {
 
     }
 */
-    public void saveToDatabase(String questionId, String answerId){
+    public void saveToDatabase(String questionId, String answerId, String delete){
         SaveController saveController = new SaveController(context);
-        saveController.insertToDatabase(questionId, answerId, porseshnameId, user);
+        saveController.insertToDatabase(questionId, answerId, porseshnameId, user, delete);
     }
 }

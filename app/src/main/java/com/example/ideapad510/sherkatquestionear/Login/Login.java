@@ -24,7 +24,7 @@ public class Login extends Activity {
 
         loginControler = new LoginController(this);
 
-//        new StartAllTables(this);
+        new StartAllTables(this);
     }
 
     public void onLoginButtonClicked(View view){
