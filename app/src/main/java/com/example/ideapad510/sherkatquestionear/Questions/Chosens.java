@@ -27,9 +27,9 @@ public class Chosens {
     }
 
     //returns if this answer is chosen before
-    public String isChosen(int questionId, int answerId, String user){
+    public String isChosen(int questionId, int answerId, String user, String porseshnameId){
         ArrayList<SaveObject> saves = saveController.getAllSaves(user);
-        ArrayList<SaveObject> savedAnswersToTheQuestion = getAllAnswersForQuestion(questionId, saves);
+        ArrayList<SaveObject> savedAnswersToTheQuestion = getAllAnswersForQuestion(questionId, porseshnameId, saves);
         for(SaveObject svobj : savedAnswersToTheQuestion)
             if(svobj.getAnswerId().equals(String.valueOf(answerId)))
                 if(svobj.getDelete().equals("deleted")) {
@@ -43,10 +43,10 @@ public class Chosens {
     }
 
     //returns all answers u have chosen on this question
-    private ArrayList<SaveObject> getAllAnswersForQuestion(int questionId, ArrayList<SaveObject> saved){
+    private ArrayList<SaveObject> getAllAnswersForQuestion(int questionId, String porseshnameId, ArrayList<SaveObject> saved){
         ArrayList<SaveObject> svobjarray = new ArrayList<>();
         for(SaveObject svobj : saved)
-            if((svobj.getQuestionId()).equals(String.valueOf(questionId)))
+            if((svobj.getQuestionId()).equals(String.valueOf(questionId))  &  svobj.getPorseshnameId().equals(porseshnameId))
                 svobjarray.add(svobj);
         return svobjarray;
     }

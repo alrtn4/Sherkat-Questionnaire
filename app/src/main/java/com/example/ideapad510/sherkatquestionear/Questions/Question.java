@@ -137,7 +137,7 @@ public class Question extends Activity {
             RadioGroup.LayoutParams lp = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
             rdbtn.setLayoutParams(lp);
         //    if(saveController.isAnswerSelected(pageNumber+1, i, username)  &
-                if(    chosens.isChosen(pageNumber+1, i, username).equals("saved")) {
+                if(    chosens.isChosen(pageNumber+1, i, username, porseshnameId).equals("saved")) {
                     rdbtn.setBackgroundResource(R.drawable.rectangle2);
 //                    Log.d(TAG, "radio button is chosed " + i);
                 }
@@ -191,22 +191,22 @@ public class Question extends Activity {
                 //using pagenumber as questionId
                 String questionId = String.valueOf(pageNumber+1);
                 String answerId = String.valueOf( checkedId);
-                if(chosens.isChosen(pageNumber+1, checkedId, username).equals("empty")) {
+                if(chosens.isChosen(pageNumber+1, checkedId, username, porseshnameId).equals("empty")) {
                     saveResult.saveToDatabase(questionId, answerId , "saved");
                     refreshPage(pageNumber);
                     Log.d(TAG, "onCheckedChanged: answer is not chosen "+answerId+ "   empty and now new to database");
                 }
-                else if (chosens.isChosen(pageNumber+1, checkedId, username).equals("deleted")) {
+                else if (chosens.isChosen(pageNumber+1, checkedId, username, porseshnameId).equals("deleted")) {
                     long idOfSelectedAnswer = saveController.idOfselectedAnswer(pageNumber+1,
                             checkedId,username,porseshnameId);
                     saveController.setSaveToSaved(idOfSelectedAnswer);
                     refreshPage(pageNumber);
                     Log.d(TAG, "onCheckedChanged: answerid ="
                             +answerId +" listid is "+idOfSelectedAnswer + "   deleted and now savedd  " +
-                            saveController.getAllSaves(username).get((int)idOfSelectedAnswer - 1).getDelete() +" chosen is "+
-                            chosens.isChosen(pageNumber+1, checkedId, username) );
+//                            saveController.getAllSaves(username).get((int)idOfSelectedAnswer - 1).getDelete() +" chosen is "+
+                            chosens.isChosen(pageNumber+1, checkedId, username, porseshnameId) );
                 }
-                else if(chosens.isChosen(pageNumber+1 , checkedId , username).equals("saved")){
+                else if(chosens.isChosen(pageNumber+1 , checkedId , username, porseshnameId).equals("saved")){
                     long idOfSelectedAnswer = saveController.idOfselectedAnswer(pageNumber+1,
                             checkedId,username,porseshnameId);
 //                    saveController.setSaveToDelete(idOfSelectedAnswer);
@@ -214,7 +214,7 @@ public class Question extends Activity {
                     refreshPage(pageNumber);
                     Log.d(TAG, "answer id  " + answerId +" rowid "+ idOfSelectedAnswer+ "  saved and now deleted "+
 //                            saveController.getAllSaves(username).get((int)idOfSelectedAnswer - 1).getDelete() +" chosen is "+
-                            chosens.isChosen(pageNumber+1, checkedId , username) +
+                            chosens.isChosen(pageNumber+1, checkedId , username, porseshnameId) +
                             "   row is "+db.getRowSave(idOfSelectedAnswer).getDelete());
                 }
 

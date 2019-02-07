@@ -676,7 +676,6 @@ private int getRowsCountQuestion1() {
 
                 if (saveObject.getUser().equals(user))
 //                    if(saveObject.getDelete().equals("saved"))
-//                    if((saveObject.getDelete().equals("false")) | (saveObject.getDelete().equals("true")))
                     array.add(saveObject);
             }
         }
@@ -728,7 +727,7 @@ private int getRowsCountQuestion1() {
         ContentValues cv = new ContentValues();
         cv.put(SaveTable.DELETE, "deleted"); //These Fields should be your String values of actual column names
         db.update(SaveTable.TABLE_NAME, cv, "id=" + id, null);
-        Log.d(TAG, "setSavedToDelete: answer is set to delet : " + getRowSave(idd).getDelete());
+//        Log.d(TAG, "setSavedToDelete: answer is set to delet : " + getRowSave(idd).getDelete());
     }
 
     public void setSavedToSaved(String id) {
@@ -737,7 +736,7 @@ private int getRowsCountQuestion1() {
         ContentValues cv = new ContentValues();
         cv.put(SaveTable.DELETE, "saved"); //These Fields should be your String values of actual column names
         db.update(SaveTable.TABLE_NAME, cv, "id=" + id, null);
-        Log.d(TAG, "setSavedToDelete: answer is set to delet : " + getRowSave(idd).getDelete());
+//        Log.d(TAG, "setSavedToDelete: answer is set to delet : " + getRowSave(idd).getDelete());
     }
 
     private boolean searchInSave(String porseshnameId, String username, String questionId, String answerId){
