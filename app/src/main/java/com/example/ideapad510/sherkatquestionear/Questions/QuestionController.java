@@ -3,20 +3,26 @@ package com.example.ideapad510.sherkatquestionear.Questions;
 
 import android.content.Context;
 
-import com.example.ideapad510.sherkatquestionear.Database.Database;
+import com.example.ideapad510.sherkatquestionear.Database.Database2;
+import com.example.ideapad510.sherkatquestionear.Database.DatabaseInsertMethods;
+import com.example.ideapad510.sherkatquestionear.Database.DatabaseSearchMethods;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionAnswerArray.ShortedQuestionAnswerObject;
 
 import java.util.ArrayList;
 
 public class QuestionController {
-    private Database db;
+    private Database2 db;
+    private DatabaseInsertMethods databaseInsertMethods;
+    private DatabaseSearchMethods databaseSearchMethods;
 
     public QuestionController(Context context){
-        db = Database.getInstance(context);
+        db = Database2.getInstance(context);
+        databaseInsertMethods = new DatabaseInsertMethods(context);
+        databaseSearchMethods = new DatabaseSearchMethods(context);
     }
 
     public void insertToDatabase(String question, String position, String part){
-        db.insertRowQuestion(question, position, part);
+        databaseInsertMethods.insertRowQuestion(question, position, part);
     }
 
     public void insertQuestionArray(ArrayList<ShortedQuestionAnswerObject> array){
@@ -25,8 +31,8 @@ public class QuestionController {
                     "0", "1");
     }
 
-    public ArrayList<QuestionObject> getQuestionsFromQuestionTable1( String start){
-        return db.getQuestionsFromQuestionTable1( start);
+    public ArrayList<QuestionObject> getQuestionsFromQuestionTable(String start){
+        return databaseSearchMethods.getQuestionsFromQuestionTable2( start);
     }
 
 }

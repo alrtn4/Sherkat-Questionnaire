@@ -1,6 +1,6 @@
 package com.example.ideapad510.sherkatquestionear.Database.Tables;
 
-public class QuestionTable1 {
+public class QuestionTable {
     public static final String TABLE_NAME = "question1";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_QUESTION = "questionTXT";
@@ -27,7 +27,7 @@ public class QuestionTable1 {
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
                     + ")";
 
-    public QuestionTable1(String question, String position, String part, int id, String code, String func) {
+    public QuestionTable(String question, String position, String part, int id, String code, String func) {
         this.id = id;
         this.question = question;
         this.position = position;

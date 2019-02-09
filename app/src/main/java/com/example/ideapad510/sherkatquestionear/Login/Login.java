@@ -1,9 +1,7 @@
 package com.example.ideapad510.sherkatquestionear.Login;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -15,21 +13,22 @@ public class Login extends Activity {
 
     private String username;
     private String password;
-    private LoginController loginControler;
+    private LoginController loginController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        loginControler = new LoginController(this);
+        loginController = new LoginController(this);
 
 //        new StartAllTables(this);
     }
 
     public void onLoginButtonClicked(View view){
         getTextFromEditTexts();
-        if (loginControler.searchInDatabase(username,password)) {
+//        if (loginController.searchInDatabase(username,password)) {
+        if (loginController.searchInDatabase2(username,password)) {
             Intent i = new Intent(Login.this, Questionnaire.class);
             i.putExtra("user", username);
             startActivity(i);
@@ -44,10 +43,4 @@ public class Login extends Activity {
         password = editText.getText().toString();
     }
 
-    private void sampleUserPass(){
-        loginControler.insertToDatabase("ali","123" , "1");
-        loginControler.insertToDatabase("hamid","1234" , "2");
-        loginControler.insertToDatabase("1","1" , "3");
-
-    }
 }

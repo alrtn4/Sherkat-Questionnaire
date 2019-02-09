@@ -20,10 +20,10 @@
             android:name=".Questionnaire.Questionnaire">
         </activity>
         <activity
-            android:name=".Questions.Question">
+            android:name=".Save.Result">
         </activity>
         <activity
-            android:name=".Save.Result">
+            android:name=".Questions.Question">
         </activity>
 
     </application>

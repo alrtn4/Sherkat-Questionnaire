@@ -3,33 +3,39 @@ package com.example.ideapad510.sherkatquestionear.Save;
 //this class connects save classes to database
 
 import android.content.Context;
-import android.util.Log;
 
-import com.example.ideapad510.sherkatquestionear.Database.Database;
+import com.example.ideapad510.sherkatquestionear.Database.Database2;
+import com.example.ideapad510.sherkatquestionear.Database.DatabaseGetMethods;
+import com.example.ideapad510.sherkatquestionear.Database.DatabaseInsertMethods;
+import com.example.ideapad510.sherkatquestionear.Database.DatabaseSearchMethods;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.SaveTable;
 
 import java.util.ArrayList;
 
-import static android.content.ContentValues.TAG;
-
 public class SaveController {
-    private Database db;
+    private Database2 db;
+    private DatabaseInsertMethods databaseInsertMethods;
+    private DatabaseGetMethods databaseGetMethods;
+    private DatabaseSearchMethods databaseSearchMethods;
     String TAG = "savecontroller";
 
     public SaveController(Context context){
-        db = Database.getInstance(context);
+        db = Database2.getInstance(context);
+        databaseInsertMethods = new DatabaseInsertMethods(context);
+        databaseGetMethods = new DatabaseGetMethods(context);
+        databaseSearchMethods = new DatabaseSearchMethods(context);
     }
 
     public void insertToDatabase(String questionId, String answerId, String porseshnameId, String user, String delete){
-        db.insertRowSave(questionId, answerId, porseshnameId, user, delete);
+        databaseInsertMethods.insertRowSave(questionId, answerId, porseshnameId, user, delete);
     }
 
     public SaveTable getRowSave(int id){
-        return db.getRowSave(id);
+        return databaseGetMethods.getRowSave(id);
     }
 
     public ArrayList<SaveObject> getAllSaves(String user){
-        return db.getAllSaves(user);
+        return databaseSearchMethods.getAllSaves(user);
     }
 
     public ArrayList getAnswersCheckedFromDatabase(int questionId , String user){
@@ -54,19 +60,13 @@ public class SaveController {
     }
 
     public long idOfselectedAnswer(int questionId, int answerId, String user, String porseshnameId){
-        return db.getIdOfSelectedAnswer(porseshnameId , user, String.valueOf(questionId), String.valueOf(answerId));
+        return databaseSearchMethods.getIdOfSelectedAnswer(porseshnameId , user, String.valueOf(questionId),
+                String.valueOf(answerId));
     }
 
     public void deleteSelectedAnswer(long id){
-        db.deletSingleRowSaveTable(id);
+        databaseSearchMethods.deletSingleRowSaveTable(id);
     }
 
-    public void setSaveToDelete(long id){
-        db.setSavedToDelete(String.valueOf(id));
-    }
-
-    public void setSaveToSaved(long id){
-        db.setSavedToSaved(String.valueOf(id));
-    }
 
 }

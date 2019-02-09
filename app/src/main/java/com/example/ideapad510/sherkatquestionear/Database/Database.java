@@ -8,21 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.ideapad510.sherkatquestionear.Database.Tables.LogTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.AnswerTable1;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.n1001_a;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.n1001_q;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.n2001_a;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.n2001_q;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.n3001_a;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.n3001_q;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.qlTable;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.qlcode_r;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.qlcode_t;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionObject;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable1;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Save.SaveObject;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.SaveTable;
 
@@ -53,7 +43,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(LoginTable.CREATE_TABLE);
-        db.execSQL(QuestionTable1.CREATE_TABLE);
+        db.execSQL(QuestionTable.CREATE_TABLE);
         db.execSQL(AnswerTable1.CREATE_TABLE);
         db.execSQL(QuestionnaireTable.CREATE_TABLE);
         db.execSQL(SaveTable.CREATE_TABLE);
@@ -72,7 +62,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + LoginTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + QuestionTable1.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + QuestionTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + AnswerTable1.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionnaireTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + SaveTable.TABLE_NAME);
@@ -113,10 +103,10 @@ public class Database extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(QuestionTable1.COLUMN_QUESTION, question);
-        values.put(QuestionTable1.COLUMN_POSITION, position);
-        values.put(QuestionTable1.COLUMN_PART, part);
-        db.insert(QuestionTable1.TABLE_NAME, null, values);
+        values.put(QuestionTable.COLUMN_QUESTION, question);
+        values.put(QuestionTable.COLUMN_POSITION, position);
+        values.put(QuestionTable.COLUMN_PART, part);
+        db.insert(QuestionTable.TABLE_NAME, null, values);
 
         db.close();
 
@@ -157,166 +147,6 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-/*
-    public void insertRowLogTable(String Jmr_code, String Time, String Column_do) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(LogTable.Jmr_code, Jmr_code);
-        values.put(LogTable.Time, Time);
-        values.put(LogTable.Column_do, Column_do);
-        db.insert(LogTable.TABLE_NAME, null, values);
-
-        db.close();
-    }
-
-    public void insertqlcode_r(String rcode, String qcode, String jmrcode, String ucode, String acode, String rtime) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(qlcode_r.rcode, rcode);
-        values.put(qlcode_r.qcode, qcode);
-        values.put(qlcode_r.jmrcode, jmrcode);
-        values.put(qlcode_r.ucode, ucode);
-        values.put(qlcode_r.acode, acode);
-        values.put(qlcode_r.rtime, rtime);
-        db.insert(qlcode_r.TABLE_NAME, null, values);
-
-        db.close();
-    }
-
-    public void insertqlcode_t(String jmrcode, String ucode, String n1001, String n1002, String n1003) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(qlcode_t.jmrcode, jmrcode);
-        values.put(qlcode_t.ucode, ucode);
-        values.put(qlcode_t.n1001, n1001);
-        values.put(qlcode_t.n1002, n1002);
-        values.put(qlcode_t.n1003, n1003);
-        db.insert(qlcode_t.TABLE_NAME, null, values);
-
-        db.close();
-    }
-
-    public void insertqlTable(String qlcode, String qlname, String qltext) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(qlTable.qlcode, qlcode);
-        values.put(qlTable.qlname, qlname);
-        values.put(qlTable.qltext, qltext);
-        db.insert(qlTable.TABLE_NAME, null, values);
-
-        db.close();
-    }
-
-    public void insertn1001_a(String acode, String atype, String apos, String aqoute, String afunc, String agoto, String ascour) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(n1001_a.acode, acode);
-        values.put(n1001_a.atype, atype);
-        values.put(n1001_a.apos, apos);
-        values.put(n1001_a.aqoute, aqoute);
-        values.put(n1001_a.afunc, afunc);
-        values.put(n1001_a.agoto, agoto);
-        values.put(n1001_a.ascour, ascour);
-        db.insert(n1001_a.TABLE_NAME, null, values);
-
-        db.close();
-    }
-
-    public void insertn2001_a(String acode, String atype, String apos, String aqoute, String afunc, String agoto, String ascour) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(n2001_a.acode, acode);
-        values.put(n2001_a.atype, atype);
-        values.put(n2001_a.apos, apos);
-        values.put(n2001_a.aqoute, aqoute);
-        values.put(n2001_a.afunc, afunc);
-        values.put(n2001_a.agoto, agoto);
-        values.put(n2001_a.ascour, ascour);
-        db.insert(n2001_a.TABLE_NAME, null, values);
-
-        db.close();
-    }
-
-    public void insertn3001_a(String acode, String atype, String apos, String aqoute, String afunc, String agoto, String ascour) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(n3001_a.acode, acode);
-        values.put(n3001_a.atype, atype);
-        values.put(n3001_a.apos, apos);
-        values.put(n3001_a.aqoute, aqoute);
-        values.put(n3001_a.afunc, afunc);
-        values.put(n3001_a.agoto, agoto);
-        values.put(n3001_a.ascour, ascour);
-        db.insert(n3001_a.TABLE_NAME, null, values);
-
-        db.close();
-    }
-
-    public void insertn1001_q(String qcode, String qtype, String qpos, String qqoute, String qfunc, String qgoto, String qscour) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(n1001_q.qcode, qcode);
-        values.put(n1001_q.qtype, qtype);
-        values.put(n1001_q.qpos, qpos);
-        values.put(n1001_q.qqoute, qqoute);
-        values.put(n1001_q.qfunc, qfunc);
-        values.put(n1001_q.qgoto, qgoto);
-        values.put(n1001_q.qscour, qscour);
-        db.insert(n1001_q.TABLE_NAME, null, values);
-
-        db.close();
-    }
-
-    public void insertn2001_q(String qcode, String qtype, String qpos, String qqoute, String qfunc, String qgoto, String qscour) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(n2001_q.qcode, qcode);
-        values.put(n2001_q.qtype, qtype);
-        values.put(n2001_q.qpos, qpos);
-        values.put(n2001_q.qqoute, qqoute);
-        values.put(n2001_q.qfunc, qfunc);
-        values.put(n2001_q.qgoto, qgoto);
-        values.put(n2001_q.qscour, qscour);
-        db.insert(n2001_q.TABLE_NAME, null, values);
-
-        db.close();
-    }
-
-    public void insertn3001_q(String qcode, String qtype, String qpos, String qqoute, String qfunc, String qgoto, String qscour) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(n3001_q.qcode, qcode);
-        values.put(n3001_q.qtype, qtype);
-        values.put(n3001_q.qpos, qpos);
-        values.put(n3001_q.qqoute, qqoute);
-        values.put(n3001_q.qfunc, qfunc);
-        values.put(n3001_q.qgoto, qgoto);
-        values.put(n3001_q.qscour, qscour);
-        db.insert(n3001_q.TABLE_NAME, null, values);
-
-        db.close();
-    }
-*/
     private LoginTable getRowLogin(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -367,26 +197,26 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public QuestionTable1 getRowQuestion1(long id) {
+    public QuestionTable getRowQuestion1(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(QuestionTable1.TABLE_NAME,
-                new String[]{QuestionTable1.COLUMN_QUESTION, QuestionTable1.COLUMN_POSITION,
-                        QuestionTable1.COLUMN_PART, QuestionTable1.COLUMN_ID,
-                        QuestionTable1.COLUMN_CODE, QuestionTable1.COLUMN_FUNC},
-                QuestionTable1.COLUMN_ID + "=?",
+        Cursor cursor = db.query(QuestionTable.TABLE_NAME,
+                new String[]{QuestionTable.COLUMN_QUESTION, QuestionTable.COLUMN_POSITION,
+                        QuestionTable.COLUMN_PART, QuestionTable.COLUMN_ID,
+                        QuestionTable.COLUMN_CODE, QuestionTable.COLUMN_FUNC},
+                QuestionTable.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
-        QuestionTable1 tableRow = new QuestionTable1(
-                cursor.getString(cursor.getColumnIndex(QuestionTable1.COLUMN_QUESTION)),
-                cursor.getString(cursor.getColumnIndex(QuestionTable1.COLUMN_POSITION)),
-                cursor.getString(cursor.getColumnIndex(QuestionTable1.COLUMN_PART)),
-                cursor.getInt(cursor.getColumnIndex(QuestionTable1.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(QuestionTable1.COLUMN_CODE)),
-                cursor.getString(cursor.getColumnIndex(QuestionTable1.COLUMN_FUNC)));
+        QuestionTable tableRow = new QuestionTable(
+                cursor.getString(cursor.getColumnIndex(QuestionTable.COLUMN_QUESTION)),
+                cursor.getString(cursor.getColumnIndex(QuestionTable.COLUMN_POSITION)),
+                cursor.getString(cursor.getColumnIndex(QuestionTable.COLUMN_PART)),
+                cursor.getInt(cursor.getColumnIndex(QuestionTable.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(QuestionTable.COLUMN_CODE)),
+                cursor.getString(cursor.getColumnIndex(QuestionTable.COLUMN_FUNC)));
         cursor.close();
 
         return tableRow;
@@ -453,100 +283,6 @@ public class Database extends SQLiteOpenHelper {
 
         return tableRow;
     }
-/*
-    public LogTable getLogTable(long id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(LogTable.TABLE_NAME,
-                new String[]{ LogTable.COLUMN_ID, LogTable.Jmr_code, LogTable.Time,
-                        LogTable.Column_do},
-                LogTable.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        LogTable tableRow = new LogTable(
-                cursor.getInt(cursor.getColumnIndex(LogTable.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(LogTable.Jmr_code)),
-                cursor.getString(cursor.getColumnIndex(LogTable.Time)),
-                cursor.getString(cursor.getColumnIndex(LogTable.Column_do)));
-        cursor.close();
-
-        return tableRow;
-    }
-
-    public qlcode_r getqlcode_r(long id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(qlcode_r.TABLE_NAME,
-                new String[]{ qlcode_r.COLUMN_ID, qlcode_r.rcode, qlcode_r.qcode,
-                        qlcode_r.jmrcode, qlcode_r.ucode, qlcode_r.acode, qlcode_r.rtime},
-                qlcode_r.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        qlcode_r tableRow = new qlcode_r(
-                cursor.getString(cursor.getColumnIndex(qlcode_r.rcode)),
-                cursor.getString(cursor.getColumnIndex(qlcode_r.qcode)),
-                cursor.getString(cursor.getColumnIndex(qlcode_r.jmrcode)),
-                cursor.getString(cursor.getColumnIndex(qlcode_r.ucode)),
-                cursor.getString(cursor.getColumnIndex(qlcode_r.acode)),
-                cursor.getString(cursor.getColumnIndex(qlcode_r.rtime)),
-                cursor.getInt(cursor.getColumnIndex(qlcode_r.COLUMN_ID)));
-                cursor.close();
-
-        return tableRow;
-    }
-
-    public qlcode_t getqlcode_t(long id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(qlcode_t.TABLE_NAME,
-                new String[]{ qlcode_t.COLUMN_ID, qlcode_t.jmrcode, qlcode_t.ucode,
-                        qlcode_t.n1001, qlcode_t.n1002, qlcode_t.n1003},
-                qlcode_t.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        qlcode_t tableRow = new qlcode_t(
-                cursor.getString(cursor.getColumnIndex(qlcode_t.jmrcode)),
-                cursor.getString(cursor.getColumnIndex(qlcode_t.ucode)),
-                cursor.getString(cursor.getColumnIndex(qlcode_t.n1001)),
-                cursor.getString(cursor.getColumnIndex(qlcode_t.n1002)),
-                cursor.getString(cursor.getColumnIndex(qlcode_t.n1003)),
-                cursor.getInt(cursor.getColumnIndex(qlcode_t.COLUMN_ID)));
-        cursor.close();
-
-        return tableRow;
-    }
-
-    public qlTable getqlTable(long id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(qlTable.TABLE_NAME,
-                new String[]{ qlTable.COLUMN_ID, qlTable.qlcode, qlTable.qlname,
-                        qlTable.qltext},
-                qlTable.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        qlTable tableRow = new qlTable(
-                cursor.getString(cursor.getColumnIndex(qlTable.qlcode)),
-                cursor.getString(cursor.getColumnIndex(qlTable.qlname)),
-                cursor.getString(cursor.getColumnIndex(qlTable.qltext)),
-                cursor.getInt(cursor.getColumnIndex(qlTable.COLUMN_ID)));
-        cursor.close();
-
-        return tableRow;
-    }
-*/
     private int getRowsCount(String tableName) {
         String countQuery = "SELECT  * FROM " + tableName;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -583,7 +319,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 private int getRowsCountQuestion1() {
-        String countQuery = "SELECT  * FROM " + QuestionTable1.TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + QuestionTable.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -628,15 +364,15 @@ private int getRowsCountQuestion1() {
     }
 
     public boolean searchInDatabaseLogin2(String username, String password){
-        Log.d(TAG, "searchInDatabaseLogin2: "+username+" "+password);
+        Log.d(TAG, "searchInDatabaseLogin: "+username+" "+password);
         String searchQuery = " SELECT * FROM " + LoginTable.TABLE_NAME + " WHERE " +
                 LoginTable.jmr_user +" = '"+ username +"' AND " + LoginTable.jmr_pass + " = '"+ password+ "' ;";
         SQLiteDatabase db = this.getReadableDatabase();
-        Log.d(TAG, "searchInDatabaseLogin2: "+searchQuery);
+        Log.d(TAG, "searchInDatabaseLogin: "+searchQuery);
         Cursor cursor = db.rawQuery(searchQuery, null);
-        Log.d(TAG, "searchInDatabaseLogin2: "+(cursor == null));
+        Log.d(TAG, "searchInDatabaseLogin: "+(cursor == null));
         int count = cursor.getCount();
-        Log.d(TAG, "searchInDatabaseLogin2: " +count);
+        Log.d(TAG, "searchInDatabaseLogin: " +count);
         cursor.close();
 
         return count > 0 ;
@@ -665,15 +401,17 @@ private int getRowsCountQuestion1() {
         ArrayList<SaveObject> array = new ArrayList<>();
         for(int i = 1; i <= getRowsCountSave(); i++){
 //        for(int i = 1; i <=7 ; i++){
-//            Log.d(TAG, "row count save "+getRowsCountSave());
+            Log.d(TAG, "row count save "+getRowsCountSave());
 //            Log.d(TAG, " i is  "+i);
-            SaveTable svtbl = getRowSave(i);
+            SaveTable svtble = getRowSave(i);
 //            Log.d(TAG, "svtbl is null "+ (svtbl==null));
             SaveObject saveObject = null;
-            if(svtbl != null) {
-                saveObject = new SaveObject(svtbl.getColumnQuestionId(), svtbl.getColumnAnswerId(),
-                        svtbl.getColumnPorseshnameId(), svtbl.getColumnUser(), svtbl.getDelete());
-
+            if(svtble != null) {
+                saveObject = new SaveObject(svtble.getColumnQuestionId(), svtble.getColumnAnswerId(),
+                        svtble.getColumnPorseshnameId(), svtble.getColumnUser(), svtble.getDelete());
+                Log.d(TAG, "getAllSaves: saveObject.user = " + saveObject.getUser()+ " i is "+i+
+                        " porseshnameid ="+saveObject.getPorseshnameId());
+                if(saveObject.getUser() != null)
                 if (saveObject.getUser().equals(user))
 //                    if(saveObject.getDelete().equals("saved"))
                     array.add(saveObject);

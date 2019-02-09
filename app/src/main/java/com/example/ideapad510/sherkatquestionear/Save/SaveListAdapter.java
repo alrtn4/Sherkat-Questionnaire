@@ -40,7 +40,6 @@ public class SaveListAdapter extends ArrayAdapter {
         porseshnameTextView.setText(saveArray.get(position).getPorseshnameId());
         questionTextView.setText(saveArray.get(position).getQuestionId());
         answerTextView.setText(saveArray.get(position).getAnswerId());
-//        deletTextView.setText(saveArray.get(position).getDelete());
         deletTextView.setText(saveArray.get(position).getDelete());
 
         return rowView;

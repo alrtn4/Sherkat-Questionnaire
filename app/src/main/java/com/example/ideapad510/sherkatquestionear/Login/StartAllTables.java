@@ -21,7 +21,6 @@ public class StartAllTables {
         sampleQuestionnaires();
         new QuestionController(context).insertQuestionArray(new QuestionsAnswersArray());
         new AnswerController(context).insertAnswerArray(new QuestionsAnswersArray());
-//        sampleResults();
     }
 
 
@@ -41,9 +40,4 @@ public class StartAllTables {
         questionnaireController.insertToDatabase("test3","about health","1:\"question1\"/1", "answer1");
     }
 
-    private void sampleResults(){
-        saveController.insertToDatabase("1","2","3","1" ,"false");
-        saveController.insertToDatabase("1","3","3","1", "false");
-        saveController.insertToDatabase("1","4","3","1", "false");
-    }
 }
