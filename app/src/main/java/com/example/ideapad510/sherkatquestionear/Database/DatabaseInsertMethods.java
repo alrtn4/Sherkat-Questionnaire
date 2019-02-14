@@ -9,6 +9,7 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.SaveTable;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.phone;
 
 /**
  * Created by Ideapad 510 on 2/7/2019.
@@ -16,11 +17,11 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.SaveTable;
 
 public class DatabaseInsertMethods {
     Context context;
-    Database2 database2;
+    Database database2;
     DatabaseSearchMethods databaseSearchMethods;
 
     public DatabaseInsertMethods(Context context){
-        database2 = Database2.getInstance(context);
+        database2 = Database.getInstance(context);
         databaseSearchMethods = new DatabaseSearchMethods(context);
     }
 
@@ -82,7 +83,7 @@ public class DatabaseInsertMethods {
         db.close();
     }
 
-    public void insertRowSave(String questionID, String answerId, String porseshnameId, String user, String delete) {
+    public void insertRowSave(String questionID, String answerId, String porseshnameId, String user, String pasokhgoo) {
         SQLiteDatabase db = database2.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -91,11 +92,23 @@ public class DatabaseInsertMethods {
         values.put(SaveTable.COLUMN_ANSWER_ID, answerId);
         values.put(SaveTable.COLUMN_PORSESHNAME_ID, porseshnameId);
         values.put(SaveTable.COLUMN_USER, user);
-        values.put(SaveTable.DELETE, delete);
-        if(databaseSearchMethods.searchInSave(porseshnameId, user, questionID, answerId))
+        values.put(SaveTable.PASOKHGOO, pasokhgoo);
+        if(databaseSearchMethods.searchInSave(porseshnameId, user, questionID, answerId, pasokhgoo))
             db.insert(SaveTable.TABLE_NAME, null, values);
 
         db.close();
     }
+
+    public void insertRowPhone(String phoneNumber) {
+        SQLiteDatabase db = database2.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(phone.phoneNumber, phoneNumber);
+        db.insert(phone.TABLE_NAME, null, values);
+
+        db.close();
+    }
+
 
 }

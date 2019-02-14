@@ -2,9 +2,9 @@ package com.example.ideapad510.sherkatquestionear.Questions;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
+import com.example.ideapad510.sherkatquestionear.Params.Params;
 import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerController;
 
 import java.util.ArrayList;
@@ -13,14 +13,15 @@ import java.util.ArrayList;
  * Created by Ideapad 510 on 2/7/2019.
  */
 
-public class Listcontroller {
+public class Lists {
     Activity activity;
     int pageNumber;
     QuestionController questionController;
     AnswerController answerController;
     String TAG = "listcontroller";
+    Params params = Params.getInstance();
 
-    public Listcontroller(Activity activity, int pageNumber, Context context) {
+    public Lists(Activity activity, int pageNumber, Context context) {
         this.activity = activity;
         this.pageNumber = pageNumber;
         questionController = new QuestionController(context);
@@ -28,10 +29,11 @@ public class Listcontroller {
 
     }
 
-    public ArrayList<QuestionDemandObject> getListOfQuestionTables(){
-        ArrayList<QuestionDemandObject> questionDemandArray = new ArrayList<>();
+    public ArrayList<QuestionDemand> getListOfQuestionTables(){
+        ArrayList<QuestionDemand> questionDemandArray = new ArrayList<>();
 
         String demand = activity.getIntent().getStringExtra("QT");
+        demand = params.getQT();
         String[] questionTables = demand.split("-");
         for(String s: questionTables) {
             String[] s1 = s.split("/");
@@ -40,7 +42,7 @@ public class Listcontroller {
             String[] s2 = s1[0].split("\"");
             String questionTableName = s2[1];
 
-            QuestionDemandObject questionDemand = new QuestionDemandObject(questionTableName, startPosition);
+            QuestionDemand questionDemand = new QuestionDemand(questionTableName, startPosition);
             questionDemandArray.add(questionDemand);
         }
 
@@ -48,10 +50,10 @@ public class Listcontroller {
     }
 
 
-    public ArrayList<QuestionObject> getQuestionArray(ArrayList<QuestionDemandObject> questionDemandArray){
+    public ArrayList<QuestionObject> getQuestionArray(ArrayList<QuestionDemand> questionDemandArray){
         ArrayList<QuestionObject> questionArray = new ArrayList<>();
 
-        for(QuestionDemandObject questionDemand : questionDemandArray)
+        for(QuestionDemand questionDemand : questionDemandArray)
             switch(questionDemand.getQuestionTableName()){
                 case QuestionTable.TABLE_NAME:
                     questionArray.addAll(questionController.getQuestionsFromQuestionTable(questionDemand.getStartPosition()));

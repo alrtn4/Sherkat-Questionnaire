@@ -129,7 +129,7 @@ public class DatabaseGetMethods {
 
         Cursor cursor = db.query(SaveTable.TABLE_NAME,
                 new String[]{ SaveTable.COLUMN_ID, SaveTable.COLUMN_QUESTION_ID, SaveTable.COLUMN_ANSWER_ID,
-                        SaveTable.COLUMN_PORSESHNAME_ID, SaveTable.COLUMN_USER, SaveTable.DELETE},
+                        SaveTable.COLUMN_PORSESHNAME_ID, SaveTable.COLUMN_USER, SaveTable.PASOKHGOO},
                 SaveTable.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -144,7 +144,7 @@ public class DatabaseGetMethods {
                         cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_ANSWER_ID)),
                         cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_PORSESHNAME_ID)),
                         cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_USER)),
-                        cursor.getString(cursor.getColumnIndex(SaveTable.DELETE)));
+                        cursor.getString(cursor.getColumnIndex(SaveTable.PASOKHGOO)));
 
             }
         cursor.close();

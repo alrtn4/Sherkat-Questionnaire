@@ -9,14 +9,14 @@ public class SaveObject {
     private String answerId;
     private String porseshnameId;
     private String user;
-    private String delete;
+    private String pasokhgoo;
 
-    public SaveObject(String questionId, String answerId, String porseshnameId, String user, String delete){
+    public SaveObject(String questionId, String answerId, String porseshnameId, String user, String pasokhgoo){
         this.questionId = questionId;
         this.answerId = answerId;
         this.porseshnameId = porseshnameId;
         this.user = user;
-        this.delete = delete;
+        this.pasokhgoo = pasokhgoo;
     }
 
     public String getQuestionId(){return questionId;}
@@ -27,7 +27,7 @@ public class SaveObject {
 
     public String getUser(){ return user;}
 
-    public String getDelete(){return delete;}
+    public String getPasokhgoo(){return pasokhgoo;}
 
     public void setQuestionId(String questionId){this.questionId = questionId;}
 

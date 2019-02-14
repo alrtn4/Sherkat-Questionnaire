@@ -3,26 +3,28 @@ package com.example.ideapad510.sherkatquestionear.Questionnaire;
 
 import android.content.Context;
 
-import com.example.ideapad510.sherkatquestionear.Database.Database2;
+import com.example.ideapad510.sherkatquestionear.Database.Database;
 import com.example.ideapad510.sherkatquestionear.Database.DatabaseGetMethods;
 import com.example.ideapad510.sherkatquestionear.Database.DatabaseInsertMethods;
 import com.example.ideapad510.sherkatquestionear.Database.DatabaseSearchMethods;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
+import com.example.ideapad510.sherkatquestionear.ParentClass.Controller;
 
 import java.util.ArrayList;
 
-public class QuestionnaireController {
-    private Database2 db;
+public class QuestionnaireController extends Controller{
+/*    private Database db;
     private DatabaseGetMethods databaseGetMethods;
     private DatabaseInsertMethods databaseInsertMethods;
     private DatabaseSearchMethods databaseSearchMethods;
-
+*/
     public QuestionnaireController(Context context){
-        db = Database2.getInstance(context);
-        databaseGetMethods = new DatabaseGetMethods(context);
-        databaseInsertMethods = new DatabaseInsertMethods(context);
-        databaseSearchMethods = new DatabaseSearchMethods(context);
-    }
+        super(context);
+/*        db = Database.getInstance(context);
+        databaseGetMethods = newlayout DatabaseGetMethods(context);
+        databaseInsertMethods = newlayout DatabaseInsertMethods(context);
+        databaseSearchMethods = newlayout DatabaseSearchMethods(context);
+*/    }
 
     //returns list of porseshnameha
     public ArrayList<String> getQuestionnaires(){return databaseSearchMethods.getQuestionnaires();

@@ -1,15 +1,16 @@
 package com.example.ideapad510.sherkatquestionear.Questions.QuestionAnswerArray;
 
+//this class basically gives a ten option answer based on two strings, the first answer and the last answer
 
 import java.util.ArrayList;
 
-public class ShortedQuestionAnswerObject {
+public class ShortedAnswer {
     public String question;
     public String answerStartString;
     public String answerEndString;
     private String questionId;
 
-    ShortedQuestionAnswerObject(String question, String answerStartString, String answerEndString, String questionId){
+    ShortedAnswer(String question, String answerStartString, String answerEndString, String questionId){
         this.question = question;
         this.answerStartString = answerStartString;
         this.answerEndString = answerEndString;

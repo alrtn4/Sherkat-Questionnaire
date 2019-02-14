@@ -1,10 +1,8 @@
 package com.example.ideapad510.sherkatquestionear.Database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
@@ -15,20 +13,18 @@ import com.example.ideapad510.sherkatquestionear.Save.SaveObject;
 
 import java.util.ArrayList;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * Created by Ideapad 510 on 2/7/2019.
  */
 
 public class DatabaseSearchMethods {
-    Database2 database2;
+    Database database2;
     DatabaseGetMethods databaseGetMethods;
 
 
 
     public DatabaseSearchMethods(Context context){
-        database2 = Database2.getInstance(context);
+        database2 = Database.getInstance(context);
         databaseGetMethods = new DatabaseGetMethods(context);
     }
 
@@ -87,9 +83,10 @@ public class DatabaseSearchMethods {
     }
 
 
-    public ArrayList<SaveObject> getAllSaves(String user){
+    public ArrayList<SaveObject> getAllSaves(String user, String pasokhgoo){
         ArrayList<SaveObject>  saveObjectArrayList= new ArrayList<>();
-        String query = " SELECT * FROM " + SaveTable.TABLE_NAME + " ;";
+        String query = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE "+ SaveTable.COLUMN_USER +" = '"+user+"' AND "
+                +SaveTable.PASOKHGOO+" = '"+pasokhgoo+"' ;";
         SQLiteDatabase db = database2.getReadableDatabase();
         Cursor cursor = db.rawQuery(query , null);
 
@@ -99,7 +96,7 @@ public class DatabaseSearchMethods {
                     cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_ANSWER_ID)),
                     cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_PORSESHNAME_ID)),
                     cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_USER)),
-                    cursor.getString(cursor.getColumnIndex(SaveTable.DELETE)));
+                    cursor.getString(cursor.getColumnIndex(SaveTable.PASOKHGOO)));
 
 
 
@@ -120,10 +117,11 @@ public class DatabaseSearchMethods {
 
     }
 
-    public long getIdOfSelectedAnswer(String porseshnameId, String username, String questionId, String answerId){
+    public long getIdOfSelectedAnswer(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
         String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
                 SaveTable.COLUMN_PORSESHNAME_ID +" = '"+ porseshnameId +"' AND " + SaveTable.COLUMN_USER + " = '"+ username
-                +"' AND "+ SaveTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "+ SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' ;";
+                +"' AND "+ SaveTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "
+                + SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' AND "+ SaveTable.PASOKHGOO + " = '"+pasokhgoo+"' ;";
         SQLiteDatabase db = database2.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(searchQuery, null);
@@ -137,15 +135,16 @@ public class DatabaseSearchMethods {
 
     }
 
-    public void deletSavedAnswer(String porseshnameId, String username, String questionId, String answerId){
-        int id = (int) getIdOfSelectedAnswer(porseshnameId ,username, questionId, answerId);
+    public void deletSavedAnswer(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
+        int id = (int) getIdOfSelectedAnswer(porseshnameId ,username, questionId, answerId, pasokhgoo);
         deletSingleRowSaveTable(id);
     }
 
-    public boolean searchInSave(String porseshnameId, String username, String questionId, String answerId){
+    public boolean searchInSave(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
         String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
                 SaveTable.COLUMN_PORSESHNAME_ID +" = '"+ porseshnameId +"' AND " + SaveTable.COLUMN_USER + " = '"+ username
-                +"' AND "+ SaveTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "+ SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' ;";
+                +"' AND "+ SaveTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "+ SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' AND "
+                +SaveTable.PASOKHGOO+" = '"+pasokhgoo+"' ;";
         SQLiteDatabase db = database2.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(searchQuery, null);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.ideapad510.sherkatquestionear.Params.Params;
 import com.example.ideapad510.sherkatquestionear.Questionnaire.Questionnaire;
 import com.example.ideapad510.sherkatquestionear.R;
 
@@ -14,6 +15,7 @@ public class Login extends Activity {
     private String username;
     private String password;
     private LoginController loginController;
+    private Params params = Params.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +30,12 @@ public class Login extends Activity {
     public void onLoginButtonClicked(View view){
         getTextFromEditTexts();
 //        if (loginController.searchInDatabase(username,password)) {
-        if (loginController.searchInDatabase2(username,password)) {
+        if (loginController.searchInDatabase(username,password)) {
             Intent i = new Intent(Login.this, Questionnaire.class);
-            i.putExtra("user", username);
+//            i.putExtra("user", username);
+            params.setUsername(username);
             startActivity(i);
-            finish();
+//            finish();
         }
     }
 

@@ -9,7 +9,7 @@ public class DatabaseIgnoredMethods {
     public void insertRowLogTable(String Jmr_code, String Time, String Column_do) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(LogTable.Jmr_code, Jmr_code);
         values.put(LogTable.Time, Time);
@@ -22,7 +22,7 @@ public class DatabaseIgnoredMethods {
     public void insertqlcode_r(String rcode, String qcode, String jmrcode, String ucode, String acode, String rtime) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(qlcode_r.rcode, rcode);
         values.put(qlcode_r.qcode, qcode);
@@ -38,7 +38,7 @@ public class DatabaseIgnoredMethods {
     public void insertqlcode_t(String jmrcode, String ucode, String n1001, String n1002, String n1003) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(qlcode_t.jmrcode, jmrcode);
         values.put(qlcode_t.ucode, ucode);
@@ -53,7 +53,7 @@ public class DatabaseIgnoredMethods {
     public void insertqlTable(String qlcode, String qlname, String qltext) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(qlTable.qlcode, qlcode);
         values.put(qlTable.qlname, qlname);
@@ -66,7 +66,7 @@ public class DatabaseIgnoredMethods {
     public void insertn1001_a(String acode, String atype, String apos, String aqoute, String afunc, String agoto, String ascour) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(n1001_a.acode, acode);
         values.put(n1001_a.atype, atype);
@@ -83,7 +83,7 @@ public class DatabaseIgnoredMethods {
     public void insertn2001_a(String acode, String atype, String apos, String aqoute, String afunc, String agoto, String ascour) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(n2001_a.acode, acode);
         values.put(n2001_a.atype, atype);
@@ -100,7 +100,7 @@ public class DatabaseIgnoredMethods {
     public void insertn3001_a(String acode, String atype, String apos, String aqoute, String afunc, String agoto, String ascour) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(n3001_a.acode, acode);
         values.put(n3001_a.atype, atype);
@@ -117,7 +117,7 @@ public class DatabaseIgnoredMethods {
     public void insertn1001_q(String qcode, String qtype, String qpos, String qqoute, String qfunc, String qgoto, String qscour) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(n1001_q.qcode, qcode);
         values.put(n1001_q.qtype, qtype);
@@ -134,7 +134,7 @@ public class DatabaseIgnoredMethods {
     public void insertn2001_q(String qcode, String qtype, String qpos, String qqoute, String qfunc, String qgoto, String qscour) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(n2001_q.qcode, qcode);
         values.put(n2001_q.qtype, qtype);
@@ -151,7 +151,7 @@ public class DatabaseIgnoredMethods {
     public void insertn3001_q(String qcode, String qtype, String qpos, String qqoute, String qfunc, String qgoto, String qscour) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = newlayout ContentValues();
 
         values.put(n3001_q.qcode, qcode);
         values.put(n3001_q.qtype, qtype);
@@ -170,15 +170,15 @@ public class DatabaseIgnoredMethods {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(LogTable.TABLE_NAME,
-                new String[]{ LogTable.COLUMN_ID, LogTable.Jmr_code, LogTable.Time,
+                newlayout String[]{ LogTable.COLUMN_ID, LogTable.Jmr_code, LogTable.Time,
                         LogTable.Column_do},
                 LogTable.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+                newlayout String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
-        LogTable tableRow = new LogTable(
+        LogTable tableRow = newlayout LogTable(
                 cursor.getInt(cursor.getColumnIndex(LogTable.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(LogTable.Jmr_code)),
                 cursor.getString(cursor.getColumnIndex(LogTable.Time)),
@@ -192,15 +192,15 @@ public class DatabaseIgnoredMethods {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(qlcode_r.TABLE_NAME,
-                new String[]{ qlcode_r.COLUMN_ID, qlcode_r.rcode, qlcode_r.qcode,
+                newlayout String[]{ qlcode_r.COLUMN_ID, qlcode_r.rcode, qlcode_r.qcode,
                         qlcode_r.jmrcode, qlcode_r.ucode, qlcode_r.acode, qlcode_r.rtime},
                 qlcode_r.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+                newlayout String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
-        qlcode_r tableRow = new qlcode_r(
+        qlcode_r tableRow = newlayout qlcode_r(
                 cursor.getString(cursor.getColumnIndex(qlcode_r.rcode)),
                 cursor.getString(cursor.getColumnIndex(qlcode_r.qcode)),
                 cursor.getString(cursor.getColumnIndex(qlcode_r.jmrcode)),
@@ -217,15 +217,15 @@ public class DatabaseIgnoredMethods {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(qlcode_t.TABLE_NAME,
-                new String[]{ qlcode_t.COLUMN_ID, qlcode_t.jmrcode, qlcode_t.ucode,
+                newlayout String[]{ qlcode_t.COLUMN_ID, qlcode_t.jmrcode, qlcode_t.ucode,
                         qlcode_t.n1001, qlcode_t.n1002, qlcode_t.n1003},
                 qlcode_t.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+                newlayout String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
-        qlcode_t tableRow = new qlcode_t(
+        qlcode_t tableRow = newlayout qlcode_t(
                 cursor.getString(cursor.getColumnIndex(qlcode_t.jmrcode)),
                 cursor.getString(cursor.getColumnIndex(qlcode_t.ucode)),
                 cursor.getString(cursor.getColumnIndex(qlcode_t.n1001)),
@@ -241,15 +241,15 @@ public class DatabaseIgnoredMethods {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(qlTable.TABLE_NAME,
-                new String[]{ qlTable.COLUMN_ID, qlTable.qlcode, qlTable.qlname,
+                newlayout String[]{ qlTable.COLUMN_ID, qlTable.qlcode, qlTable.qlname,
                         qlTable.qltext},
                 qlTable.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+                newlayout String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
-        qlTable tableRow = new qlTable(
+        qlTable tableRow = newlayout qlTable(
                 cursor.getString(cursor.getColumnIndex(qlTable.qlcode)),
                 cursor.getString(cursor.getColumnIndex(qlTable.qlname)),
                 cursor.getString(cursor.getColumnIndex(qlTable.qltext)),

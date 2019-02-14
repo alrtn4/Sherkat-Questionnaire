@@ -20,10 +20,16 @@
             android:name=".Questionnaire.Questionnaire">
         </activity>
         <activity
-            android:name=".Save.Result">
+            android:name=".Save.Saved">
         </activity>
         <activity
             android:name=".Questions.Question">
+        </activity>
+        <activity
+            android:name=".New.New">
+        </activity>
+        <activity
+            android:name=".Mobile.Mobile">
         </activity>
 
     </application>

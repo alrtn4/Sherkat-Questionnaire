@@ -7,7 +7,7 @@ public class SaveTable {
     public static final String COLUMN_QUESTION_ID = "questionId";
     public static final String COLUMN_ANSWER_ID = "answerId";
     public static final String COLUMN_PORSESHNAME_ID = "porseshnameId";
-    public static final String DELETE = "deletee";
+    public static final String PASOKHGOO = "pasokhgoo";
     public static final String COLUMN_USER = "user";
 
 
@@ -16,7 +16,7 @@ public class SaveTable {
     private String answer_id;
     private String porseshname_id;
     private String user;
-    private String delete;
+    private String pasokhgoo;
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ( "
@@ -24,17 +24,17 @@ public class SaveTable {
                     + COLUMN_ANSWER_ID + " TEXT,"
                     + COLUMN_PORSESHNAME_ID + " TEXT,"
                     + COLUMN_USER + " TEXT,"
-                    + DELETE + " TEXT,"
+                    + PASOKHGOO + " TEXT,"
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
                     + ")";
 
-    public SaveTable(int id, String question_id, String answer_id, String porseshname_id, String user, String delete){
+    public SaveTable(int id, String question_id, String answer_id, String porseshname_id, String user, String pasokhgoo){
         this.id = id;
         this.question_id = question_id;
         this.answer_id = answer_id;
         this.porseshname_id = porseshname_id;
         this.user = user;
-        this.delete = delete;
+        this.pasokhgoo = pasokhgoo;
     }
 
     public String getColumnPorseshnameId(){return porseshname_id;}
@@ -45,5 +45,5 @@ public class SaveTable {
 
     public String getColumnUser(){return user;}
 
-    public String getDelete(){return delete;}
+    public String getPasokhgoo(){return pasokhgoo;}
 }

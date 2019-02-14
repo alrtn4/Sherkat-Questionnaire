@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.ideapad510.sherkatquestionear.Database.Database;
+import com.example.ideapad510.sherkatquestionear.Params.Params;
 import com.example.ideapad510.sherkatquestionear.R;
-import com.example.ideapad510.sherkatquestionear.Save.Result;
+import com.example.ideapad510.sherkatquestionear.Save.Saved;
 
 import java.util.ArrayList;
 
@@ -18,10 +19,10 @@ public class Question extends Activity {
     private int pageNumber = 0;
     private static final String TAG = "question";
     private String username;
-    String porseshnameId;
+    private String porseshnameId;
 
-    Buttons buttons2;
-
+    private RadioButtons buttons2;
+    private Params params= Params.getInstance();
 
 
     @Override
@@ -31,10 +32,12 @@ public class Question extends Activity {
 
 
         //getting username and porseshnameId from last activities and use it for filling savetable for now
-        username = getIntent().getStringExtra("user");
-        porseshnameId = getIntent().getStringExtra("porseshnameId");
+//        username = getIntent().getStringExtra("user");
+//        porseshnameId = getIntent().getStringExtra("porseshnameId");
+        username = params.getUsername();
+        porseshnameId = params.getPorseshnameId();
 
-        buttons2 = new Buttons(Question.this, this, username,
+        buttons2 = new RadioButtons(Question.this, this, username,
                 porseshnameId, pageNumber);
         buttons2.refreshPage(pageNumber);
 
@@ -67,7 +70,7 @@ public class Question extends Activity {
     }
 
     public  void onDoneClicked(View view){
-        Intent intent = new Intent(Question.this, Result.class);
+        Intent intent = new Intent(Question.this, Saved.class);
         intent.putExtra("user",username);
         startActivity(intent);
     }
