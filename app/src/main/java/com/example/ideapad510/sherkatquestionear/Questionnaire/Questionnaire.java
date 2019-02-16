@@ -3,6 +3,7 @@ package com.example.ideapad510.sherkatquestionear.Questionnaire;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,14 +27,16 @@ public class Questionnaire extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.questionnaire);
+        setContentView(R.layout.questionnaire2);
 
 
         //get List of porseshnameha
         questionnaires = questionnaireController.getQuestionnaires();
 
-        listView = findViewById(R.id.questionnaireListView);
+        listView = findViewById(R.id.questionnaireListView2);
         QuestionnaireListAdapter adapter = new QuestionnaireListAdapter(this, questionnaires);
+        Log.d(TAG, "onCreate:  adapter is null :" + (adapter==null));
+        Log.d(TAG, "onCreate: listview is null "+(listView==null));
         listView.setAdapter(adapter);
 
 

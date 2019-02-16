@@ -29,13 +29,10 @@ public class Login extends Activity {
 
     public void onLoginButtonClicked(View view){
         getTextFromEditTexts();
-//        if (loginController.searchInDatabase(username,password)) {
         if (loginController.searchInDatabase(username,password)) {
             Intent i = new Intent(Login.this, Questionnaire.class);
-//            i.putExtra("user", username);
             params.setUsername(username);
             startActivity(i);
-//            finish();
         }
     }
 

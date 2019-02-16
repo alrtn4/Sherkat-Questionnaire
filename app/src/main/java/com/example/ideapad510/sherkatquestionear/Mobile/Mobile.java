@@ -18,7 +18,7 @@ public class Mobile extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mobile);
+        setContentView(R.layout.mobile2);
     }
 
     public void onRegisterClick(View view){
