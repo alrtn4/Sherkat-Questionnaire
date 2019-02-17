@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
+import android.support.annotation.XmlRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +29,8 @@ import android.widget.Toast;
 import com.example.ideapad510.sherkatquestionear.Params.Params;
 import com.example.ideapad510.sherkatquestionear.Questionnaire.Questionnaire;
 import com.example.ideapad510.sherkatquestionear.R;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,6 +81,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 
 		// Setting text selector over textviews
 		XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
+
 		try {
 			ColorStateList csl = ColorStateList.createFromXml(getResources(),
 					xrp);

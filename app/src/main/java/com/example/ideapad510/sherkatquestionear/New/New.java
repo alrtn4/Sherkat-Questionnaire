@@ -13,7 +13,7 @@ public class New extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newlayout);
+        setContentView(R.layout.newlayout2);
     }
 
     public void onNewClicked(View view){
