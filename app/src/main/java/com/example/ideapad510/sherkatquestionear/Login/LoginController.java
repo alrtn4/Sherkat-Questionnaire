@@ -17,7 +17,7 @@ public class LoginController extends Controller{
 
     public boolean searchInDatabase(String username, String password){
         if(!username.isEmpty() & !password.isEmpty())
-            return databaseSearchMethods.searchInDatabaseLogin(username,password);
+            return databaseOtherMethods.searchInDatabaseLogin(username,password);
         return false;
     }
 

@@ -11,13 +11,13 @@ import java.util.ArrayList;
 public class QuestionController extends Controller{
 /*    private Database db;
     private DatabaseInsertMethods databaseInsertMethods;
-    private DatabaseSearchMethods databaseSearchMethods;
+    private DatabaseSearchMethods databaseOtherMethods;
 */
     public QuestionController(Context context){
         super(context);
 /*        db = Database.getInstance(context);
         databaseInsertMethods = newlayout DatabaseInsertMethods(context);
-        databaseSearchMethods = newlayout DatabaseSearchMethods(context);
+        databaseOtherMethods = newlayout DatabaseSearchMethods(context);
 */    }
 
     public void insertToDatabase(String question, String position, String part){
@@ -31,11 +31,11 @@ public class QuestionController extends Controller{
     }
 
     public ArrayList<QuestionObject> getQuestionsFromQuestionTable(String start){
-        return databaseSearchMethods.getQuestionsFromQuestionTable( start);
+        return databaseOtherMethods.getQuestionsFromQuestionTable( start);
     }
 
-    public boolean searchInSave(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
-        return databaseSearchMethods.searchInResult(porseshnameId, username, questionId, answerId, pasokhgoo);
+    public boolean searchInResult(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
+        return databaseOtherMethods.searchInResult(porseshnameId, username, questionId, answerId, pasokhgoo);
     }
 
 }

@@ -80,7 +80,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 					public void onCheckedChanged(CompoundButton button,
                                                  boolean isChecked) {
 
-						// If it is checkec then show password else hide
+						// If it is checked then show password else hide
 						// password
 						if (isChecked) {
 

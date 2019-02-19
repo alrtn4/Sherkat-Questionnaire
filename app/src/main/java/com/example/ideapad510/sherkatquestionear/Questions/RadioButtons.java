@@ -55,6 +55,7 @@ public class RadioButtons {
     public void addRadioButtons(int number, ArrayList<String> answers, int pageNumber) {
         RadioGroup radioGroup = activity.findViewById(R.id.radioGroup);
 
+        //adds radioButtons equal to the given number
         for (int i = 1; i <= number; i++) {
             RadioButton rdbtn = new RadioButton(context);
             rdbtn.setId(i);
@@ -67,7 +68,8 @@ public class RadioButtons {
             String answerId = String.valueOf(i);
             String pasokhgoo = params.getPasokhgoo();
 
-            if(questionController.searchInSave(porseshnameId, username, questionId, answerId, pasokhgoo)) {
+            //if the answer is registered in results give it a different background color
+            if(questionController.searchInResult(porseshnameId, username, questionId, answerId, pasokhgoo)) {
                 rdbtn.setBackgroundResource(R.drawable.rectangle2);
             }
             else
@@ -78,6 +80,7 @@ public class RadioButtons {
             radioGroup.addView(rdbtn);
         }
     }
+
 
     public void checkedListener(){
         final RadioGroup radioGroup = activity.findViewById(R.id.radioGroup);
@@ -95,13 +98,15 @@ public class RadioButtons {
             DatabaseInsertMethods databaseInsertMethods = new DatabaseInsertMethods(context);
 
             RadioButton radioButton = activity.findViewById(checkedId);
-            if(!questionController.searchInSave(porseshnameId, username, questionId, answerId, pasokhgoo)) {
+            //if the answer is not registered gives the radio button a different color and register it
+            if(!questionController.searchInResult(porseshnameId, username, questionId, answerId, pasokhgoo)) {
                 resultController.insertToDatabase(questionId, answerId, porseshnameId, username, pasokhgoo);
                 radioButton.setBackgroundResource(R.drawable.rectangle2);
             }
+            //if the answer is registered gives the radio button regular color and delete it from registered answers
             else {
                 databaseSearchMethods.deletSavedResult(porseshnameId, username, questionId, answerId, pasokhgoo);
-                radioButton.setBackgroundResource(R.drawable.rectangle4);
+                radioButton.setBackgroundResource(R.drawable.rectangle7);
             }
 
             }
@@ -109,8 +114,11 @@ public class RadioButtons {
 
     }
 
-
+    //refreshes the text views and redraws radio buttons based on the question position i.e question number
+    //in this app question number depends on page number in question activity
     public void refreshPage(int positionInQuestionList ){
+        pageNumber = positionInQuestionList;
+
         activity.setContentView(R.layout.question);
         checkedListener();
 
@@ -120,7 +128,6 @@ public class RadioButtons {
         ArrayList<QuestionObject> questionObjectArray = lists.getQuestionArray(lists.getListOfQuestionTables());
 
         partNumberText.setText("PART : " + questionObjectArray.get(positionInQuestionList).getQuestionPart());
-//        questionText.setText((positionInQuestionList+1)+" - "+(questionObjectArray.get(positionInQuestionList)).getQuestionText());
         questionText.setText((questionObjectArray.get(positionInQuestionList)).getQuestionText());
 
         ArrayList <String> answers = lists.findingAnswers(positionInQuestionList);

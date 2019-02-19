@@ -24,7 +24,7 @@ public class ResultController extends Controller{
     }
 
     public ArrayList<ResultObject> getAllResults(String user, String pasokhgoo){
-        return databaseSearchMethods.getAllResults(user, pasokhgoo);
+        return databaseOtherMethods.getAllResults(user, pasokhgoo);
     }
 
 }
