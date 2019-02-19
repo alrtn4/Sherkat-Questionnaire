@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear.Save;
+package com.example.ideapad510.sherkatquestionear.Result;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -13,16 +13,16 @@ import com.example.ideapad510.sherkatquestionear.R;
 import java.util.ArrayList;
 
 
-public class SaveListAdapter extends ArrayAdapter {
+public class ResultListAdapter extends ArrayAdapter {
     private final Activity context;
-    private final ArrayList<SaveObject> saveArray;
+    private final ArrayList<ResultObject> resultArray;
 //    Chosens chosens;
 
-    public SaveListAdapter(Activity context, ArrayList<SaveObject> saveArray){
-        super(context, R.layout.savelist_row , saveArray);
+    public ResultListAdapter(Activity context, ArrayList<ResultObject> resultArray){
+        super(context, R.layout.resultlist_row, resultArray);
 
         this.context=context;
-        this.saveArray = saveArray;
+        this.resultArray = resultArray;
 
 
     }
@@ -30,17 +30,17 @@ public class SaveListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.savelist_row, null,true);
+        View rowView=inflater.inflate(R.layout.resultlist_row, null,true);
 
         TextView porseshnameTextView = rowView.findViewById(R.id.porseshnameId);
         TextView questionTextView = rowView.findViewById(R.id.questionId);
         TextView answerTextView = rowView.findViewById(R.id.answerId);
         TextView pasokhgooTextView = rowView.findViewById(R.id.pasokhgoo);
 
-        porseshnameTextView.setText(saveArray.get(position).getPorseshnameId());
-        questionTextView.setText(saveArray.get(position).getQuestionId());
-        answerTextView.setText(saveArray.get(position).getAnswerId());
-        pasokhgooTextView.setText(saveArray.get(position).getPasokhgoo());
+        porseshnameTextView.setText(resultArray.get(position).getPorseshnameId());
+        questionTextView.setText(resultArray.get(position).getQuestionId());
+        answerTextView.setText(resultArray.get(position).getAnswerId());
+        pasokhgooTextView.setText(resultArray.get(position).getPasokhgoo());
 
         return rowView;
     }

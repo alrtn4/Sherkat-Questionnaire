@@ -1,17 +1,17 @@
-package com.example.ideapad510.sherkatquestionear.Save;
+package com.example.ideapad510.sherkatquestionear.Result;
 
 /**
  * Created by Ideapad 510 on 2/2/2019.
  */
 
-public class SaveObject {
+public class ResultObject {
     private String questionId;
     private String answerId;
     private String porseshnameId;
     private String user;
     private String pasokhgoo;
 
-    public SaveObject(String questionId, String answerId, String porseshnameId, String user, String pasokhgoo){
+    public ResultObject(String questionId, String answerId, String porseshnameId, String user, String pasokhgoo){
         this.questionId = questionId;
         this.answerId = answerId;
         this.porseshnameId = porseshnameId;

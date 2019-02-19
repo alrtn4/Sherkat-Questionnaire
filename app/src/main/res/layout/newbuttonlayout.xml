@@ -2,7 +2,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="20dp"
-    android:background="@color/DarkGoldenRod">
+    android:background="@color/background_color">
 
     <LinearLayout
         android:id="@+id/login_layout"
@@ -19,7 +19,7 @@
             android:background="@drawable/loginbutton_selector"
             android:padding="3dp"
             android:text="@string/newBtn"
-            android:textColor="@color/DarkGoldenRod"
+            android:textColor="@color/background_color"
             android:textSize="17sp"
             android:textStyle="bold"
             android:onClick="onNewClicked"/>
@@ -38,7 +38,7 @@
             android:background="@drawable/loginbutton_selector"
             android:padding="3dp"
             android:text="@string/result"
-            android:textColor="@color/DarkGoldenRod"
+            android:textColor="@color/background_color"
             android:textSize="17sp"
             android:textStyle="bold"
             />

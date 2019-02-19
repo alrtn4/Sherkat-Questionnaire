@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/DarkGoldenRod">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical"
+android:background="@color/background_color">
 
-    <ListView
-        android:id="@+id/questionnaireListView"
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:height="50dp"
+        android:text="@string/questionnaire"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
         />
 
+    <ListView
+        android:id="@+id/questionnaireListView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/background_color"
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/list_selector"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
-</RelativeLayout>
+</LinearLayout>

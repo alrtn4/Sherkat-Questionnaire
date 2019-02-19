@@ -8,7 +8,7 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.AnswerTable1;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.SaveTable;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.ResultTable;
 
 /**
  * Created by Ideapad 510 on 2/7/2019.
@@ -124,27 +124,27 @@ public class DatabaseGetMethods {
         return tableRow;
     }
 
-    public SaveTable getRowSave(long id) {
+    public ResultTable getRowSave(long id) {
         SQLiteDatabase db = database.getReadableDatabase();
 
-        Cursor cursor = db.query(SaveTable.TABLE_NAME,
-                new String[]{ SaveTable.COLUMN_ID, SaveTable.COLUMN_QUESTION_ID, SaveTable.COLUMN_ANSWER_ID,
-                        SaveTable.COLUMN_PORSESHNAME_ID, SaveTable.COLUMN_USER, SaveTable.PASOKHGOO},
-                SaveTable.COLUMN_ID + "=?",
+        Cursor cursor = db.query(ResultTable.TABLE_NAME,
+                new String[]{ ResultTable.COLUMN_ID, ResultTable.COLUMN_QUESTION_ID, ResultTable.COLUMN_ANSWER_ID,
+                        ResultTable.COLUMN_PORSESHNAME_ID, ResultTable.COLUMN_USER, ResultTable.PASOKHGOO},
+                ResultTable.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
-        SaveTable tableRow = null;
+        ResultTable tableRow = null;
 
         if (cursor != null)
             if(cursor.moveToFirst()) {
 
-                tableRow = new SaveTable(
-                        cursor.getInt(cursor.getColumnIndex(SaveTable.COLUMN_ID)),
-                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_QUESTION_ID)),
-                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_ANSWER_ID)),
-                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_PORSESHNAME_ID)),
-                        cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_USER)),
-                        cursor.getString(cursor.getColumnIndex(SaveTable.PASOKHGOO)));
+                tableRow = new ResultTable(
+                        cursor.getInt(cursor.getColumnIndex(ResultTable.COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndex(ResultTable.COLUMN_QUESTION_ID)),
+                        cursor.getString(cursor.getColumnIndex(ResultTable.COLUMN_ANSWER_ID)),
+                        cursor.getString(cursor.getColumnIndex(ResultTable.COLUMN_PORSESHNAME_ID)),
+                        cursor.getString(cursor.getColumnIndex(ResultTable.COLUMN_USER)),
+                        cursor.getString(cursor.getColumnIndex(ResultTable.PASOKHGOO)));
 
             }
         cursor.close();

@@ -10,7 +10,7 @@ import android.view.View;
 import com.example.ideapad510.sherkatquestionear.Database.Database;
 import com.example.ideapad510.sherkatquestionear.Params.Params;
 import com.example.ideapad510.sherkatquestionear.R;
-import com.example.ideapad510.sherkatquestionear.Save.Saved;
+import com.example.ideapad510.sherkatquestionear.Result.Result;
 
 import java.util.ArrayList;
 
@@ -31,9 +31,6 @@ public class Question extends Activity {
         setContentView(R.layout.question);
 
 
-        //getting username and porseshnameId from last activities and use it for filling savetable for now
-//        username = getIntent().getStringExtra("user");
-//        porseshnameId = getIntent().getStringExtra("porseshnameId");
         username = params.getUsername();
         porseshnameId = params.getPorseshnameId();
 
@@ -70,7 +67,7 @@ public class Question extends Activity {
     }
 
     public  void onDoneClicked(View view){
-        Intent intent = new Intent(Question.this, Saved.class);
+        Intent intent = new Intent(Question.this, Result.class);
         intent.putExtra("user",username);
         startActivity(intent);
     }

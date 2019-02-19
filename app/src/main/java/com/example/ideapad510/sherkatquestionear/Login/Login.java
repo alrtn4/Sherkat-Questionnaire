@@ -1,46 +1,50 @@
 package com.example.ideapad510.sherkatquestionear.Login;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
-import android.widget.EditText;
+import android.view.View.OnClickListener;
 
-import com.example.ideapad510.sherkatquestionear.Params.Params;
-import com.example.ideapad510.sherkatquestionear.Questionnaire.Questionnaire;
 import com.example.ideapad510.sherkatquestionear.R;
 
-public class Login extends Activity {
+public class Login extends AppCompatActivity {
+	private static FragmentManager fragmentManager;
+	private LoginController loginController = new LoginController(this);
 
-    private String username;
-    private String password;
-    private LoginController loginController;
-    private Params params = Params.getInstance();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+		setContentView(R.layout.login);
+		fragmentManager = getSupportFragmentManager();
 
-        loginController = new LoginController(this);
+		// If savedinstnacestate is null then replace login fragment
+		if (savedInstanceState == null) {
+			fragmentManager
+					.beginTransaction()
+					.replace(R.id.frameContainer, new Login_Fragment(),
+							Utils.Login_Fragment).commit();
+		}
 
-//        new StartAllTables(this);
-    }
+		// On close icon click finish activity
+		findViewById(R.id.close_activity).setOnClickListener(
+				new OnClickListener() {
 
-    public void onLoginButtonClicked(View view){
-        getTextFromEditTexts();
-        if (loginController.searchInDatabase(username,password)) {
-            Intent i = new Intent(Login.this, Questionnaire.class);
-            params.setUsername(username);
-            startActivity(i);
-        }
-    }
+					@Override
+					public void onClick(View arg0) {
+						finish();
 
-    private void getTextFromEditTexts(){
-        EditText editText = findViewById(R.id.username);
-        username = editText.getText().toString();
-        editText = findViewById(R.id.password);
-        password = editText.getText().toString();
-    }
+					}
+				});
+
+//		new StartAllTables(this);
+
+	}
+
+
+
 
 }

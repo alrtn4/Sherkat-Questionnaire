@@ -1,8 +1,8 @@
 package com.example.ideapad510.sherkatquestionear.Database.Tables;
 
 
-public class SaveTable {
-    public static final String TABLE_NAME = "saveResult";
+public class ResultTable {
+    public static final String TABLE_NAME = "Result";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_QUESTION_ID = "questionId";
     public static final String COLUMN_ANSWER_ID = "answerId";
@@ -28,7 +28,7 @@ public class SaveTable {
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
                     + ")";
 
-    public SaveTable(int id, String question_id, String answer_id, String porseshname_id, String user, String pasokhgoo){
+    public ResultTable(int id, String question_id, String answer_id, String porseshname_id, String user, String pasokhgoo){
         this.id = id;
         this.question_id = question_id;
         this.answer_id = answer_id;

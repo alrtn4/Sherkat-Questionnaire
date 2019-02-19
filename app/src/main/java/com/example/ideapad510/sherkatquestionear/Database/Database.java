@@ -5,13 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.ideapad510.sherkatquestionear.Database.Tables.AnswerTable1;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.SaveTable;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.ResultTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.phone;
 
 public class Database extends SQLiteOpenHelper {
@@ -42,7 +41,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(QuestionTable.CREATE_TABLE);
         db.execSQL(AnswerTable1.CREATE_TABLE);
         db.execSQL(QuestionnaireTable.CREATE_TABLE);
-        db.execSQL(SaveTable.CREATE_TABLE);
+        db.execSQL(ResultTable.CREATE_TABLE);
         db.execSQL(phone.CREATE_TABLE);
 //        db.execSQL(LogTable.CREATE_TABLE);
 //        db.execSQL(n1001_a.CREATE_TABLE);
@@ -62,7 +61,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + QuestionTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + AnswerTable1.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionnaireTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + SaveTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ResultTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + phone.TABLE_NAME);
         onCreate(db);
     }

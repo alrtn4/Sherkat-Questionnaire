@@ -4,7 +4,7 @@
 
     <gradient
         android:startColor="@color/Orange"
-        android:endColor="@color/SaddleBrown"
+        android:endColor="@color/ListSelected"
         android:angle="270" />
 
 

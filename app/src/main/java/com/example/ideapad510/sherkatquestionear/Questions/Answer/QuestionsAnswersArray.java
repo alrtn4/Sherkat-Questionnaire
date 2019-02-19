@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear.Questions.QuestionAnswerArray;
+package com.example.ideapad510.sherkatquestionear.Questions.Answer;
 
 
 import java.util.ArrayList;

@@ -8,7 +8,7 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.AnswerTable1;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.SaveTable;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.ResultTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.phone;
 
 /**
@@ -17,16 +17,16 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.phone;
 
 public class DatabaseInsertMethods {
     Context context;
-    Database database2;
-    DatabaseSearchMethods databaseSearchMethods;
+    Database database;
+    DatabaseOtherMethods databaseSearchMethods;
 
     public DatabaseInsertMethods(Context context){
-        database2 = Database.getInstance(context);
-        databaseSearchMethods = new DatabaseSearchMethods(context);
+        database = Database.getInstance(context);
+        databaseSearchMethods = new DatabaseOtherMethods(context);
     }
 
     public void insertRowLogin(String username, String password, String code) {
-        SQLiteDatabase db = database2.getWritableDatabase();
+        SQLiteDatabase db = database.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
@@ -39,7 +39,7 @@ public class DatabaseInsertMethods {
     }
 
     public void insertRowQuestionnaire(String name, String text, String qt, String at){
-        SQLiteDatabase db = database2.getWritableDatabase();
+        SQLiteDatabase db = database.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
@@ -54,7 +54,7 @@ public class DatabaseInsertMethods {
     }
 
     public void insertRowQuestion(String question, String position, String part) {
-        SQLiteDatabase db = database2.getWritableDatabase();
+        SQLiteDatabase db = database.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
@@ -70,7 +70,7 @@ public class DatabaseInsertMethods {
 
 
     public void insertRowAnswer(String questionID, String answer, String mode, String position) {
-        SQLiteDatabase db = database2.getWritableDatabase();
+        SQLiteDatabase db = database.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
@@ -84,23 +84,23 @@ public class DatabaseInsertMethods {
     }
 
     public void insertRowSave(String questionID, String answerId, String porseshnameId, String user, String pasokhgoo) {
-        SQLiteDatabase db = database2.getWritableDatabase();
+        SQLiteDatabase db = database.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(SaveTable.COLUMN_QUESTION_ID, questionID);
-        values.put(SaveTable.COLUMN_ANSWER_ID, answerId);
-        values.put(SaveTable.COLUMN_PORSESHNAME_ID, porseshnameId);
-        values.put(SaveTable.COLUMN_USER, user);
-        values.put(SaveTable.PASOKHGOO, pasokhgoo);
-        if(databaseSearchMethods.searchInSave(porseshnameId, user, questionID, answerId, pasokhgoo))
-            db.insert(SaveTable.TABLE_NAME, null, values);
+        values.put(ResultTable.COLUMN_QUESTION_ID, questionID);
+        values.put(ResultTable.COLUMN_ANSWER_ID, answerId);
+        values.put(ResultTable.COLUMN_PORSESHNAME_ID, porseshnameId);
+        values.put(ResultTable.COLUMN_USER, user);
+        values.put(ResultTable.PASOKHGOO, pasokhgoo);
+        if(!databaseSearchMethods.searchInResult(porseshnameId, user, questionID, answerId, pasokhgoo))
+            db.insert(ResultTable.TABLE_NAME, null, values);
 
         db.close();
     }
 
     public void insertRowPhone(String phoneNumber) {
-        SQLiteDatabase db = database2.getWritableDatabase();
+        SQLiteDatabase db = database.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 

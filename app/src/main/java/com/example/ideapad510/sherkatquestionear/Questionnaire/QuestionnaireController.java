@@ -3,10 +3,6 @@ package com.example.ideapad510.sherkatquestionear.Questionnaire;
 
 import android.content.Context;
 
-import com.example.ideapad510.sherkatquestionear.Database.Database;
-import com.example.ideapad510.sherkatquestionear.Database.DatabaseGetMethods;
-import com.example.ideapad510.sherkatquestionear.Database.DatabaseInsertMethods;
-import com.example.ideapad510.sherkatquestionear.Database.DatabaseSearchMethods;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
 import com.example.ideapad510.sherkatquestionear.ParentClass.Controller;
 

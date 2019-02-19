@@ -1,4 +1,4 @@
-package com.example.ideapad510.sherkatquestionear.Questions.QuestionAnswerArray;
+package com.example.ideapad510.sherkatquestionear.Questions.Answer;
 
 //this class basically gives a ten option answer based on two strings, the first answer and the last answer
 

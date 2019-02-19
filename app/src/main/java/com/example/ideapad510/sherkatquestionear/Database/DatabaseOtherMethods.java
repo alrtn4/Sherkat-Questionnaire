@@ -7,9 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
-import com.example.ideapad510.sherkatquestionear.Database.Tables.SaveTable;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.ResultTable;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.phone;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionObject;
-import com.example.ideapad510.sherkatquestionear.Save.SaveObject;
+import com.example.ideapad510.sherkatquestionear.Result.ResultObject;
 
 import java.util.ArrayList;
 
@@ -17,14 +18,14 @@ import java.util.ArrayList;
  * Created by Ideapad 510 on 2/7/2019.
  */
 
-public class DatabaseSearchMethods {
-    Database database2;
+public class DatabaseOtherMethods {
+    Database database;
     DatabaseGetMethods databaseGetMethods;
 
 
 
-    public DatabaseSearchMethods(Context context){
-        database2 = Database.getInstance(context);
+    public DatabaseOtherMethods(Context context){
+        database = Database.getInstance(context);
         databaseGetMethods = new DatabaseGetMethods(context);
     }
 
@@ -32,7 +33,7 @@ public class DatabaseSearchMethods {
 //        Log.d(TAG, "searchInDatabaseLogin: "+username+" "+password);
         String searchQuery = " SELECT * FROM " + LoginTable.TABLE_NAME + " WHERE " +
                 LoginTable.jmr_user +" = '"+ username +"' AND " + LoginTable.jmr_pass + " = '"+ password+ "' ;";
-        SQLiteDatabase db = database2.getReadableDatabase();
+        SQLiteDatabase db = database.getReadableDatabase();
 //        Log.d(TAG, "searchInDatabaseLogin: "+searchQuery);
         Cursor cursor = db.rawQuery(searchQuery, null);
 //        Log.d(TAG, "searchInDatabaseLogin: "+(cursor == null));
@@ -43,12 +44,12 @@ public class DatabaseSearchMethods {
         return count > 0 ;
     }
 
-    public ArrayList<QuestionObject> getQuestionsFromQuestionTable2(String start){
+    public ArrayList<QuestionObject> getQuestionsFromQuestionTable(String start){
         int startt = Integer.valueOf(start);
         ArrayList<QuestionObject> questionObjectArrayList = new ArrayList<>();
         String query = " SELECT * FROM " + QuestionTable.TABLE_NAME + " WHERE " +
                 QuestionTable.COLUMN_ID +" >= "+ startt +" ;";
-        SQLiteDatabase db = database2.getReadableDatabase();
+        SQLiteDatabase db = database.getReadableDatabase();
         Cursor cursor = db.rawQuery(query , null);
 
         while(cursor.moveToNext()) {
@@ -66,7 +67,7 @@ public class DatabaseSearchMethods {
     public ArrayList<String> getQuestionnaires(){
         ArrayList<String> questionnaires = new ArrayList<>();
         String query = " SELECT * FROM " + QuestionnaireTable.TABLE_NAME + " ;";
-        SQLiteDatabase db = database2.getReadableDatabase();
+        SQLiteDatabase db = database.getReadableDatabase();
         Cursor cursor = db.rawQuery(query , null);
 
         while(cursor.moveToNext()) {
@@ -83,20 +84,20 @@ public class DatabaseSearchMethods {
     }
 
 
-    public ArrayList<SaveObject> getAllSaves(String user, String pasokhgoo){
-        ArrayList<SaveObject>  saveObjectArrayList= new ArrayList<>();
-        String query = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE "+ SaveTable.COLUMN_USER +" = '"+user+"' AND "
-                +SaveTable.PASOKHGOO+" = '"+pasokhgoo+"' ;";
-        SQLiteDatabase db = database2.getReadableDatabase();
+    public ArrayList<ResultObject> getAllResults(String user, String pasokhgoo){
+        ArrayList<ResultObject>  saveObjectArrayList= new ArrayList<>();
+        String query = " SELECT * FROM " + ResultTable.TABLE_NAME + " WHERE "+ ResultTable.COLUMN_USER +" = '"+user+"' AND "
+                + ResultTable.PASOKHGOO+" = '"+pasokhgoo+"' ;";
+        SQLiteDatabase db = database.getReadableDatabase();
         Cursor cursor = db.rawQuery(query , null);
 
         while(cursor.moveToNext()) {
-            SaveObject saveObject = new SaveObject(
-                    cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_QUESTION_ID)),
-                    cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_ANSWER_ID)),
-                    cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_PORSESHNAME_ID)),
-                    cursor.getString(cursor.getColumnIndex(SaveTable.COLUMN_USER)),
-                    cursor.getString(cursor.getColumnIndex(SaveTable.PASOKHGOO)));
+            ResultObject saveObject = new ResultObject(
+                    cursor.getString(cursor.getColumnIndex(ResultTable.COLUMN_QUESTION_ID)),
+                    cursor.getString(cursor.getColumnIndex(ResultTable.COLUMN_ANSWER_ID)),
+                    cursor.getString(cursor.getColumnIndex(ResultTable.COLUMN_PORSESHNAME_ID)),
+                    cursor.getString(cursor.getColumnIndex(ResultTable.COLUMN_USER)),
+                    cursor.getString(cursor.getColumnIndex(ResultTable.PASOKHGOO)));
 
 
 
@@ -107,10 +108,10 @@ public class DatabaseSearchMethods {
 
     }
 
-    public void deletSingleRowSaveTable(long id){
-        SQLiteDatabase db = database2.getWritableDatabase();
+    public void deleteSingleRowResultTable(long id){
+        SQLiteDatabase db = database.getWritableDatabase();
         try {
-            db.execSQL("DELETE FROM  saveResult" + " WHERE id="
+            db.execSQL("DELETE FROM  Result" + " WHERE id="
                     + id + ";");
         } catch (Exception e) {
         }
@@ -118,16 +119,16 @@ public class DatabaseSearchMethods {
     }
 
     public long getIdOfSelectedAnswer(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
-        String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
-                SaveTable.COLUMN_PORSESHNAME_ID +" = '"+ porseshnameId +"' AND " + SaveTable.COLUMN_USER + " = '"+ username
-                +"' AND "+ SaveTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "
-                + SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' AND "+ SaveTable.PASOKHGOO + " = '"+pasokhgoo+"' ;";
-        SQLiteDatabase db = database2.getReadableDatabase();
+        String searchQuery = " SELECT * FROM " + ResultTable.TABLE_NAME + " WHERE " +
+                ResultTable.COLUMN_PORSESHNAME_ID +" = '"+ porseshnameId +"' AND " + ResultTable.COLUMN_USER + " = '"+ username
+                +"' AND "+ ResultTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "
+                + ResultTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' AND "+ ResultTable.PASOKHGOO + " = '"+pasokhgoo+"' ;";
+        SQLiteDatabase db = database.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(searchQuery, null);
         long id = -1;
         if(cursor != null && cursor.moveToFirst()) {
-            id = cursor.getLong(cursor.getColumnIndex(SaveTable.COLUMN_ID));
+            id = cursor.getLong(cursor.getColumnIndex(ResultTable.COLUMN_ID));
 
             cursor.close();
         }
@@ -135,17 +136,17 @@ public class DatabaseSearchMethods {
 
     }
 
-    public void deletSavedAnswer(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
+    public void deletSavedResult(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
         int id = (int) getIdOfSelectedAnswer(porseshnameId ,username, questionId, answerId, pasokhgoo);
-        deletSingleRowSaveTable(id);
+        deleteSingleRowResultTable(id);
     }
 
-    public boolean searchInSave(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
-        String searchQuery = " SELECT * FROM " + SaveTable.TABLE_NAME + " WHERE " +
-                SaveTable.COLUMN_PORSESHNAME_ID +" = '"+ porseshnameId +"' AND " + SaveTable.COLUMN_USER + " = '"+ username
-                +"' AND "+ SaveTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "+ SaveTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' AND "
-                +SaveTable.PASOKHGOO+" = '"+pasokhgoo+"' ;";
-        SQLiteDatabase db = database2.getReadableDatabase();
+    public boolean searchInResult(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
+        String searchQuery = " SELECT * FROM " + ResultTable.TABLE_NAME + " WHERE " +
+                ResultTable.COLUMN_PORSESHNAME_ID +" = '"+ porseshnameId +"' AND " + ResultTable.COLUMN_USER + " = '"+ username
+                +"' AND "+ ResultTable.COLUMN_QUESTION_ID+ " = '"+ questionId+ "' AND "+ ResultTable.COLUMN_ANSWER_ID +" = '"+ answerId+"' AND "
+                + ResultTable.PASOKHGOO+" = '"+pasokhgoo+"' ;";
+        SQLiteDatabase db = database.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(searchQuery, null);
         long cunt = -1;
@@ -156,8 +157,27 @@ public class DatabaseSearchMethods {
         }
 
         if(cunt>=1)
-            return false;
-        return true ;
+            return true;
+        return false ;
+
+    }
+
+    public boolean searchInPhone(String number){
+        String searchQuery = " SELECT * FROM " + phone.TABLE_NAME + " WHERE " +
+                phone.phoneNumber +" = '"+ number +"' ;";
+        SQLiteDatabase db = database.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(searchQuery, null);
+        long cunt = -1;
+        if(cursor != null && cursor.moveToFirst()) {
+            cunt = cursor.getCount();
+
+            cursor.close();
+        }
+
+        if(cunt>=1)
+            return true;
+        return false ;
 
     }
 

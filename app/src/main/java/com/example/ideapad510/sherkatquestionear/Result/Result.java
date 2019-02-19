@@ -1,33 +1,31 @@
-package com.example.ideapad510.sherkatquestionear.Save;
+package com.example.ideapad510.sherkatquestionear.Result;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.example.ideapad510.sherkatquestionear.Params.Params;
 import com.example.ideapad510.sherkatquestionear.R;
 
 
-public class Saved extends Activity{
+public class Result extends Activity{
     ListView listView;
-    SaveController saveController = new SaveController(this);
+    ResultController saveController = new ResultController(this);
     String TAG = "REsult";
     Params params = Params.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.save);
+        setContentView(R.layout.result);
 
-//        String user = getIntent().getStringExtra("user");
-        String user = params.getUsername();
+       String user = params.getUsername();
         String pasokhgoo = params.getPasokhgoo();
-//        Log.d(TAG, "onCreate: user is "+user);
 
         listView = findViewById(R.id.resultList);
-        SaveListAdapter saveListAdapter = new SaveListAdapter(this, saveController.getAllSaves(user, pasokhgoo));
+        ResultListAdapter saveListAdapter = new ResultListAdapter(this, saveController.getAllResults(user, pasokhgoo));
         listView.setAdapter(saveListAdapter);
+
     }
 
 

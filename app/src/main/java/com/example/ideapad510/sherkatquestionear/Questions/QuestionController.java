@@ -3,11 +3,8 @@ package com.example.ideapad510.sherkatquestionear.Questions;
 
 import android.content.Context;
 
-import com.example.ideapad510.sherkatquestionear.Database.Database;
-import com.example.ideapad510.sherkatquestionear.Database.DatabaseInsertMethods;
-import com.example.ideapad510.sherkatquestionear.Database.DatabaseSearchMethods;
 import com.example.ideapad510.sherkatquestionear.ParentClass.Controller;
-import com.example.ideapad510.sherkatquestionear.Questions.QuestionAnswerArray.ShortedAnswer;
+import com.example.ideapad510.sherkatquestionear.Questions.Answer.ShortedAnswer;
 
 import java.util.ArrayList;
 
@@ -34,11 +31,11 @@ public class QuestionController extends Controller{
     }
 
     public ArrayList<QuestionObject> getQuestionsFromQuestionTable(String start){
-        return databaseSearchMethods.getQuestionsFromQuestionTable2( start);
+        return databaseSearchMethods.getQuestionsFromQuestionTable( start);
     }
 
     public boolean searchInSave(String porseshnameId, String username, String questionId, String answerId, String pasokhgoo){
-        return !databaseSearchMethods.searchInSave(porseshnameId, username, questionId, answerId, pasokhgoo);
+        return databaseSearchMethods.searchInResult(porseshnameId, username, questionId, answerId, pasokhgoo);
     }
 
 }

@@ -5,15 +5,15 @@ import android.content.Context;
 
 import com.example.ideapad510.sherkatquestionear.Questionnaire.QuestionnaireController;
 import com.example.ideapad510.sherkatquestionear.Questions.Answer.AnswerController;
-import com.example.ideapad510.sherkatquestionear.Questions.QuestionAnswerArray.QuestionsAnswersArray;
+import com.example.ideapad510.sherkatquestionear.Questions.Answer.QuestionsAnswersArray;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionController;
-import com.example.ideapad510.sherkatquestionear.Save.SaveController;
+import com.example.ideapad510.sherkatquestionear.Result.ResultController;
 
 public class StartAllTables {
     Context context;
     LoginController loginController = new LoginController(context);
     QuestionnaireController questionnaireController = new QuestionnaireController(context);
-    SaveController saveController = new SaveController(context);
+    ResultController saveController = new ResultController(context);
 
     StartAllTables(Context context){
         this.context = context;

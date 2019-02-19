@@ -1,70 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
+    android:weightSum="100"
     >
 
     <TextView
         android:id="@+id/porseshnameId"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:width="40dp"
         android:height="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:layout_alignStart="@id/porseshname"
         android:layout_alignEnd="@id/porseshname"
-        android:background="@drawable/rectangle"
+        android:background="@drawable/rectangle6"
         android:gravity="center"
+        android:layout_weight="25"
         />
 
     <TextView
         android:id="@+id/questionId"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:width="40dp"
         android:height="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/porseshnameId"
         android:text="TextView"
-        android:background="@drawable/rectangle"
+        android:background="@drawable/rectangle6"
         android:gravity="center"
+        android:layout_weight="25"
         />
 
     <TextView
         android:id="@+id/answerId"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:width="30dp"
         android:height="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/questionId"
         android:text="TextView"
-        android:background="@drawable/rectangle"
+        android:background="@drawable/rectangle6"
         android:gravity="center"
+        android:layout_weight="20"
         />
 
     <TextView
         android:id="@+id/pasokhgoo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:width="100dp"
         android:height="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/answerId"
         android:text="TextView"
-        android:background="@drawable/rectangle"
+        android:background="@drawable/rectangle6"
         android:gravity="center"
+        android:layout_weight="30"
         />
 
 
-</RelativeLayout>
+</LinearLayout>
