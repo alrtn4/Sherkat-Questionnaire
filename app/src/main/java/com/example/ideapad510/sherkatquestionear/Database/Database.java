@@ -76,7 +76,6 @@ public class Database extends SQLiteOpenHelper {
         int count = cursor.getCount();
         cursor.close();
 
-//        Log.d(TAG, "getRowsCount: the count is :"+tableName+ " "+ count);
         return count;
     }
 

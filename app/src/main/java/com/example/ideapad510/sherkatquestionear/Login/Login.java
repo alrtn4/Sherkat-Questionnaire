@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import com.example.ideapad510.sherkatquestionear.Database.Database;
 import com.example.ideapad510.sherkatquestionear.Database.ForTry;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
+import com.example.ideapad510.sherkatquestionear.Params.Params;
 import com.example.ideapad510.sherkatquestionear.ParentClass.Controller;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionController;
 import com.example.ideapad510.sherkatquestionear.R;
@@ -21,9 +22,10 @@ public class Login extends AppCompatActivity {
 //	LoginController loginController = new LoginController(this);
 //	QuestionController questionController = new QuestionController(this);
 //	Controller controller = new Controller(this);
-	Database database = Database.getInstance(this);
+//	Database database = Database.getInstance(this);
 //	LoginTable loginTable = new LoginTable("1", "2", "3", 1);
 //	ForTry forTry = new ForTry(this);
+	Params params = Params.getInstance();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class Login extends AppCompatActivity {
 		AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 		setContentView(R.layout.login);
 		fragmentManager = getSupportFragmentManager();
+
+		params.setContext(this);
 
 		// If savedinstnacestate is null then replace login fragment
 		if (savedInstanceState == null) {
