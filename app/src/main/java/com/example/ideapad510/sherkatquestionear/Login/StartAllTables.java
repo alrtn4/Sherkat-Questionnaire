@@ -35,9 +35,19 @@ public class StartAllTables {
     }
 
     private void sampleQuestionnaires(){
+        questionnaireController.insertToDatabase("پرسشنامه 1","درباره آب و هوا",
+                "1:\"question1\"/1", "answer1");
+        questionnaireController.insertToDatabase("پرسشنامه 2","درباره جغرافی",
+                "1:\"question1\"/1", "answer1");
+        questionnaireController.insertToDatabase("پرسشنامه 3","درباره سلامت",
+                "1:\"question1\"/1", "answer1");
+    }
+/*
+    private void sampleQuestionnaires(){
         questionnaireController.insertToDatabase("test1","about weather", "1:\"question1\"/1", "answer1");
         questionnaireController.insertToDatabase("test2","about geography","1:\"question1\"/1", "answer1");
         questionnaireController.insertToDatabase("test3","about health","1:\"question1\"/1", "answer1");
     }
+*/
 
 }

@@ -1,5 +1,7 @@
 package com.example.ideapad510.sherkatquestionear.Params;
 
+import android.content.Context;
+
 /**
  * Created by Ideapad 510 on 2/12/2019.
  */
@@ -12,6 +14,7 @@ public class Params {
     private String AT;
     private String porseshnameId;
     private String pasokhgoo;
+    private Context context;
 
     private Params(){};
 
@@ -41,6 +44,8 @@ public class Params {
         this.pasokhgoo = pasokhgoo;
     }
 
+    public void setContext(Context context){ this.context = context;}
+
     public String getUsername(){
         return username;
     }
@@ -58,4 +63,6 @@ public class Params {
     }
 
     public String getPasokhgoo(){ return pasokhgoo;}
+
+    public Context getContext(){ return context;}
 }

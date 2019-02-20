@@ -1,5 +1,6 @@
 package com.example.ideapad510.sherkatquestionear.Login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,9 +23,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.ideapad510.sherkatquestionear.Database.Database;
 import com.example.ideapad510.sherkatquestionear.Params.Params;
 import com.example.ideapad510.sherkatquestionear.Questionnaire.Questionnaire;
 import com.example.ideapad510.sherkatquestionear.R;
+
+import static android.content.ContentValues.TAG;
 
 public class Login_Fragment extends Fragment implements OnClickListener {
 	private static View view;
@@ -35,8 +40,10 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 	private static Animation shakeAnimation;
 	private static FragmentManager fragmentManager;
 
-	private LoginController loginController = new LoginController(getActivity());
+
 	Params params = Params.getInstance();
+	private LoginController loginController = new LoginController(params.getContext());
+	String TAG = "login_fragment";
 
 	public Login_Fragment() {
 
@@ -45,6 +52,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//		Log.d(TAG, "onCreateView: getActivity "+(getActivity().getBaseContext() == null));
 		view = inflater.inflate(R.layout.login_fragment, container, false);
 		initViews();
 		setListeners();
@@ -109,6 +117,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		Log.d(TAG, "onClick: getactivity "+(((Context) getActivity()) == null));
 		checkValidation();
 	}
 
@@ -131,7 +140,6 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 		else
 			Toast.makeText(getActivity(), "Do Login.", Toast.LENGTH_SHORT)
 					.show();
-
 
         if (loginController.searchInDatabase(getUsername,getPassword)) {
             Intent i = new Intent(getActivity(), Questionnaire.class);

@@ -3,6 +3,7 @@ package com.example.ideapad510.sherkatquestionear.Database;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
@@ -14,6 +15,8 @@ import com.example.ideapad510.sherkatquestionear.Result.ResultObject;
 
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by Ideapad 510 on 2/7/2019.
  */
@@ -21,24 +24,25 @@ import java.util.ArrayList;
 public class DatabaseOtherMethods {
     Database database;
     DatabaseGetMethods databaseGetMethods;
+    String TAG = "databaseother";
 
 
 
     public DatabaseOtherMethods(Context context){
+//        Log.d(TAG, "DatabaseOtherMethods: context "+(context == null));
         database = Database.getInstance(context);
         databaseGetMethods = new DatabaseGetMethods(context);
     }
 
     public boolean searchInDatabaseLogin(String username, String password){
-//        Log.d(TAG, "searchInDatabaseLogin: "+username+" "+password);
+        database.getWritableDatabase();
+        Log.d(TAG, "searchInDatabaseLogin: "+(database == null));
+
         String searchQuery = " SELECT * FROM " + LoginTable.TABLE_NAME + " WHERE " +
                 LoginTable.jmr_user +" = '"+ username +"' AND " + LoginTable.jmr_pass + " = '"+ password+ "' ;";
         SQLiteDatabase db = database.getReadableDatabase();
-//        Log.d(TAG, "searchInDatabaseLogin: "+searchQuery);
         Cursor cursor = db.rawQuery(searchQuery, null);
-//        Log.d(TAG, "searchInDatabaseLogin: "+(cursor == null));
         int count = cursor.getCount();
-//        Log.d(TAG, "searchInDatabaseLogin: " +count);
         cursor.close();
 
         return count > 0 ;

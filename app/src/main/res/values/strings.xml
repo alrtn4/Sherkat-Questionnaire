@@ -1,4 +1,6 @@
 <resources>
+
+<!--
     <string name="app_name">Sherkat Questionear</string>
     <string name="username">USERNAME</string>
     <string name="password">PASSWORD</string>
@@ -34,6 +36,60 @@
     <string name="newBtn">NEW</string>
     <string name="result">RESULT</string>
     <string name="done">DONE</string>
+    <string name="answers">ANSWERS</string>
+    <string name="questionnaireId">POR.</string>
+    <string name="questionId">QU.</string>
+    <string name="answerId">ANS.</string>
+    <string name="pasokhgoo">PASOKHGOO</string>
+
+
+    <string name="questionnaireText1">test 1</string>
+    <string name="questionnaireTitle1">about weather</string>
+    <string name="questionnaireText2">test 2</string>
+    <string name="questionnaireTitle2">about geography</string>
+    <string name="questionnaireText3">test 3</string>
+    <string name="questionnaireTitle3">about health</string>
+
+
+-->
+
+
+
+    <string name="app_name">Sherkat Questionear</string>
+    <string name="username">نام کاربری</string>
+    <string name="password">گذرواژه</string>
+    <string name="login">ورود</string>
+    <string name="part">پارت : </string>
+    <string name="question">QUESTION : </string>
+    <string name="back">قبلی</string>
+    <string name="forward">بعدی</string>
+
+    <string name="closebutton">دکمه بستن صفحه</string>
+    <string name="show_pwd">نشان دادن گذرواژه</string>
+    <string name="hide_pwd">مخفی کردن گذرواژه</string>
+
+
+    <string name="phone">شماره تلفن</string>
+    <string name="register">ثبت</string>
+    <string name="questionnaire">پرسشنامه</string>
+    <string name="newBtn">جدید</string>
+    <string name="result">نتیجه</string>
+    <string name="done">نتایج</string>
+    <string name="answers">جواب ها</string>
+    <string name="questionnaireId">پرسشنامه</string>
+    <string name="questionId">سوال</string>
+    <string name="answerId">جواب</string>
+    <string name="pasokhgoo">پاسخگو</string>
+
+
+
+    <string name="questionnaireText1">پرسشنامه 1</string>
+    <string name="questionnaireTitle1">درباره آب و هوا</string>
+    <string name="questionnaireText2">پرسشنامه 2</string>
+    <string name="questionnaireTitle2">درباره جغرافی</string>
+    <string name="questionnaireText3">پرسشنامه 3</string>
+    <string name="questionnaireTitle3">درباره سلامت</string>
+
 
 
 

@@ -15,7 +15,7 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.ResultTable;
  */
 
 public class DatabaseGetMethods {
-    Database database ;
+    private Database database ;
 
     public DatabaseGetMethods(Context context){
         database = Database.getInstance(context);
@@ -146,8 +146,8 @@ public class DatabaseGetMethods {
                         cursor.getString(cursor.getColumnIndex(ResultTable.COLUMN_USER)),
                         cursor.getString(cursor.getColumnIndex(ResultTable.PASOKHGOO)));
 
+                cursor.close();
             }
-        cursor.close();
 
         return tableRow;
     }

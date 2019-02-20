@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="20dp" >
+    android:padding="20dp"
+    android:layoutDirection="rtl">
 
     <LinearLayout
         android:id="@+id/login_layout"
@@ -22,15 +23,15 @@
 
         <EditText
             android:id="@+id/login_username"
-             android:singleLine="true"
+            android:singleLine="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/name"
+            android:drawableStart="@drawable/name"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:hint="@string/email"
+            android:hint="@string/username"
             android:inputType="none"
             android:padding="10dp"
             android:textColor="@color/white"
@@ -44,19 +45,20 @@
 
         <EditText
             android:id="@+id/login_password"
-             android:singleLine="true"
+            android:singleLine="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/password"
+            android:drawableStart="@drawable/password"
             android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:hint="@string/passowrd"
+            android:gravity="right"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            />
 
         <LinearLayout
             android:layout_width="fill_parent"
