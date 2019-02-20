@@ -21,8 +21,7 @@
             android:layout_gravity="top|end"
             android:layout_margin="4dp"
             android:contentDescription="@string/closebutton"
-            android:padding="5dp"
-            app:srcCompat="@drawable/close" />
+            android:padding="5dp"/>
 
         <FrameLayout
             android:id="@+id/frameContainer"
