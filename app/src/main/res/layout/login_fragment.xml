@@ -30,7 +30,7 @@
             android:background="@android:color/transparent"
             android:drawableStart="@drawable/name"
             android:drawablePadding="8dp"
-            android:gravity="center_vertical"
+            android:gravity="right"
             android:hint="@string/username"
             android:inputType="none"
             android:padding="10dp"

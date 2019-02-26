@@ -9,6 +9,7 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.LoginTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.ResultTable;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.qlTable;
 
 /**
  * Created by Ideapad 510 on 2/7/2019.
@@ -148,6 +149,30 @@ public class DatabaseGetMethods {
 
                 cursor.close();
             }
+
+        return tableRow;
+    }
+
+
+
+
+    public qlTable getqlTable(long id) {
+        SQLiteDatabase db = database.getReadableDatabase();
+
+        Cursor cursor = db.query(qlTable.TABLE_NAME,
+                new String[]{ qlTable.COLUMN_ID, qlTable.qlfunction, qlTable.jmrcode},
+        qlTable.COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+        qlTable tableRow = null;
+        if (cursor != null)
+          if ( cursor.moveToFirst()) {
+               tableRow = new qlTable(
+                      cursor.getString(cursor.getColumnIndex(qlTable.qlfunction)),
+                      cursor.getString(cursor.getColumnIndex(qlTable.jmrcode)),
+                      cursor.getInt(cursor.getColumnIndex(qlTable.COLUMN_ID)));
+              cursor.close();
+          }
 
         return tableRow;
     }

@@ -10,6 +10,7 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.ResultTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.phone;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.qlTable;
 
 /**
  * Created by Ideapad 510 on 2/7/2019.
@@ -110,5 +111,18 @@ public class DatabaseInsertMethods {
         db.close();
     }
 
+
+
+    public void insertqlTable(String qlfunction, String jmrcode) {
+        SQLiteDatabase db = database.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(qlTable.qlfunction, qlfunction);
+        values.put(qlTable.jmrcode, jmrcode);
+        db.insert(qlTable.TABLE_NAME, null, values);
+
+        db.close();
+    }
 
 }

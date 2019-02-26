@@ -50,18 +50,6 @@ public class DatabaseIgnoredMethods {
         db.close();
     }
 
-    public void insertqlTable(String qlcode, String qlname, String qltext) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = newlayout ContentValues();
-
-        values.put(qlTable.qlcode, qlcode);
-        values.put(qlTable.qlname, qlname);
-        values.put(qlTable.qltext, qltext);
-        db.insert(qlTable.TABLE_NAME, null, values);
-
-        db.close();
-    }
 
     public void insertn1001_a(String acode, String atype, String apos, String aqoute, String afunc, String agoto, String ascour) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -237,27 +225,6 @@ public class DatabaseIgnoredMethods {
         return tableRow;
     }
 
-    public qlTable getqlTable(long id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(qlTable.TABLE_NAME,
-                newlayout String[]{ qlTable.COLUMN_ID, qlTable.qlcode, qlTable.qlname,
-                        qlTable.qltext},
-                qlTable.COLUMN_ID + "=?",
-                newlayout String[]{String.valueOf(id)}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        qlTable tableRow = newlayout qlTable(
-                cursor.getString(cursor.getColumnIndex(qlTable.qlcode)),
-                cursor.getString(cursor.getColumnIndex(qlTable.qlname)),
-                cursor.getString(cursor.getColumnIndex(qlTable.qltext)),
-                cursor.getInt(cursor.getColumnIndex(qlTable.COLUMN_ID)));
-        cursor.close();
-
-        return tableRow;
-    }
 */
 /*
     private int getRowsCountQuestionnaire() {

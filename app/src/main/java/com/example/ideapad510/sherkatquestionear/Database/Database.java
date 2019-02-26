@@ -12,6 +12,7 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.ResultTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.phone;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.qlTable;
 
 public class Database extends SQLiteOpenHelper {
     private static final String TAG = "Database";
@@ -52,7 +53,7 @@ public class Database extends SQLiteOpenHelper {
 //        db.execSQL(n3001_q.CREATE_TABLE);
 //        db.execSQL(qlcode_r.CREATE_TABLE);
 //        db.execSQL(qlcode_t.CREATE_TABLE);
-//        db.execSQL(qlTable.CREATE_TABLE);
+        db.execSQL(qlTable.CREATE_TABLE);
     }
 
     @Override
@@ -63,6 +64,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + QuestionnaireTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ResultTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + phone.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + qlTable.TABLE_NAME);
         onCreate(db);
     }
 

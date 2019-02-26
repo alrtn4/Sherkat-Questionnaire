@@ -10,6 +10,7 @@ import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.QuestionnaireTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.ResultTable;
 import com.example.ideapad510.sherkatquestionear.Database.Tables.phone;
+import com.example.ideapad510.sherkatquestionear.Database.Tables.qlTable;
 import com.example.ideapad510.sherkatquestionear.Questions.QuestionObject;
 import com.example.ideapad510.sherkatquestionear.Result.ResultObject;
 
@@ -36,7 +37,7 @@ public class DatabaseOtherMethods {
 
     public boolean searchInDatabaseLogin(String username, String password){
         database.getWritableDatabase();
-        Log.d(TAG, "searchInDatabaseLogin: "+(database == null));
+//        Log.d(TAG, "searchInDatabaseLogin: "+(database == null));
 
         String searchQuery = " SELECT * FROM " + LoginTable.TABLE_NAME + " WHERE " +
                 LoginTable.jmr_user +" = '"+ username +"' AND " + LoginTable.jmr_pass + " = '"+ password+ "' ;";
@@ -185,5 +186,42 @@ public class DatabaseOtherMethods {
 
     }
 
+
+
+    public String searchInqlTable(String jmrCode){
+        String searchQuery = " SELECT * FROM " + qlTable.TABLE_NAME + " WHERE " +
+                qlTable.jmrcode +" = '"+ jmrCode +"' ;";
+        SQLiteDatabase db = database.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(searchQuery, null);
+        String function = null;
+//        Log.d(TAG, "searchInqlTable: "+(cursor == null)+" "+(cursor.moveToFirst()));
+        if(cursor != null && cursor.moveToFirst()) {
+            function = cursor.getString(cursor.getColumnIndex(qlTable.qlfunction));
+
+            cursor.close();
+        }
+
+        return function ;
+
+    }
+
+
+    public String getJmrcodeFromLoginTable(String username){
+        String searchQuery = " SELECT * FROM " + LoginTable.TABLE_NAME + " WHERE " +
+                LoginTable.jmr_user +" = '"+ username +"' ;";
+        SQLiteDatabase db = database.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(searchQuery, null);
+        String jmrCode = null;
+        if(cursor != null && cursor.moveToFirst()) {
+            jmrCode = cursor.getString(cursor.getColumnIndex(LoginTable.jmr_code));
+
+            cursor.close();
+        }
+
+        return jmrCode ;
+
+    }
 
 }

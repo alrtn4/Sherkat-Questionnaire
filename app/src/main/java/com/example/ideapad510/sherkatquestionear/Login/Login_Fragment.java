@@ -137,9 +137,9 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 
 		}
 		// Else do login and do your stuff
-		else
-			Toast.makeText(getActivity(), "Do Login.", Toast.LENGTH_SHORT)
-					.show();
+//		else
+//			Toast.makeText(getActivity(), "Do Login.", Toast.LENGTH_SHORT)
+//					.show();
 
         if (loginController.searchInDatabase(getUsername,getPassword)) {
             Intent i = new Intent(getActivity(), Questionnaire.class);

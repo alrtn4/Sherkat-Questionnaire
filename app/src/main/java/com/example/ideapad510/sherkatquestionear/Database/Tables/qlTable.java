@@ -3,38 +3,33 @@ package com.example.ideapad510.sherkatquestionear.Database.Tables;
 public class qlTable {
     public static final String TABLE_NAME = "qlTable";
     public static final String COLUMN_ID = "id";
-    public static final String qlcode = "qlcode";
-    public static final String qlname = "qlname";
-    public static final String qltext = "qltext";
+    public static final String qlfunction = "qlfunction";
+    public static final String jmrcode = "jmrcode";
 
     private int id;
-    private String Qlcode;
-    private String Qlname;
-    private String Qltext;
+    private String Qlfunction;
+    private String Jmrcode;
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ( "
-                    + qlcode + " TEXT,"
-                    + qlname + " TEXT,"
-                    + qltext + " TEXT,"
-                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
+                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + qlfunction + " TEXT,"
+                    + jmrcode + " TEXT "
                     + ")";
 
 
-    public qlTable(String Qlcode, String Qlname, String Qltext, int id) {
+    public qlTable(String Qlfunction, String Jmrcode, int id) {
         this.id = id;
-        this.Qlcode = Qlcode;
-        this.Qlname = Qlname;
-        this.Qltext = Qltext;
+        this.Qlfunction = Qlfunction;
+        this.Jmrcode = Jmrcode;
     }
 
     public int getId() {return id;}
 
     public void setId(int id) {this.id = id;}
 
-    public String getQlcode() {return Qlcode;}
+    public String getQlfunction() {return Qlfunction;}
 
-    public String getQlname() {return Qlname;}
+    public String getJmrcode() {return Jmrcode;}
 
-    public String getQltext() {return Qltext;}
 }

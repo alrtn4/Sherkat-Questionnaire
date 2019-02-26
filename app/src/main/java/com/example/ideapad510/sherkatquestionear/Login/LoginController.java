@@ -13,7 +13,7 @@ public class LoginController extends Controller{
 
     LoginController(Context context){
         super(context);
-        Log.d(TAG, "LoginController: "+(context == null));
+//        Log.d(TAG, "LoginController: "+(context == null));
     }
 
     public void insertToDatabase(String username, String password, String code){
